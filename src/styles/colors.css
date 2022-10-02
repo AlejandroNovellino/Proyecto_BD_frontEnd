@@ -1,0 +1,50 @@
+/* Color Theme Swatches in Hex */
+.VW---Nuevo-Polo-2015---Azul-Noche-1-hex {
+	color: #051c3b;
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-2-hex {
+	color: #002f59;
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-3-hex {
+	color: #0160a4;
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-4-hex {
+	color: #6995c2;
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-5-hex {
+	color: #a6c0db;
+}
+
+/* Color Theme Swatches in RGBA */
+.VW---Nuevo-Polo-2015---Azul-Noche-1-rgba {
+	color: rgba(4, 28, 59, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-2-rgba {
+	color: rgba(0, 47, 89, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-3-rgba {
+	color: rgba(1, 96, 163, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-4-rgba {
+	color: rgba(105, 149, 193, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-5-rgba {
+	color: rgba(165, 191, 219, 1);
+}
+
+/* Color Theme Swatches in HSLA */
+.VW---Nuevo-Polo-2015---Azul-Noche-1-hsla {
+	color: hsla(214, 84, 12, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-2-hsla {
+	color: hsla(208, 100, 17, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-3-hsla {
+	color: hsla(205, 98, 32, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-4-hsla {
+	color: hsla(210, 42, 58, 1);
+}
+.VW---Nuevo-Polo-2015---Azul-Noche-5-hsla {
+	color: hsla(210, 42, 75, 1);
+}
