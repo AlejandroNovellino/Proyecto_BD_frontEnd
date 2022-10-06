@@ -2,5 +2,9 @@
     General Styles
 */
 #app {
-	background-color: #051c3b;
+	background-color: #1c3659;
+}
+
+.mainBackgroundColor {
+	background-color: #1c3659;
 }

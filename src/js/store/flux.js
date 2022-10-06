@@ -5,14 +5,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				{
 					title: "FIRST",
 					background: "white",
-					initial: "white"
+					initial: "white",
 				},
 				{
 					title: "SECOND",
 					background: "white",
-					initial: "white"
-				}
-			]
+					initial: "white",
+				},
+			],
+			user: null,
+			token: "",
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -37,8 +39,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
-		}
+			},
+			setToken: (token, user) => {
+				setStore({
+					token,
+					user: JSON.parse(user),
+				});
+			},
+			setUser: userForNow => {
+				//get the store
+				const store = getStore();
+				//reset the global store
+				setStore({
+					...store,
+					user: userForNow,
+				});
+			},
+		},
 	};
 };
 

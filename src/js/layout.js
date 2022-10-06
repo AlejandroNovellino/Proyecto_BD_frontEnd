@@ -1,6 +1,8 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
+
+import "../styles/index.css";
 
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
@@ -10,6 +12,10 @@ import injectContext from "./store/appContext";
 import { MyNavbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./views/login";
+import { MainView } from "./views/mainView/MainView";
+import { MainReports } from "./views/Reports/MainReports";
+import { UserList } from "./views/usersAdm/userList";
+import { CreateUser } from "./views/usersAdm/createUser";
 
 //create your first component
 const Layout = () => {
@@ -18,21 +24,17 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div>
+		<div className="mainBackgroundColor">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<MyNavbar />
-					<Switch>
-						<Route exact path="/">
-							<Login />
-						</Route>
-						<Route exact path="/single/:theid">
-							<Single />
-						</Route>
-						<Route>
-							<h1>Not found!</h1>
-						</Route>
-					</Switch>
+					<Routes>
+						<Route path="/" element={<Login />} />
+						<Route path="/home" element={<MainView />} />
+						<Route path="/reports" element={<MainReports />} />
+						<Route path="/users" element={<UserList />} />
+						<Route path="/user-create" element={<CreateUser />} />
+					</Routes>
 					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>

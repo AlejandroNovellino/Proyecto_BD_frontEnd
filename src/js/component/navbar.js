@@ -1,28 +1,88 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import inh_logo from "../../img/inh_logo.png";
 
 // react bootstrap components
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import NavDropdown from "react-bootstrap/NavDropdown";
+
+// react router imports
+import { useNavigate } from "react-router-dom";
+
+// react-router-bootstrap import
+import { LinkContainer } from "react-router-bootstrap";
+
+// import context
+import { Context } from "../store/appContext";
 
 export const MyNavbar = () => {
+	// use context
+	const { store, actions } = useContext(Context);
+	let navigate = useNavigate();
+
+	// function to close session
+	const logOut = () => {
+		actions.setToken("", null);
+		navigate("/");
+	};
+
 	return (
-		<Navbar bg="dark" variant="dark">
+		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container>
-				<Navbar.Brand href="#home">
-					<img
-						alt=""
-						src={inh_logo}
-						width="50"
-						height="30"
-						className="d-inline-block align-top"
-					/>
-				</Navbar.Brand>
+				<LinkContainer to="/home">
+					<Navbar.Brand>
+						<img
+							alt=""
+							src={inh_logo}
+							width="50"
+							height="30"
+							className="d-inline-block align-top"
+						/>{" "}
+						Hipodromo
+					</Navbar.Brand>
+				</LinkContainer>
+
+				{store.user && (
+					<>
+						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+						<Navbar.Collapse id="responsive-navbar-nav">
+							<Nav className="me-auto">
+								<Nav.Link>Carreras</Nav.Link>
+								<Nav.Link>Gaceta Hipica</Nav.Link>
+								<NavDropdown
+									title="Usuarios"
+									id="collasible-nav-dropdown"
+									menuVariant="dark">
+									<LinkContainer to="/user-create">
+										<NavDropdown.Item>Crear</NavDropdown.Item>
+									</LinkContainer>
+									<LinkContainer to="/users">
+										<NavDropdown.Item>Listado</NavDropdown.Item>
+									</LinkContainer>
+								</NavDropdown>
+								<LinkContainer to="/reports">
+									<Nav.Link>Reportes</Nav.Link>
+								</LinkContainer>
+							</Nav>
+							<Nav>
+								<NavDropdown
+									title="Perfil"
+									id="collasible-nav-dropdown"
+									menuVariant="dark"
+									align="end">
+									<NavDropdown.Item>Tu perfil</NavDropdown.Item>
+									<NavDropdown.Divider />
+									<NavDropdown.Item onClick={logOut}>
+										Cerrar sesion
+									</NavDropdown.Item>
+								</NavDropdown>
+							</Nav>
+						</Navbar.Collapse>
+					</>
+				)}
 			</Container>
 		</Navbar>
 	);

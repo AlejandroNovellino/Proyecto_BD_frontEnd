@@ -1,5 +1,4 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useContext } from "react";
 import "../../styles/index.css";
 
 // react bootstrap components
@@ -10,31 +9,52 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-export const Login = () => (
-	<Container fluid>
-		<Row className="justify-content-md-center py-4">
-			<Col xs={6}>
-				<Card>
-					<Card.Body>
-						<Card.Title className="text-center py-3">
-							Bienvenido al sistema del hipodromo
-						</Card.Title>
-						<Form>
-							<Form.Group className="mb-3" controlId="username">
-								<Form.Control type="email" placeholder="Nombre de usuario" />
-							</Form.Group>
+// react dom imports
+import { Link } from "react-router-dom";
 
-							<Form.Group className="mb-3" controlId="password">
-								<Form.Control type="password" placeholder="Contrasena" />
-							</Form.Group>
+// import context
+import { Context } from "../store/appContext";
 
-							<div className="d-grid gap-2" type="submit">
-								<Button variant="primary">Ingresar</Button>
-							</div>
-						</Form>
-					</Card.Body>
-				</Card>
-			</Col>
-		</Row>
-	</Container>
-);
+export const Login = () => {
+	// use context
+	const { store, actions } = useContext(Context);
+
+	const manageLoginClick = () => {
+		actions.setUser("userForNow");
+	};
+
+	return (
+		<Container fluid>
+			<Row className="justify-content-md-center py-4">
+				<Col xs={6}>
+					<Card bg={"dark"} text={"white"} className="">
+						<Card.Body>
+							<Card.Title className="text-center py-3">
+								Bienvenido al sistema del hipodromo
+							</Card.Title>
+							<Form>
+								<Form.Group className="mb-3" controlId="username">
+									<Form.Control type="email" placeholder="Nombre de usuario" />
+								</Form.Group>
+
+								<Form.Group className="mb-3" controlId="password">
+									<Form.Control type="password" placeholder="Contrasena" />
+								</Form.Group>
+
+								<Link to="/home">
+									<span>
+										<div className="d-grid gap-2" type="submit">
+											<Button variant="primary" onClick={manageLoginClick}>
+												Ingresar
+											</Button>
+										</div>
+									</span>
+								</Link>
+							</Form>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
+		</Container>
+	);
+};
