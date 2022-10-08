@@ -27,7 +27,7 @@ export const CreateUser = () => {
 						<Card.Header className="fs-5 fw-bold">Nuevo usuario</Card.Header>
 						<Card.Body className="px-5">
 							<Card.Title className="text-center py-3">
-								Inserte los datos del nuevo usuario a registrar:
+								Ingrese los datos del nuevo usuario a registrar:
 							</Card.Title>
 							<Form>
 								<Form.Group className="mb-3" controlId="username">

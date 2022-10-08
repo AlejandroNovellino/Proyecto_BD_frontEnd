@@ -16,6 +16,7 @@ import { MainView } from "./views/mainView/MainView";
 import { MainReports } from "./views/Reports/MainReports";
 import { UserList } from "./views/usersAdm/userList";
 import { CreateUser } from "./views/usersAdm/createUser";
+import { CreateEjemplar } from "./views/ejemplares/createEjemplar";
 
 //create your first component
 const Layout = () => {
@@ -34,6 +35,7 @@ const Layout = () => {
 						<Route path="/reports" element={<MainReports />} />
 						<Route path="/users" element={<UserList />} />
 						<Route path="/user-create" element={<CreateUser />} />
+						<Route path="/ejemplar-create" element={<CreateEjemplar />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>

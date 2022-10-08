@@ -50,19 +50,7 @@ export const MyNavbar = () => {
 						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 						<Navbar.Collapse id="responsive-navbar-nav">
 							<Nav className="me-auto">
-								<Nav.Link>Carreras</Nav.Link>
 								<Nav.Link>Gaceta Hipica</Nav.Link>
-								<NavDropdown
-									title="Usuarios"
-									id="collasible-nav-dropdown"
-									menuVariant="dark">
-									<LinkContainer to="/user-create">
-										<NavDropdown.Item>Crear</NavDropdown.Item>
-									</LinkContainer>
-									<LinkContainer to="/users">
-										<NavDropdown.Item>Listado</NavDropdown.Item>
-									</LinkContainer>
-								</NavDropdown>
 								<LinkContainer to="/reports">
 									<Nav.Link>Reportes</Nav.Link>
 								</LinkContainer>
