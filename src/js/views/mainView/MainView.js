@@ -37,7 +37,7 @@ export const MainView = () => (
 						</Card.Text>
 						<div className="d-grid gap-2">
 							<LinkContainer to="/">
-								<Button variant="primary">Crear nueva carrera</Button>
+								<Button variant="success">Crear nueva carrera</Button>
 							</LinkContainer>
 							<LinkContainer to="/">
 								<Button variant="primary">Listar carreras</Button>
@@ -58,7 +58,7 @@ export const MainView = () => (
 						</Card.Text>
 						<div className="d-grid gap-2">
 							<LinkContainer to="/">
-								<Button variant="primary">Registrar nueva inscripcion</Button>
+								<Button variant="success">Registrar nueva inscripcion</Button>
 							</LinkContainer>
 							<LinkContainer to="/">
 								<Button variant="primary">Listar inscipciones</Button>
@@ -77,9 +77,9 @@ export const MainView = () => (
 						</Card.Text>
 						<div className="d-grid gap-2">
 							<LinkContainer to="/ejemplar-create">
-								<Button variant="primary">Crear nuevo ejemplar</Button>
+								<Button variant="success">Crear nuevo ejemplar</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/ejemplares">
 								<Button variant="primary">Listar ejemplares</Button>
 							</LinkContainer>
 						</div>
@@ -95,10 +95,10 @@ export const MainView = () => (
 							ejemplar es necesario ver el listado
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear stud</Button>
+							<LinkContainer to="/stud-create">
+								<Button variant="success">Crear stud</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/studs">
 								<Button variant="primary">Listar studs</Button>
 							</LinkContainer>
 						</div>
@@ -114,10 +114,10 @@ export const MainView = () => (
 							modificar un propietario es necesario ver el listado
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear propietario</Button>
+							<LinkContainer to="/propietario-create">
+								<Button variant="success">Crear propietario</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/propietarios">
 								<Button variant="primary">Listar propietarios</Button>
 							</LinkContainer>
 						</div>
@@ -133,10 +133,10 @@ export const MainView = () => (
 							jinete es necesario ver el listado
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear jinete</Button>
+							<LinkContainer to="/jinete-create">
+								<Button variant="success">Crear jinete</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/jinetes">
 								<Button variant="primary">Listar jinetes</Button>
 							</LinkContainer>
 						</div>
@@ -154,10 +154,10 @@ export const MainView = () => (
 							caballeriza
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear entrenador</Button>
+							<LinkContainer to="/entrenador-create">
+								<Button variant="success">Crear entrenador</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/entrenadores">
 								<Button variant="primary">Listar entrenadores</Button>
 							</LinkContainer>
 						</div>
@@ -177,10 +177,10 @@ export const MainView = () => (
 							caballeriza
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear veterinario</Button>
+							<LinkContainer to="/veterinario-create">
+								<Button variant="success">Crear veterinario</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/veterinarios">
 								<Button variant="primary">Listar veterinarios</Button>
 							</LinkContainer>
 						</div>
@@ -196,10 +196,10 @@ export const MainView = () => (
 							un implemento es necesario ver el listado
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear implemento</Button>
+							<LinkContainer to="/implemento-create">
+								<Button variant="success">Crear implemento</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/implementos">
 								<Button variant="primary">Listar implementos</Button>
 							</LinkContainer>
 						</div>
@@ -211,14 +211,14 @@ export const MainView = () => (
 					<Card.Header className="fs-5 fw-bold">Heridas</Card.Header>
 					<Card.Body>
 						<Card.Text>
-							Opciones para la gestion de jinetes. Para eliminar o modificar un
-							jinete es necesario ver el listado
+							Opciones para la gestion de jinetes. Para eliminar o modificar una
+							herida es necesario ver el listado
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/">
-								<Button variant="primary">Crear tipo de herida</Button>
+							<LinkContainer to="/herida-create">
+								<Button variant="success">Crear tipo de herida</Button>
 							</LinkContainer>
-							<LinkContainer to="/">
+							<LinkContainer to="/heridas">
 								<Button variant="primary">Listar heridas</Button>
 							</LinkContainer>
 						</div>
@@ -279,7 +279,7 @@ export const MainView = () => (
 						<Card.Text>Opciones para la gestion de usuarios</Card.Text>
 						<div className="d-grid gap-2">
 							<LinkContainer to="/user-create">
-								<Button variant="primary">Crear usuario</Button>
+								<Button variant="success">Crear usuario</Button>
 							</LinkContainer>
 							<LinkContainer to="/users">
 								<Button variant="primary">Listar usuarios</Button>
@@ -350,7 +350,7 @@ export const MainView = () => (
 						</Card.Text>
 						<div className="d-grid gap-2">
 							<LinkContainer to="/users">
-								<Button variant="primary">Resgistrar venta</Button>
+								<Button variant="primary">Registrar venta</Button>
 							</LinkContainer>
 							<LinkContainer to="/users">
 								<Button variant="primary">Listar ventas</Button>

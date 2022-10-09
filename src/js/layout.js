@@ -17,6 +17,21 @@ import { MainReports } from "./views/Reports/MainReports";
 import { UserList } from "./views/usersAdm/userList";
 import { CreateUser } from "./views/usersAdm/createUser";
 import { CreateEjemplar } from "./views/ejemplares/createEjemplar";
+import { EjemplaresList } from "./views/ejemplares/ejemplaresList";
+import { CreateStud } from "./views/studs/createStud";
+import { StudList } from "./views/studs/studList";
+import { CreatePropietario } from "./views/propietarios/createPropietario";
+import { PropietariosList } from "./views/propietarios/propietariosList";
+import { CreateJinete } from "./views/jinetes/createJinete";
+import { JinetesList } from "./views/jinetes/jinetesList";
+import { CreateEntrenador } from "./views/entrenadores/createEntrenador";
+import { EntrenadoresList } from "./views/entrenadores/entrenadoresList";
+import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
+import { VeterinariosList } from "./views/veterinarios/veterinariosList";
+import { CreateImplemento } from "./views/implementos/createImplemento";
+import { ImplementosList } from "./views/implementos/listImplementos";
+import { CreateHerida } from "./views/heridas/createHerida";
+import { HeridasList } from "./views/heridas/heridasList";
 
 //create your first component
 const Layout = () => {
@@ -36,6 +51,21 @@ const Layout = () => {
 						<Route path="/users" element={<UserList />} />
 						<Route path="/user-create" element={<CreateUser />} />
 						<Route path="/ejemplar-create" element={<CreateEjemplar />} />
+						<Route path="/ejemplares" element={<EjemplaresList />} />
+						<Route path="/stud-create" element={<CreateStud />} />
+						<Route path="/studs" element={<StudList />} />
+						<Route path="/propietario-create" element={<CreatePropietario />} />
+						<Route path="/propietarios" element={<PropietariosList />} />
+						<Route path="/jinete-create" element={<CreateJinete />} />
+						<Route path="/jinetes" element={<JinetesList />} />
+						<Route path="/entrenador-create" element={<CreateEntrenador />} />
+						<Route path="/entrenadores" element={<EntrenadoresList />} />
+						<Route path="/veterinario-create" element={<CreateVeterinario />} />
+						<Route path="/veterinarios" element={<VeterinariosList />} />
+						<Route path="/implemento-create" element={<CreateImplemento />} />
+						<Route path="/implementos" element={<ImplementosList />} />
+						<Route path="/herida-create" element={<CreateHerida />} />
+						<Route path="/heridas" element={<HeridasList />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>

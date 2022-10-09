@@ -11,19 +11,16 @@ import Table from "react-bootstrap/Table";
 
 // react dom imports
 
-export const UserList = () => {
-	const users = [
+export const StudList = () => {
+	const studs = [
 		{
-			name: "user1",
-			role: "regular",
+			name: "stud_1",
 		},
 		{
-			name: "user2",
-			role: "regular",
+			name: "stud_2",
 		},
 		{
-			name: "user3",
-			role: "regular",
+			name: "stud_3",
 		},
 	];
 
@@ -33,32 +30,24 @@ export const UserList = () => {
 				<Col xs={9}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de usuarios en el sistema
+							Lista de studs en el sistema
 						</Card.Header>
 						<Card.Body>
 							<Table striped bordered hover variant="dark">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre usuario</th>
-										<th>Rol</th>
-										<th>Movimientos</th>
+										<th>Nombre stud</th>
 										<th>Actualizar</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user, index) => {
+									{studs.map((stud, index) => {
 										return (
 											<tr key={index}>
 												<td>{index}</td>
-												<td>{user?.name}</td>
-												<td>{user?.role}</td>
-												<td className="text-center">
-													<Button variant="info" className="px-4">
-														<i class="fas fa-eye"></i>
-													</Button>
-												</td>
+												<td>{stud?.name}</td>
 												<td className="text-center">
 													<Button variant="warning" className="px-4">
 														<i class="fas fa-user-edit"></i>

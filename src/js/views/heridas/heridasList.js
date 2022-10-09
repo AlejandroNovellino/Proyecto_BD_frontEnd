@@ -11,19 +11,22 @@ import Table from "react-bootstrap/Table";
 
 // react dom imports
 
-export const UserList = () => {
-	const users = [
+export const HeridasList = () => {
+	const heridas = [
 		{
-			name: "user1",
-			role: "regular",
+			name: "Tendonitis",
+			duracion: "",
+			intensidad: "Grave",
+			viabilidad: "Incurable",
+			descripcion: "La tendonitis se presenta con inflamación de los tendones.",
 		},
 		{
-			name: "user2",
-			role: "regular",
-		},
-		{
-			name: "user3",
-			role: "regular",
+			name: "Castracion",
+			duracion: "14",
+			intensidad: "Leve",
+			viabilidad: "Curable",
+			descripcion:
+				"Las nuevas técnicas veterinarias permiten una rápida recuperación luego de efectuarse la intervención.",
 		},
 	];
 
@@ -33,32 +36,32 @@ export const UserList = () => {
 				<Col xs={9}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de usuarios en el sistema
+							Lista de implementos en el sistema
 						</Card.Header>
 						<Card.Body>
 							<Table striped bordered hover variant="dark">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre usuario</th>
-										<th>Rol</th>
-										<th>Movimientos</th>
+										<th>Nombre</th>
+										<th>Duracion (dias)</th>
+										<th>Intensidad</th>
+										<th>Viabilidad</th>
+										<th>Descripcion</th>
 										<th>Actualizar</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user, index) => {
+									{heridas.map((herida, index) => {
 										return (
 											<tr key={index}>
 												<td>{index}</td>
-												<td>{user?.name}</td>
-												<td>{user?.role}</td>
-												<td className="text-center">
-													<Button variant="info" className="px-4">
-														<i class="fas fa-eye"></i>
-													</Button>
-												</td>
+												<td>{herida?.name}</td>
+												<td>{herida?.duracion}</td>
+												<td>{herida?.intensidad}</td>
+												<td>{herida?.viabilidad}</td>
+												<td>{herida?.descripcion}</td>
 												<td className="text-center">
 													<Button variant="warning" className="px-4">
 														<i class="fas fa-user-edit"></i>

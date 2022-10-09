@@ -11,19 +11,19 @@ import Table from "react-bootstrap/Table";
 
 // react dom imports
 
-export const UserList = () => {
-	const users = [
+export const ImplementosList = () => {
+	const implementos = [
 		{
-			name: "user1",
-			role: "regular",
+			name: "Gringolas",
+			iniciales: "",
+			tipo: "Opcional",
+			descripcion: "Protector en los ojos",
 		},
 		{
-			name: "user2",
-			role: "regular",
-		},
-		{
-			name: "user3",
-			role: "regular",
+			name: "Lengua amarrada",
+			iniciales: "LA",
+			tipo: "Opcional",
+			descripcion: "Para eliminar el desplazo de paladar",
 		},
 	];
 
@@ -33,32 +33,30 @@ export const UserList = () => {
 				<Col xs={9}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de usuarios en el sistema
+							Lista de implementos en el sistema
 						</Card.Header>
 						<Card.Body>
 							<Table striped bordered hover variant="dark">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre usuario</th>
-										<th>Rol</th>
-										<th>Movimientos</th>
+										<th>Nombre</th>
+										<th>Iniciales</th>
+										<th>Tipo</th>
+										<th>Descripcion</th>
 										<th>Actualizar</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user, index) => {
+									{implementos.map((implemento, index) => {
 										return (
 											<tr key={index}>
 												<td>{index}</td>
-												<td>{user?.name}</td>
-												<td>{user?.role}</td>
-												<td className="text-center">
-													<Button variant="info" className="px-4">
-														<i class="fas fa-eye"></i>
-													</Button>
-												</td>
+												<td>{implemento?.name}</td>
+												<td>{implemento?.iniciales}</td>
+												<td>{implemento?.tipo}</td>
+												<td>{implemento?.descripcion}</td>
 												<td className="text-center">
 													<Button variant="warning" className="px-4">
 														<i class="fas fa-user-edit"></i>

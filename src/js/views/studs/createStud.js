@@ -12,10 +12,9 @@ import Button from "react-bootstrap/Button";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const CreateEjemplar = () => {
+export const CreateStud = () => {
 	// states
 	let navigate = useNavigate();
-	const studs = ["stud_1", "stud_2", "stud_3"];
 	const propietarios = [
 		{
 			name: "propietario_1",
@@ -37,79 +36,37 @@ export const CreateEjemplar = () => {
 	const returnHome = () => {
 		navigate("/home");
 	};
+
 	return (
 		<Container fluid>
 			<Row className="justify-content-md-center py-4">
 				<Col xs={8}>
 					<Card bg={"dark"} text={"white"} className="">
-						<Card.Header className="fs-5 fw-bold">Nuevo ejemplar</Card.Header>
+						<Card.Header className="fs-5 fw-bold">Nuevo stud</Card.Header>
 						<Card.Body className="px-5">
 							<Card.Title className="text-center py-3">
-								Ingrese los datos del nuevo ejemplar a registrar:
+								Ingrese los datos del nuevo stud a registrar:
 							</Card.Title>
 							<Form>
 								<Row className="mb-2">
 									<Col>
 										<Form.Control placeholder="Nombre" />
 									</Col>
-									<Col>
-										<Form.Control placeholder="Numero de pelaje labial" />
-									</Col>
 								</Row>
 								<Row className="mb-2">
+									<Col md={12}>
+										<p className="text-start fs-5 ">
+											Descripcion de los colores de la chaquetilla:
+										</p>
+									</Col>
+
 									<Col>
-										<Form.Control placeholder="Pelaje" />
-									</Col>
-									<Col>
-										<Form.Select>
-											<option value="1">Masculino</option>
-											<option value="2">Femenino</option>
-										</Form.Select>
-									</Col>
-								</Row>
-								<Row className="mb-2">
-									<Col>
-										<Form.Control placeholder="Nombre del padre" />
-									</Col>
-									<Col>
-										<Form.Control placeholder="Nombre de la madre" />
-									</Col>
-								</Row>
-								<Row className="mb-2">
-									<Col xs={6}>
-										<Form.Control placeholder="Numero de caballeriza" />
-									</Col>
-									<Col xs={6}>
-										<Form.Control placeholder="Puesto en la caballeriza" />
-									</Col>
-								</Row>
-								<Row className="">
-									<Col xs={6}>
-										<p className="text-end fs-5 mt-2">Imagen del ejemplar:</p>
-									</Col>
-									<Col xs={6}>
-										<Form.Control type="file" />
-									</Col>
-								</Row>
-								<Row className="mb-2">
-									<Col xs={6}>
-										<p className="text-end fs-5 mt-2">Elija un stud:</p>
-									</Col>
-									<Col xs={6}>
-										<Form.Select>
-											{studs.map((stud, index) => {
-												return (
-													<option key={index} value={index}>
-														{stud}
-													</option>
-												);
-											})}
-										</Form.Select>
+										<Form.Control as="textarea" rows={3} />
 									</Col>
 								</Row>
 								<Row className="justify-content-md-center mb-2">
 									<Col xs={12}>
-										<p className="text-center fs-5 mt-2">
+										<p className="text-start fs-5 mt-2">
 											Elija los propietarios y su porcentaje de posesion:
 										</p>
 									</Col>
@@ -132,7 +89,7 @@ export const CreateEjemplar = () => {
 								})}
 							</Form>
 
-							<Container>
+							<Container className="mt-4">
 								<Row>
 									<Col xs={6} className="ps-0">
 										<div className="d-grid gap-2" type="submit">

@@ -11,19 +11,25 @@ import Table from "react-bootstrap/Table";
 
 // react dom imports
 
-export const UserList = () => {
-	const users = [
+export const PropietariosList = () => {
+	const propietarios = [
 		{
-			name: "user1",
-			role: "regular",
+			name: "Carlos",
+			lastName: "Perez",
+			ci: "34.567.999",
+			mail: "perez@gnmail.com",
 		},
 		{
-			name: "user2",
-			role: "regular",
+			name: "Julio",
+			lastName: "Perez",
+			ci: "34.567.345",
+			mail: "jp@gnmail.com",
 		},
 		{
-			name: "user3",
-			role: "regular",
+			name: "Ruperto",
+			lastName: "Lopez",
+			ci: "34.345.999",
+			mail: "ruper@gnmail.com",
 		},
 	];
 
@@ -33,32 +39,30 @@ export const UserList = () => {
 				<Col xs={9}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de usuarios en el sistema
+							Lista de propietarios en el sistema
 						</Card.Header>
 						<Card.Body>
 							<Table striped bordered hover variant="dark">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre usuario</th>
-										<th>Rol</th>
-										<th>Movimientos</th>
+										<th>Nombre</th>
+										<th>Apellido</th>
+										<th>CI</th>
+										<th>Correo</th>
 										<th>Actualizar</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									{users.map((user, index) => {
+									{propietarios.map((propietario, index) => {
 										return (
 											<tr key={index}>
 												<td>{index}</td>
-												<td>{user?.name}</td>
-												<td>{user?.role}</td>
-												<td className="text-center">
-													<Button variant="info" className="px-4">
-														<i class="fas fa-eye"></i>
-													</Button>
-												</td>
+												<td>{propietario?.name}</td>
+												<td>{propietario?.lastName}</td>
+												<td>{propietario?.ci}</td>
+												<td>{propietario?.mail}</td>
 												<td className="text-center">
 													<Button variant="warning" className="px-4">
 														<i class="fas fa-user-edit"></i>
