@@ -32,6 +32,13 @@ import { CreateImplemento } from "./views/implementos/createImplemento";
 import { ImplementosList } from "./views/implementos/listImplementos";
 import { CreateHerida } from "./views/heridas/createHerida";
 import { HeridasList } from "./views/heridas/heridasList";
+import { Historia } from "./views/hipodromo/historia";
+import { Estructura } from "./views/hipodromo/estructura";
+import { CreateEjemplarHistorico } from "./views/hipodromo/createEjemplarHistorico";
+import { EjemplaresHistoricosList } from "./views/hipodromo/ejemplaresHistoricosList";
+import { AjustarPrecios } from "./views/entradas/ajustarPrecios";
+import { RealizarSolicitud } from "./views/implementos/realizarSolicitud";
+import { SolicitudesList } from "./views/implementos/solicitudesList";
 
 //create your first component
 const Layout = () => {
@@ -64,8 +71,21 @@ const Layout = () => {
 						<Route path="/veterinarios" element={<VeterinariosList />} />
 						<Route path="/implemento-create" element={<CreateImplemento />} />
 						<Route path="/implementos" element={<ImplementosList />} />
+						<Route path="/realizar-solicitud" element={<RealizarSolicitud />} />
+						<Route path="/solicitudes" element={<SolicitudesList />} />
 						<Route path="/herida-create" element={<CreateHerida />} />
 						<Route path="/heridas" element={<HeridasList />} />
+						<Route path="/historia" element={<Historia />} />
+						<Route path="/infraestructura" element={<Estructura />} />
+						<Route
+							path="/ejemplar-historico-create"
+							element={<CreateEjemplarHistorico />}
+						/>
+						<Route
+							path="/ejemplares-historicos"
+							element={<EjemplaresHistoricosList />}
+						/>
+						<Route path="/ajustar-precios" element={<AjustarPrecios />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>

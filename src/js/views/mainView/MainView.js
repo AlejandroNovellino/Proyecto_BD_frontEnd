@@ -26,6 +26,7 @@ export const MainView = () => (
 				</Card>
 			</Col>
 		</Row>
+
 		<Row xs={4} md={4} className="justify-content-md-center p-4 g-4">
 			<Col>
 				<Card bg={"dark"} text={"white"}>
@@ -46,6 +47,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">
@@ -67,6 +69,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Ejemplares</Card.Header>
@@ -86,6 +89,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Studs</Card.Header>
@@ -105,6 +109,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Propietarios</Card.Header>
@@ -124,6 +129,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Jinetes</Card.Header>
@@ -143,6 +149,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Entrenadores</Card.Header>
@@ -164,6 +171,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">
@@ -187,6 +195,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Implementos</Card.Header>
@@ -206,6 +215,29 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
+			<Col>
+				<Card bg={"dark"} text={"white"}>
+					<Card.Header className="fs-5 fw-bold">
+						Solicitudes implementos
+					</Card.Header>
+					<Card.Body>
+						<Card.Text>
+							Opciones para la gestion de implementos. Para eliminar o modificar
+							un implemento es necesario ver el listado
+						</Card.Text>
+						<div className="d-grid gap-2">
+							<LinkContainer to="/realizar-solicitud">
+								<Button variant="success">Realizar solicitud</Button>
+							</LinkContainer>
+							<LinkContainer to="/solicitudes">
+								<Button variant="primary">Listar solicitudes</Button>
+							</LinkContainer>
+						</div>
+					</Card.Body>
+				</Card>
+			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">Heridas</Card.Header>
@@ -288,6 +320,7 @@ export const MainView = () => (
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">
@@ -312,7 +345,7 @@ export const MainView = () => (
 				<Card bg={"secondary"} text={"white"}>
 					<Card.Body>
 						<Card.Title className="m-0">
-							Opciones relacionadas a las ventas realizadas dentro del hipodromo
+							Opciones relacionadas a las ventas dentro del hipodromo
 						</Card.Title>
 					</Card.Body>
 				</Card>
@@ -335,10 +368,14 @@ export const MainView = () => (
 							<LinkContainer to="/">
 								<Button variant="primary">Listar ventas</Button>
 							</LinkContainer>
+							<LinkContainer to="/ajustar-precios">
+								<Button variant="warning">Ajustar precios</Button>
+							</LinkContainer>
 						</div>
 					</Card.Body>
 				</Card>
 			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">
@@ -383,13 +420,36 @@ export const MainView = () => (
 							Opciones para la gestion de la informacion historica del hipodromo
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/users">
-								<Button variant="primary">Actualizar informacion</Button>
+							<LinkContainer to="/historia">
+								<Button variant="success">Actualizar informacion</Button>
 							</LinkContainer>
 						</div>
 					</Card.Body>
 				</Card>
 			</Col>
+
+			<Col>
+				<Card bg={"dark"} text={"white"}>
+					<Card.Header className="fs-5 fw-bold">
+						Ejemplares historicos
+					</Card.Header>
+					<Card.Body>
+						<Card.Text>
+							Opciones para la gestion de ejemplares historicos. Para eliminar o
+							modificar un ejemplar es necesario ver el listado
+						</Card.Text>
+						<div className="d-grid gap-2">
+							<LinkContainer to="/ejemplar-historico-create">
+								<Button variant="success">Crear nuevo ejemplar</Button>
+							</LinkContainer>
+							<LinkContainer to="/ejemplares-historicos">
+								<Button variant="primary">Listar ejemplares</Button>
+							</LinkContainer>
+						</div>
+					</Card.Body>
+				</Card>
+			</Col>
+
 			<Col>
 				<Card bg={"dark"} text={"white"}>
 					<Card.Header className="fs-5 fw-bold">
@@ -401,8 +461,8 @@ export const MainView = () => (
 							datos de la estrutura del hipodromo
 						</Card.Text>
 						<div className="d-grid gap-2">
-							<LinkContainer to="/users">
-								<Button variant="primary">Actualizar informacion</Button>
+							<LinkContainer to="/infraestructura">
+								<Button variant="success">Actualizar informacion</Button>
 							</LinkContainer>
 						</div>
 					</Card.Body>

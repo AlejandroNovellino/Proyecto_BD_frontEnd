@@ -8,44 +8,34 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const CreateEjemplar = () => {
+export const CreateEjemplarHistorico = () => {
 	// states
 	let navigate = useNavigate();
 	const studs = ["stud_1", "stud_2", "stud_3"];
-	const propietarios = [
-		{
-			name: "propietario_1",
-			selected: false,
-			porcentaje: 0,
-		},
-		{
-			name: "propietario_2",
-			selected: false,
-			porcentaje: 0,
-		},
-		{
-			name: "propietario_3",
-			selected: false,
-			porcentaje: 0,
-		},
-	];
+	let propietarios = ["Prop_1", "Prop_2"];
 
 	const returnHome = () => {
 		navigate("/home");
 	};
+
+	const addPropietario = () => {};
+
 	return (
 		<Container fluid>
 			<Row className="justify-content-md-center py-4">
 				<Col xs={8}>
 					<Card bg={"dark"} text={"white"} className="">
-						<Card.Header className="fs-5 fw-bold">Nuevo ejemplar</Card.Header>
+						<Card.Header className="fs-5 fw-bold">
+							Nuevo ejemplar historico
+						</Card.Header>
 						<Card.Body className="px-5">
 							<Card.Title className="text-center py-3">
-								Ingrese los datos del nuevo ejemplar a registrar:
+								Ingrese los datos del nuevo ejemplar historico a registrar:
 							</Card.Title>
 							<Form>
 								<Row className="mb-2">
@@ -53,7 +43,7 @@ export const CreateEjemplar = () => {
 										<Form.Control placeholder="Nombre" />
 									</Col>
 									<Col>
-										<Form.Control placeholder="Numero de pelaje labial" />
+										<Form.Control placeholder="Año nacimiento" />
 									</Col>
 								</Row>
 								<Row className="mb-2">
@@ -69,23 +59,7 @@ export const CreateEjemplar = () => {
 								</Row>
 								<Row className="mb-2">
 									<Col>
-										<Form.Control placeholder="Nombre del padre" />
-									</Col>
-									<Col>
-										<Form.Control placeholder="Nombre de la madre" />
-									</Col>
-								</Row>
-								<Row className="mb-2">
-									<Col>
 										<Form.Control placeholder="Haras de procedencia" />
-									</Col>
-								</Row>
-								<Row className="mb-2">
-									<Col xs={6}>
-										<Form.Control placeholder="Numero de caballeriza" />
-									</Col>
-									<Col xs={6}>
-										<Form.Control placeholder="Puesto en la caballeriza" />
 									</Col>
 								</Row>
 								<Row className="">
@@ -96,45 +70,56 @@ export const CreateEjemplar = () => {
 										<Form.Control type="file" />
 									</Col>
 								</Row>
+
 								<Row className="mb-2">
-									<Col xs={6}>
-										<p className="text-end fs-5 mt-2">Elija un stud:</p>
+									<Col md={6}>
+										<p className="fs-5 m-0">Duenos del ejemplar:</p>
 									</Col>
-									<Col xs={6}>
-										<Form.Select>
-											{studs.map((stud, index) => {
+									<Col md={5}>
+										<Form.Control placeholder="Nombre" />
+									</Col>
+									<Col md={1}>
+										<div className="d-grid gap-2" type="submit">
+											<Button variant="success" onClick={addPropietario}>
+												<i className="fas fa-check"></i>
+											</Button>
+										</div>
+									</Col>
+								</Row>
+								<Row className="my-3">
+									<Table striped bordered hover variant="dark">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Telefono</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody>
+											{propietarios.map((propietario, index) => {
 												return (
-													<option key={index} value={index}>
-														{stud}
-													</option>
+													<tr key={index}>
+														<td>{index + 1}</td>
+														<td>{propietario}</td>
+														<td className="text-center">
+															<Button variant="danger" className="px-4">
+																<i className="fas fa-trash"></i>
+															</Button>
+														</td>
+													</tr>
 												);
 											})}
-										</Form.Select>
+										</tbody>
+									</Table>
+								</Row>
+								<Row className="mb-3">
+									<Col xs={12} md={12}>
+										<Form.Group>
+											<p className="fs-5 mb-2">Informacion adicional</p>
+											<Form.Control as="textarea" rows={6} />
+										</Form.Group>
 									</Col>
 								</Row>
-								<Row className="justify-content-md-center mb-2">
-									<Col xs={12}>
-										<p className="text-center fs-5 mt-2">
-											Elija los propietarios y su porcentaje de posesion:
-										</p>
-									</Col>
-								</Row>
-								{propietarios.map((propietario, index) => {
-									return (
-										<Row key={index} className="justify-content-md-center mb-2">
-											<Col xs={4}>
-												<Form.Check
-													type="switch"
-													id={index}
-													label={propietario?.name}
-												/>
-											</Col>
-											<Col xs={4}>
-												<Form.Control placeholder="Porcentaje de pertenencia" />
-											</Col>
-										</Row>
-									);
-								})}
 							</Form>
 
 							<Container>

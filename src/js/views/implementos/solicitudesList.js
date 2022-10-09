@@ -11,19 +11,21 @@ import Table from "react-bootstrap/Table";
 
 // react dom imports
 
-export const ImplementosList = () => {
-	const implementos = [
+export const SolicitudesList = () => {
+	const solicitudes = [
 		{
-			name: "Gringolas",
-			iniciales: "",
-			tipo: "Opcional",
-			descripcion: "Protector en los ojos",
+			raceNumber: 1,
+			ejemplar: "Crimson America",
+			entrenador: "Momo",
+			implemento: "Vendas",
+			descripcion: "",
 		},
 		{
-			name: "Lengua amarrada",
-			iniciales: "LA",
-			tipo: "Opcional",
-			descripcion: "Para eliminar el desplazo de paladar",
+			raceNumber: 2,
+			ejemplar: "Asian Rider",
+			entrenador: "Luis",
+			implemento: "Orejas tapadas",
+			descripcion: "A mi cabalo le da penita",
 		},
 	];
 
@@ -40,30 +42,32 @@ export const ImplementosList = () => {
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre</th>
-										<th>Iniciales</th>
-										<th>Tipo</th>
+										<th>Numero de carrera</th>
+										<th>Entrenador</th>
+										<th>Ejemplar</th>
+										<th>Implemento</th>
 										<th>Descripcion</th>
-										<th>Actualizar</th>
-										<th>Eliminar</th>
+										<th>Negar</th>
+										<th>Acaptar</th>
 									</tr>
 								</thead>
 								<tbody>
-									{implementos.map((implemento, index) => {
+									{solicitudes.map((solicitud, index) => {
 										return (
 											<tr key={index}>
-												<td>{index}</td>
-												<td>{implemento?.name}</td>
-												<td>{implemento?.iniciales}</td>
-												<td>{implemento?.tipo}</td>
-												<td>{implemento?.descripcion}</td>
+												<td>{index + 1}</td>
+												<td>{solicitud?.raceNumber}</td>
+												<td>{solicitud?.entrenador}</td>
+												<td>{solicitud?.ejemplar}</td>
+												<td>{solicitud?.implemento}</td>
+												<td>{solicitud?.descripcion}</td>
 												<td className="text-center">
-													<Button variant="warning" className="px-4">
-														<i className="fas fa-user-edit"></i>
+													<Button variant="danger" className="px-4">
+														<i className="fas fa-minus-circle"></i>
 													</Button>
 												</td>
 												<td className="text-center">
-													<Button variant="danger" className="px-4">
+													<Button variant="success" className="px-4">
 														<i className="fas fa-trash"></i>
 													</Button>
 												</td>
