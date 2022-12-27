@@ -19,6 +19,7 @@ export const CreateUser = () => {
 	const returnHome = () => {
 		navigate("/home");
 	};
+
 	return (
 		<Container fluid>
 			<Row className="justify-content-md-center py-4">
@@ -38,14 +39,14 @@ export const CreateUser = () => {
 									<Form.Control type="password" placeholder="Contrasena" />
 								</Form.Group>
 
-								<Form.Group className="mb-3" controlId="password">
+								<Form.Group className="mb-3" controlId="passwordConfirm">
 									<Form.Control
 										type="password"
 										placeholder="Confirme contrasena"
 									/>
 								</Form.Group>
 
-								<Form.Group className="mb-3" controlId="password">
+								<Form.Group className="mb-3" controlId="type">
 									<Form.Select aria-label="Default select example">
 										<option value="1">Administrador</option>
 										<option value="2">Regular</option>

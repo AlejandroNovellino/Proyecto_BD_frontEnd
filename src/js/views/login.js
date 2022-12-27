@@ -9,8 +9,8 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-// react dom imports
-import { Link } from "react-router-dom";
+// react router imports
+import { useNavigate, Link } from "react-router-dom";
 
 // import context
 import { Context } from "../store/appContext";
@@ -18,6 +18,8 @@ import { Context } from "../store/appContext";
 export const Login = () => {
 	// use context
 	const { store, actions } = useContext(Context);
+	// navigate
+	let navigate = useNavigate();
 
 	const manageLoginClick = () => {
 		actions.setUser("userForNow");
@@ -41,17 +43,38 @@ export const Login = () => {
 									<Form.Control type="password" placeholder="Contrasena" />
 								</Form.Group>
 
-								<Link to="/home">
-									<span>
+								<div className="d-grid gap-2" type="submit">
+									<Button variant="primary" onClick={manageLoginClick}>
+										Iniciar Sesion
+									</Button>
+								</div>
+							</Form>
+
+							<footer className="footer"></footer>
+						</Card.Body>
+						<Card.Footer className="text-muted">
+							<Row>
+								<Col md={6}>
+									<p>No posee cuenta?</p>
+								</Col>
+								<Col md={6}>
+									<Link to="/signIn">
 										<div className="d-grid gap-2" type="submit">
-											<Button variant="primary" onClick={manageLoginClick}>
-												Ingresar
+											<Button variant="secondary">Registrarse</Button>
+										</div>
+									</Link>
+								</Col>
+								<Col md={12}>
+									<Link to="/home">
+										<div className="d-grid gap-2" type="submit">
+											<Button variant="danger" onClick={manageLoginClick}>
+												PRUEBA
 											</Button>
 										</div>
-									</span>
-								</Link>
-							</Form>
-						</Card.Body>
+									</Link>
+								</Col>
+							</Row>
+						</Card.Footer>
 					</Card>
 				</Col>
 			</Row>

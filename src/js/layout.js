@@ -12,6 +12,7 @@ import injectContext from "./store/appContext";
 import { MyNavbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./views/login";
+import { SignIn } from "./views/signin";
 import { MainView } from "./views/mainView/MainView";
 import { MainReports } from "./views/Reports/MainReports";
 import { UserList } from "./views/usersAdm/userList";
@@ -53,6 +54,7 @@ const Layout = () => {
 					<MyNavbar />
 					<Routes>
 						<Route path="/" element={<Login />} />
+						<Route path="/signIn" element={<SignIn />} />
 						<Route path="/home" element={<MainView />} />
 						<Route path="/reports" element={<MainReports />} />
 						<Route path="/users" element={<UserList />} />
