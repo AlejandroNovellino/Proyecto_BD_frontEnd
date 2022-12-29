@@ -25,7 +25,7 @@ export const MyNavbar = () => {
 
 	// function to close session
 	const logOut = () => {
-		actions.setToken("", null);
+		actions.logOut("", null);
 		navigate("/");
 	};
 
