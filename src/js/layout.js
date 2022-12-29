@@ -14,6 +14,7 @@ import { Footer } from "./component/footer";
 import { Login } from "./views/login";
 import { SignIn } from "./views/signin";
 import { MainView } from "./views/mainView/MainView";
+import { MainHome } from "./views/mainView/MainHome";
 import { MainReports } from "./views/Reports/MainReports";
 import { UserList } from "./views/usersAdm/userList";
 import { CreateUser } from "./views/usersAdm/createUser";
@@ -55,7 +56,8 @@ const Layout = () => {
 					<Routes>
 						<Route path="/" element={<Login />} />
 						<Route path="/signIn" element={<SignIn />} />
-						<Route path="/home" element={<MainView />} />
+						{/*<Route path="/home" element={<MainView />} />*/}
+						<Route path="/home" element={<MainHome />} />
 						<Route path="/reports" element={<MainReports />} />
 						<Route path="/users" element={<UserList />} />
 						<Route path="/user-create" element={<CreateUser />} />

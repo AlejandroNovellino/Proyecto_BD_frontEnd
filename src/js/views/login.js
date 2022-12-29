@@ -19,7 +19,6 @@ import { useNavigate, Link } from "react-router-dom";
 
 // import context
 import { Context } from "../store/appContext";
-import { style } from "@mui/system";
 
 export const Login = () => {
 	// use context
@@ -39,6 +38,7 @@ export const Login = () => {
 				store.user?.tipo_usuario?.tu_clave
 			);
 			if (response) {
+				actions.updateLocalStorage();
 				navigate("/home");
 			}
 		}
@@ -149,15 +149,6 @@ export const Login = () => {
 									<Link to="/signIn">
 										<div className="d-grid gap-2" type="submit">
 											<Button variant="secondary">Registrarse</Button>
-										</div>
-									</Link>
-								</Col>
-								<Col md={12}>
-									<Link to="/home">
-										<div className="d-grid gap-2" type="submit">
-											<Button variant="danger" onClick={manageLoginClick}>
-												PRUEBA
-											</Button>
 										</div>
 									</Link>
 								</Col>

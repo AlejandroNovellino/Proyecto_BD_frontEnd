@@ -29,19 +29,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			setToken: (token, user) => {
+			setInfoFromStorage: (token, user, userPermissions) => {
 				setStore({
 					token,
-					user: JSON.parse(user),
+					user,
+					userPermissions,
 				});
 			},
 			logOut: (token, user) => {
-				localStorage.removeItem("token");
-				localStorage.removeItem("user");
+				// clear the store
 				setStore({
 					token,
-					user: JSON.parse(user),
+					user: null,
+					userPermissions: [],
 				});
+
+				// clear the local storage
+				localStorage.removeItem("token");
+				localStorage.removeItem("user");
+				localStorage.removeItem("userPermissions");
 			},
 			setUser: userForNow => {
 				//get the store
@@ -74,19 +80,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await axiosInstance.get(
 						"/permisos-tipo-usuario/" + userTypeId
 					);
-
 					//get the store
 					const store = getStore();
 					//reset the global store
 					setStore({
 						...store,
-						userPermissions: response.data,
+						userPermissions: JSON.parse(response.data),
 					});
 
 					return true;
 				} catch (error) {
 					return null;
 				}
+			},
+			updateLocalStorage: () => {
+				// get the store
+				const store = getStore();
+
+				// save the info in the local storage
+				localStorage.setItem("token", store.token);
+				localStorage.setItem("user", JSON.stringify(store.user));
+				localStorage.setItem(
+					"userPermissions",
+					JSON.stringify(store.userPermissions)
+				);
 			},
 		},
 	};

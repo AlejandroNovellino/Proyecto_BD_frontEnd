@@ -35,9 +35,10 @@ const injectContext = PassedComponent => {
 				localStorage.getItem("token") &&
 				localStorage.getItem("token") != ""
 			) {
-				state.actions.setToken(
+				state.actions.setInfoFromStorage(
 					localStorage.getItem("token"),
-					localStorage.getItem("user")
+					JSON.parse(localStorage.getItem("user")),
+					JSON.parse(localStorage.getItem("userPermissions"))
 				);
 			}
 		}, []);
