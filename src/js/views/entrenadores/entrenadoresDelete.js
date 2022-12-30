@@ -17,10 +17,12 @@ import DataTable from "react-data-table-component";
 
 // react dom imports
 
-export const EntrenadoresList = () => {
+export const EntrenadoresDelete = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
+	//const [selectedRows, setSelectedRows] = React.useState([]);
+	//const [toggleCleared, setToggleCleared] = React.useState(false);
 	const [entrenadores, setEntrenadores] = useState([]);
 	// function to fetch entrenadores
 	const fetchEntrenadores = async () => {
@@ -31,6 +33,12 @@ export const EntrenadoresList = () => {
 	useEffect(() => {
 		fetchEntrenadores();
 	}, []);
+
+	// handle delete
+	const handleChange = ({ selectedRows }) => {
+		// You can set state or dispatch with something like Redux so we can use the retrieved data
+		console.log("Selected Rows: ", selectedRows);
+	};
 
 	const columns = [
 		{
@@ -92,10 +100,12 @@ export const EntrenadoresList = () => {
 							<DataTable
 								columns={columns}
 								data={entrenadores}
+								selectableRows
 								pagination
 								responsive
 								highlightOnHover
 								striped
+								onSelectedRowsChange={handleChange}
 							/>
 						</Card.Body>
 					</Card>

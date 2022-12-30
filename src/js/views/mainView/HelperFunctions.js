@@ -43,8 +43,22 @@ export const urlPicker = (tabla, accion) => {
 			return "/ejemplares";
 
 		case "Entrenador":
-			if (accion == "CREATE") return "/entrenador-create";
-			return "/entrenadores";
+			switch (accion) {
+				case "CREATE":
+					return "/entrenador/create";
+
+				case "READ":
+					return "/entrenadores";
+
+				case "UPDATE":
+					return "/entrenadores/update";
+
+				case "DELETE":
+					return "/entrenadores/delete";
+
+				default:
+					return "/entrenadores";
+			}
 
 		case "Jinete":
 			if (accion == "CREATE") return "/jinete-create";

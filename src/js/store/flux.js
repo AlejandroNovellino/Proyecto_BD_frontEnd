@@ -105,6 +105,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					JSON.stringify(store.userPermissions)
 				);
 			},
+			getEntrenadores: async () => {
+				try {
+					const response = await axiosInstance.get("/entrenadores");
+					// return the data
+
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
 		},
 	};
 };

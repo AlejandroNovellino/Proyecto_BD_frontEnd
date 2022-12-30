@@ -26,9 +26,12 @@ import { CreatePropietario } from "./views/propietarios/createPropietario";
 import { PropietariosList } from "./views/propietarios/propietariosList";
 import { CreateJinete } from "./views/jinetes/createJinete";
 import { JinetesList } from "./views/jinetes/jinetesList";
+// entrenadores
 import { CreateEntrenador } from "./views/entrenadores/createEntrenador";
 import { EntrenadoresList } from "./views/entrenadores/entrenadoresList";
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
+import { EntrenadoresDelete } from "./views/entrenadores/entrenadoresDelete";
+// veterinarios
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
 import { CreateImplemento } from "./views/implementos/createImplemento";
 import { ImplementosList } from "./views/implementos/listImplementos";
@@ -69,8 +72,14 @@ const Layout = () => {
 						<Route path="/propietarios" element={<PropietariosList />} />
 						<Route path="/jinete-create" element={<CreateJinete />} />
 						<Route path="/jinetes" element={<JinetesList />} />
-						<Route path="/entrenador-create" element={<CreateEntrenador />} />
+						{/* Entrenadores */}
+						<Route path="/entrenador/create" element={<CreateEntrenador />} />
 						<Route path="/entrenadores" element={<EntrenadoresList />} />
+						<Route
+							path="/entrenadores/delete"
+							element={<EntrenadoresDelete />}
+						/>
+						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />
 						<Route path="/implemento-create" element={<CreateImplemento />} />
