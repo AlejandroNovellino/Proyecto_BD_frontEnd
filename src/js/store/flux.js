@@ -117,6 +117,62 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return [];
 				}
 			},
+			createEntrenador: async values => {
+				try {
+					const response = await axiosInstance.post("/entrenadores", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updateEntrenador: async values => {
+				try {
+					let { p_cedula, ...data } = values;
+					const response = await axiosInstance.put(
+						"/entrenadores/" + p_cedula,
+						{
+							...data,
+						}
+					);
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteEntrenador: async entrenador_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/entrenadores/" + entrenador_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			getLugaresByType: async () => {
+				try {
+					const response = await axiosInstance.get("/lugares");
+					// get data
+					let lugares = response.data;
+
+					let estados = lugares.filter(lugar => lugar.l_tipo == "Estado");
+					let municipios = lugares.filter(lugar => lugar.l_tipo == "Municipio");
+					let parroquias = lugares.filter(lugar => lugar.l_tipo == "Parroquia");
+
+					return {
+						estados,
+						municipios,
+						parroquias,
+					};
+				} catch (error) {
+					return {};
+				}
+			},
 		},
 	};
 };

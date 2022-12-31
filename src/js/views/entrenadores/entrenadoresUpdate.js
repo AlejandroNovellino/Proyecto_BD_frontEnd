@@ -19,19 +19,12 @@ import DataTable from "react-data-table-component";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const EntrenadoresDelete = () => {
+export const EntrenadoresUpdate = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
 	const [data, setData] = useState([]);
 	const [selectedRows, setSelectedRows] = useState([]);
-	const [elementDeleted, setElementDeleted] = useState(0);
-
-	// modal state
-	const [modalShow, setModalShow] = useState(false);
-	// modal functions
-	const handleClose = () => setModalShow(false);
-	const handleShow = () => setModalShow(true);
 
 	// alert state
 	const [alertShow, setAlertShow] = useState(false);
@@ -53,7 +46,7 @@ export const EntrenadoresDelete = () => {
 		return () => {};
 	}, []);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const fetchData = async () => {
 			let data = await actions.getEntrenadores();
 			setData(data);
@@ -62,7 +55,7 @@ export const EntrenadoresDelete = () => {
 		fetchData();
 
 		return () => {};
-	}, [elementDeleted]);
+	}, [elementUpdated]);*/
 
 	// handle select in the table
 	const handleSelect = ({ selectedRows }) => {
@@ -70,28 +63,14 @@ export const EntrenadoresDelete = () => {
 		setSelectedRows(selectedRows);
 	};
 
-	// handle delete
-	const handleDelete = async () => {
-		// Delete the selected elements
-		console.log("Selected Rows: ", selectedRows);
-		for (let element of selectedRows) {
-			let response = await actions.deleteEntrenador(element.p_cedula);
-			if (!response) {
-				console.log(
-					`🚀 ~ file: entrenadoresDelete.js:59 ~ handleDelete ~ response`,
-					response
-				);
-				console.log("Hubo un error en alguna eliminacion");
-				break;
-			}
-			data.filter(element2 => element2.p_cedula != element.p_cedula);
+	// handle update
+	const handleUpdate = () => {
+		if (selectedRows.length) {
+			// navigate to UpdateEntrenador
+			navigate("/entrenador/update", { state: selectedRows.at(0) });
+		} else {
+			setAlertShow(true);
 		}
-		setData(data);
-		setElementDeleted(elementDeleted + 1);
-		// cover the modal
-		setModalShow(false);
-		// show the alert
-		setAlertShow(true);
 	};
 
 	const columns = [
@@ -144,36 +123,14 @@ export const EntrenadoresDelete = () => {
 
 	return (
 		<>
-			<Modal
-				show={modalShow}
-				onHide={handleClose}
-				backdrop="static"
-				keyboard={false}>
-				<Modal.Header closeButton>
-					<Modal.Title>Confirmacion</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					Seguro que quiere eliminar los registros seleccionados
-				</Modal.Body>
-				<Modal.Footer>
-					{}
-					<Button variant="secondary" onClick={handleClose}>
-						Cancelar
-					</Button>
-					<Button variant="primary" onClick={handleDelete}>
-						Confirmar
-					</Button>
-				</Modal.Footer>
-			</Modal>
-
 			{alertShow && (
 				<Container className="mt-5">
 					<Alert
-						variant="success"
+						variant="danger"
 						onClose={() => setAlertShow(false)}
 						dismissible>
-						<Alert.Heading>Elementos eliminados!</Alert.Heading>
-						<p>Los elementos seleccionados fueron eliminados correctamente</p>
+						<Alert.Heading>No se selecciono un elemento!</Alert.Heading>
+						<p>Debe seleccionar un elemento para ser actualizado</p>
 					</Alert>
 				</Container>
 			)}
@@ -194,6 +151,8 @@ export const EntrenadoresDelete = () => {
 									responsive
 									highlightOnHover
 									striped
+									selectableRowsNoSelectAll
+									selectableRowsSingle
 									onSelectedRowsChange={handleSelect}
 									theme="dark"
 								/>
@@ -212,8 +171,8 @@ export const EntrenadoresDelete = () => {
 										</Col>
 										<Col xs={6} className="pe-0">
 											<div className="d-grid gap-2" type="submit">
-												<Button variant="danger" onClick={handleShow}>
-													Eliminar
+												<Button variant="warning" onClick={handleUpdate}>
+													Actualizar
 												</Button>
 											</div>
 										</Col>

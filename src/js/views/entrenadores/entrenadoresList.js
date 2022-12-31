@@ -96,6 +96,7 @@ export const EntrenadoresList = () => {
 								responsive
 								highlightOnHover
 								striped
+								theme="dark"
 							/>
 						</Card.Body>
 					</Card>

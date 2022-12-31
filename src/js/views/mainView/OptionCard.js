@@ -33,7 +33,7 @@ export const OptionCard = props => {
 								variant={element.color}
 								onClick={e => {
 									navigate(element.toURL, {
-										accion: element.accion,
+										...element?.navigateState,
 									});
 								}}>
 								{element.buttonText}

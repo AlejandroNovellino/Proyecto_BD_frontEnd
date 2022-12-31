@@ -88,6 +88,7 @@
 		"react": "^17.0.2",
 		"react-bootstrap": "^2.5.0",
 		"react-data-table-component": "^7.5.3",
+		"react-datepicker": "^4.8.0",
 		"react-day-picker": "^8.3.1",
 		"react-dom": "^17.0.2",
 		"react-polyfills": "0.0.1",

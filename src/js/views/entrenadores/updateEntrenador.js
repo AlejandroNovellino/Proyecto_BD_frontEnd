@@ -15,7 +15,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 // react router imports
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import context
 import { Context } from "../../store/appContext";
@@ -23,20 +23,24 @@ import { Context } from "../../store/appContext";
 // import date picker
 import { DatePickerField } from "../datePickerField";
 
-export const CreateEntrenador = () => {
+export const UpdateEntrenador = props => {
 	// state
 	const [lugares, setLugares] = useState([]);
 	// use context
 	const { store, actions } = useContext(Context);
 	// navigate
 	let navigate = useNavigate();
+	// location
+	let location = useLocation();
+	let entrenador = location.state;
+
 	// modal
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const returnHome = () => {
-		navigate("/home");
+	const goBack = () => {
+		navigate(-1);
 	};
 
 	// get lugares when component is mounted
@@ -52,11 +56,11 @@ export const CreateEntrenador = () => {
 	}, []);
 
 	// create entrenador
-	const handleCreate = async values => {
-		let response = await actions.createEntrenador(values);
+	const handleUpdate = async values => {
+		let response = await actions.updateEntrenador(values);
 		if (!response) {
 			console.log(
-				`🚀 ~ file: createEntrenador.js:55 ~ handleCreate ~ response`,
+				`🚀 ~ file: updateEntrenador.js:61 ~ handleUpdate ~ response`,
 				response
 			);
 
@@ -64,7 +68,7 @@ export const CreateEntrenador = () => {
 		} else {
 			handleShow(true);
 			await new Promise(r => setTimeout(r, 2000));
-			navigate("/home");
+			navigate("/entrenadores/update");
 			handleShow(false);
 		}
 	};
@@ -108,9 +112,9 @@ export const CreateEntrenador = () => {
 				backdrop="static"
 				keyboard={false}>
 				<Modal.Header closeButton>
-					<Modal.Title>Entrenador creado</Modal.Title>
+					<Modal.Title>Entrenador actualizado</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>El entrenador se ha creado exitosamente</Modal.Body>
+				<Modal.Body>El entrenador se ha actualizado exitosamente</Modal.Body>
 			</Modal>
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
@@ -126,18 +130,18 @@ export const CreateEntrenador = () => {
 								<Formik
 									validationSchema={schema}
 									onSubmit={values => {
-										handleCreate(values);
+										handleUpdate(values);
 									}}
 									initialValues={{
-										p_cedula: "",
-										p_primer_nombre: "",
-										p_segundo_nombre: "",
-										p_primer_apellido: "",
-										p_segundo_apellido: "",
-										p_sexo: "",
-										p_direccion: "",
-										ent_fecha_ing_hipo: "",
-										fk_lugar: "",
+										p_cedula: entrenador.p_cedula,
+										p_primer_nombre: entrenador.p_primer_nombre,
+										p_segundo_nombre: entrenador.p_segundo_nombre,
+										p_primer_apellido: entrenador.p_primer_apellido,
+										p_segundo_apellido: entrenador.p_segundo_apellido,
+										p_sexo: entrenador.p_sexo,
+										p_direccion: entrenador.p_direccion,
+										ent_fecha_ing_hipo: entrenador.ent_fecha_ing_hipo,
+										fk_lugar: entrenador.fk_lugar,
 									}}>
 									{({
 										handleSubmit,
@@ -250,7 +254,9 @@ export const CreateEntrenador = () => {
 											{/* Cedula y genero */}
 											<Row className="mb-3">
 												<Form.Group as={Col} md="6" controlId="p_cedula">
-													<Form.Label>Cedula Identidad</Form.Label>
+													<Form.Label>
+														Cedula Identidad (inhabilitado)
+													</Form.Label>
 													<Form.Control
 														type="text"
 														name="p_cedula"
@@ -259,6 +265,11 @@ export const CreateEntrenador = () => {
 														onChange={handleChange}
 														isValid={touched.p_cedula && !errors.p_cedula}
 														isInvalid={!!errors.p_cedula}
+														disabled
+														style={{
+															backgroundColor: "#7a7a7a",
+															borderColor: "#565656",
+														}}
 													/>
 													<Form.Control.Feedback>
 														Todo bien!
@@ -384,7 +395,7 @@ export const CreateEntrenador = () => {
 											<Row className="px-3">
 												<Col xs={6} className="ps-0">
 													<div className="d-grid gap-2" type="submit">
-														<Button variant="danger" onClick={returnHome}>
+														<Button variant="danger" onClick={goBack}>
 															Cancelar
 														</Button>
 													</div>
@@ -392,7 +403,7 @@ export const CreateEntrenador = () => {
 												<Col xs={6} className="pe-0">
 													<div className="d-grid gap-2" type="submit">
 														<Button type="submit" variant="primary">
-															Crear
+															Actualizar
 														</Button>
 													</div>
 												</Col>
