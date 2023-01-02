@@ -18,7 +18,7 @@ import DataTable from "react-data-table-component";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const EntrenadoresUpdate = () => {
+export const JinetesUpdate = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
@@ -36,7 +36,7 @@ export const EntrenadoresUpdate = () => {
 	// get entrenadores when component is mounted
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getEntrenadores();
+			let data = await actions.getJinetes();
 			setData(data);
 		};
 
@@ -44,17 +44,6 @@ export const EntrenadoresUpdate = () => {
 
 		return () => {};
 	}, []);
-
-	/*useEffect(() => {
-		const fetchData = async () => {
-			let data = await actions.getEntrenadores();
-			setData(data);
-		};
-
-		fetchData();
-
-		return () => {};
-	}, [elementUpdated]);*/
 
 	// handle select in the table
 	const handleSelect = ({ selectedRows }) => {
@@ -66,7 +55,7 @@ export const EntrenadoresUpdate = () => {
 	const handleUpdate = () => {
 		if (selectedRows.length) {
 			// navigate to UpdateEntrenador
-			navigate("/entrenador/update", { state: selectedRows.at(0) });
+			navigate("/jinete/update", { state: selectedRows.at(0) });
 		} else {
 			setAlertShow(true);
 		}
@@ -114,8 +103,28 @@ export const EntrenadoresUpdate = () => {
 			sortable: true,
 		},
 		{
-			name: "Entrada Hipodromo",
-			selector: row => row.ent_fecha_ing_hipo,
+			name: "Altura",
+			selector: row => row.j_altura,
+			sortable: true,
+		},
+		{
+			name: "Peso al ingresar",
+			selector: row => row.j_peso_al_ingresar,
+			sortable: true,
+		},
+		{
+			name: "Peso actual",
+			selector: row => row.j_peso_actual,
+			sortable: true,
+		},
+		{
+			name: "Rango",
+			selector: row => row.j_rango,
+			sortable: true,
+		},
+		{
+			name: "Fecha ingreso",
+			selector: row => row.j_fecha_nacimiento,
 			sortable: true,
 		},
 	];
@@ -139,7 +148,7 @@ export const EntrenadoresUpdate = () => {
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de entrenadores en el sistema
+								Lista de jinetes en el sistema
 							</Card.Header>
 							<Card.Body>
 								<DataTable

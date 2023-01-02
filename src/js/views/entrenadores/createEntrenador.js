@@ -9,6 +9,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
 
 // formik and yup import
 import { Formik } from "formik";
@@ -34,6 +35,8 @@ export const CreateEntrenador = () => {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	// alert state
+	const [alertShow, setAlertShow] = useState(false);
 
 	const returnHome = () => {
 		navigate("/home");
@@ -51,9 +54,25 @@ export const CreateEntrenador = () => {
 		return () => {};
 	}, []);
 
+	// set nullable elements to null
+	const setNullables = values => {
+		let aux = {
+			...values,
+		};
+		// segundo nombre
+		if (!values.p_segundo_nombre) aux.p_segundo_nombre = null;
+		// segundo apellido
+		if (!values.p_segundo_apellido) aux.p_segundo_apellido = null;
+
+		return aux;
+	};
+
 	// create entrenador
 	const handleCreate = async values => {
-		let response = await actions.createEntrenador(values);
+		// set the nullable elements
+		let params = setNullables(values);
+		// try to create
+		let response = await actions.createEntrenador(params);
 		if (!response) {
 			console.log(
 				`🚀 ~ file: createEntrenador.js:55 ~ handleCreate ~ response`,
@@ -61,6 +80,8 @@ export const CreateEntrenador = () => {
 			);
 
 			console.log("Hubo un error en la creacion");
+			// show the alert
+			setAlertShow(true);
 		} else {
 			handleShow(true);
 			await new Promise(r => setTimeout(r, 2000));
@@ -82,12 +103,18 @@ export const CreateEntrenador = () => {
 			.string()
 			.max(20, "Longitud max 20 caracteres")
 			.required("Es obligatorio"),
-		p_segundo_nombre: yup.string().max(20, "Longitud max 20 caracteres"),
+		p_segundo_nombre: yup
+			.string()
+			.max(20, "Longitud max 20 caracteres")
+			.nullable(),
 		p_primer_apellido: yup
 			.string()
 			.max(20, "Longitud max 20 caracteres")
 			.required("Es obligatorio"),
-		p_segundo_apellido: yup.string().max(20, "Longitud max 20 caracteres"),
+		p_segundo_apellido: yup
+			.string()
+			.max(20, "Longitud max 20 caracteres")
+			.nullable(),
 		p_sexo: yup
 			.string()
 			.oneOf(["M", "F"], "Sexo invalido")
@@ -112,6 +139,19 @@ export const CreateEntrenador = () => {
 				</Modal.Header>
 				<Modal.Body>El entrenador se ha creado exitosamente</Modal.Body>
 			</Modal>
+
+			{alertShow && (
+				<Container className="mt-5">
+					<Alert
+						variant="danger"
+						onClose={() => setAlertShow(false)}
+						dismissible>
+						<Alert.Heading>Hubo un error!</Alert.Heading>
+						<p>La cedula debe ser unica</p>
+					</Alert>
+				</Container>
+			)}
+
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
 					<Col xs={8}>

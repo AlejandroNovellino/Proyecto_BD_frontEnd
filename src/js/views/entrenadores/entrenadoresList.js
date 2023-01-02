@@ -21,15 +21,17 @@ export const EntrenadoresList = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
-	const [entrenadores, setEntrenadores] = useState([]);
-	// function to fetch entrenadores
-	const fetchEntrenadores = async () => {
-		let entrenadores = await actions.getEntrenadores();
-		setEntrenadores(entrenadores);
-	};
-	// get entrenadores
+	const [data, setData] = useState([]);
+	// fetch data
 	useEffect(() => {
-		fetchEntrenadores();
+		const fetchData = async () => {
+			let data = await actions.getEntrenadores();
+			setData(data);
+		};
+
+		fetchData();
+
+		return () => {};
 	}, []);
 
 	const columns = [
@@ -91,7 +93,7 @@ export const EntrenadoresList = () => {
 						<Card.Body>
 							<DataTable
 								columns={columns}
-								data={entrenadores}
+								data={data}
 								pagination
 								responsive
 								highlightOnHover

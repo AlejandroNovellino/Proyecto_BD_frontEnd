@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 
 // import context
@@ -18,12 +19,19 @@ import DataTable from "react-data-table-component";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const EntrenadoresUpdate = () => {
+export const JinetesDelete = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
 	const [data, setData] = useState([]);
 	const [selectedRows, setSelectedRows] = useState([]);
+	const [elementDeleted, setElementDeleted] = useState(0);
+
+	// modal state
+	const [modalShow, setModalShow] = useState(false);
+	// modal functions
+	const handleClose = () => setModalShow(false);
+	const handleShow = () => setModalShow(true);
 
 	// alert state
 	const [alertShow, setAlertShow] = useState(false);
@@ -31,12 +39,10 @@ export const EntrenadoresUpdate = () => {
 	// navigate hook
 	let navigate = useNavigate();
 
-	// function to fetch entrenadores
-
-	// get entrenadores when component is mounted
+	// get data when component is mounted
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getEntrenadores();
+			let data = await actions.getJinetes();
 			setData(data);
 		};
 
@@ -45,16 +51,16 @@ export const EntrenadoresUpdate = () => {
 		return () => {};
 	}, []);
 
-	/*useEffect(() => {
+	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getEntrenadores();
+			let data = await actions.getJinetes();
 			setData(data);
 		};
 
 		fetchData();
 
 		return () => {};
-	}, [elementUpdated]);*/
+	}, [elementDeleted]);
 
 	// handle select in the table
 	const handleSelect = ({ selectedRows }) => {
@@ -62,14 +68,29 @@ export const EntrenadoresUpdate = () => {
 		setSelectedRows(selectedRows);
 	};
 
-	// handle update
-	const handleUpdate = () => {
-		if (selectedRows.length) {
-			// navigate to UpdateEntrenador
-			navigate("/entrenador/update", { state: selectedRows.at(0) });
-		} else {
-			setAlertShow(true);
+	// handle delete
+	const handleDelete = async () => {
+		// Delete the selected elements
+		console.log("Selected Rows: ", selectedRows);
+		for (let element of selectedRows) {
+			let response = await actions.deleteJinete(element.p_cedula);
+			if (!response) {
+				console.log(
+					`🚀 ~ file: jinetesDelete.js:78 ~ handleDelete ~ response`,
+					response
+				);
+
+				console.log("Hubo un error en alguna eliminacion");
+				break;
+			}
+			data.filter(element2 => element2.p_cedula != element.p_cedula);
 		}
+		setData(data);
+		setElementDeleted(elementDeleted + 1);
+		// cover the modal
+		setModalShow(false);
+		// show the alert
+		setAlertShow(true);
 	};
 
 	const columns = [
@@ -114,22 +135,64 @@ export const EntrenadoresUpdate = () => {
 			sortable: true,
 		},
 		{
-			name: "Entrada Hipodromo",
-			selector: row => row.ent_fecha_ing_hipo,
+			name: "Altura",
+			selector: row => row.j_altura,
+			sortable: true,
+		},
+		{
+			name: "Peso al ingresar",
+			selector: row => row.j_peso_al_ingresar,
+			sortable: true,
+		},
+		{
+			name: "Peso actual",
+			selector: row => row.j_peso_actual,
+			sortable: true,
+		},
+		{
+			name: "Rango",
+			selector: row => row.j_rango,
+			sortable: true,
+		},
+		{
+			name: "Fecha ingreso",
+			selector: row => row.j_fecha_nacimiento,
 			sortable: true,
 		},
 	];
 
 	return (
 		<>
+			<Modal
+				show={modalShow}
+				onHide={handleClose}
+				backdrop="static"
+				keyboard={false}>
+				<Modal.Header closeButton>
+					<Modal.Title>Confirmacion</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					Seguro que quiere eliminar los registros seleccionados
+				</Modal.Body>
+				<Modal.Footer>
+					{}
+					<Button variant="secondary" onClick={handleClose}>
+						Cancelar
+					</Button>
+					<Button variant="primary" onClick={handleDelete}>
+						Confirmar
+					</Button>
+				</Modal.Footer>
+			</Modal>
+
 			{alertShow && (
 				<Container className="mt-5">
 					<Alert
-						variant="danger"
+						variant="success"
 						onClose={() => setAlertShow(false)}
 						dismissible>
-						<Alert.Heading>No se selecciono un elemento!</Alert.Heading>
-						<p>Debe seleccionar un elemento para ser actualizado</p>
+						<Alert.Heading>Elementos eliminados!</Alert.Heading>
+						<p>Los elementos seleccionados fueron eliminados correctamente</p>
 					</Alert>
 				</Container>
 			)}
@@ -139,7 +202,7 @@ export const EntrenadoresUpdate = () => {
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de entrenadores en el sistema
+								Lista de jinetes en el sistema
 							</Card.Header>
 							<Card.Body>
 								<DataTable
@@ -150,8 +213,6 @@ export const EntrenadoresUpdate = () => {
 									responsive
 									highlightOnHover
 									striped
-									selectableRowsNoSelectAll
-									selectableRowsSingle
 									onSelectedRowsChange={handleSelect}
 									theme="dark"
 								/>
@@ -170,8 +231,8 @@ export const EntrenadoresUpdate = () => {
 										</Col>
 										<Col xs={6} className="pe-0">
 											<div className="d-grid gap-2" type="submit">
-												<Button variant="warning" onClick={handleUpdate}>
-													Actualizar
+												<Button variant="danger" onClick={handleShow}>
+													Eliminar
 												</Button>
 											</div>
 										</Col>

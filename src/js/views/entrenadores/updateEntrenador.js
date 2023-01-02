@@ -32,7 +32,7 @@ export const UpdateEntrenador = props => {
 	let navigate = useNavigate();
 	// location
 	let location = useLocation();
-	let entrenador = location.state;
+	let element = location.state;
 
 	// modal
 	const [show, setShow] = useState(false);
@@ -55,16 +55,32 @@ export const UpdateEntrenador = props => {
 		return () => {};
 	}, []);
 
+	// set nullable elements to null
+	const setNullables = values => {
+		let aux = {
+			...values,
+		};
+		// segundo nombre
+		if (!values.p_segundo_nombre) aux.p_segundo_nombre = null;
+		// segundo apellido
+		if (!values.p_segundo_apellido) aux.p_segundo_apellido = null;
+
+		return aux;
+	};
+
 	// create entrenador
 	const handleUpdate = async values => {
-		let response = await actions.updateEntrenador(values);
+		// set the nullable elements
+		let params = setNullables(values);
+		// try to update
+		let response = await actions.updateEntrenador(params);
 		if (!response) {
 			console.log(
 				`🚀 ~ file: updateEntrenador.js:61 ~ handleUpdate ~ response`,
 				response
 			);
 
-			console.log("Hubo un error en la creacion");
+			console.log("Hubo un error en la actualizacion");
 		} else {
 			handleShow(true);
 			await new Promise(r => setTimeout(r, 2000));
@@ -86,12 +102,18 @@ export const UpdateEntrenador = props => {
 			.string()
 			.max(20, "Longitud max 20 caracteres")
 			.required("Es obligatorio"),
-		p_segundo_nombre: yup.string().max(20, "Longitud max 20 caracteres"),
+		p_segundo_nombre: yup
+			.string()
+			.max(20, "Longitud max 20 caracteres")
+			.nullable(),
 		p_primer_apellido: yup
 			.string()
 			.max(20, "Longitud max 20 caracteres")
 			.required("Es obligatorio"),
-		p_segundo_apellido: yup.string().max(20, "Longitud max 20 caracteres"),
+		p_segundo_apellido: yup
+			.string()
+			.max(20, "Longitud max 20 caracteres")
+			.nullable(),
 		p_sexo: yup
 			.string()
 			.oneOf(["M", "F"], "Sexo invalido")
@@ -121,11 +143,11 @@ export const UpdateEntrenador = props => {
 					<Col xs={8}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Nuevo entrenador
+								Entrenador a actualizar
 							</Card.Header>
 							<Card.Body className="px-5">
 								<Card.Title className="text-center py-3">
-									Ingrese los datos del entrenador a registrar:
+									Ingrese los datos del entrenador a actualizar:
 								</Card.Title>
 								<Formik
 									validationSchema={schema}
@@ -133,15 +155,19 @@ export const UpdateEntrenador = props => {
 										handleUpdate(values);
 									}}
 									initialValues={{
-										p_cedula: entrenador.p_cedula,
-										p_primer_nombre: entrenador.p_primer_nombre,
-										p_segundo_nombre: entrenador.p_segundo_nombre,
-										p_primer_apellido: entrenador.p_primer_apellido,
-										p_segundo_apellido: entrenador.p_segundo_apellido,
-										p_sexo: entrenador.p_sexo,
-										p_direccion: entrenador.p_direccion,
-										ent_fecha_ing_hipo: entrenador.ent_fecha_ing_hipo,
-										fk_lugar: entrenador.fk_lugar,
+										p_cedula: element.p_cedula,
+										p_primer_nombre: element.p_primer_nombre,
+										p_segundo_nombre: element.p_segundo_nombre
+											? element.p_segundo_nombre
+											: "",
+										p_primer_apellido: element.p_primer_apellido,
+										p_segundo_apellido: element.p_segundo_apellido
+											? element.p_segundo_apellido
+											: "",
+										p_sexo: element.p_sexo,
+										p_direccion: element.p_direccion,
+										ent_fecha_ing_hipo: element.ent_fecha_ing_hipo,
+										fk_lugar: element.fk_lugar,
 									}}>
 									{({
 										handleSubmit,

@@ -24,8 +24,12 @@ import { CreateStud } from "./views/studs/createStud";
 import { StudList } from "./views/studs/studList";
 import { CreatePropietario } from "./views/propietarios/createPropietario";
 import { PropietariosList } from "./views/propietarios/propietariosList";
+// jinetes
 import { CreateJinete } from "./views/jinetes/createJinete";
+import { UpdateJinete } from "./views/jinetes/updateJinete";
 import { JinetesList } from "./views/jinetes/jinetesList";
+import { JinetesUpdate } from "./views/jinetes/jinetesUpdate";
+import { JinetesDelete } from "./views/jinetes/jinetesDelete";
 // entrenadores
 import { CreateEntrenador } from "./views/entrenadores/createEntrenador";
 import { UpdateEntrenador } from "./views/entrenadores/updateEntrenador";
@@ -72,8 +76,12 @@ const Layout = () => {
 						<Route path="/studs" element={<StudList />} />
 						<Route path="/propietario-create" element={<CreatePropietario />} />
 						<Route path="/propietarios" element={<PropietariosList />} />
-						<Route path="/jinete-create" element={<CreateJinete />} />
+						{/* Jinetes */}
+						<Route path="/jinete/create" element={<CreateJinete />} />
+						<Route path="/jinete/update" element={<UpdateJinete />} />
 						<Route path="/jinetes" element={<JinetesList />} />
+						<Route path="/jinetes/update" element={<JinetesUpdate />} />
+						<Route path="/jinetes/delete" element={<JinetesDelete />} />
 						{/* Entrenadores */}
 						<Route path="/entrenador/create" element={<CreateEntrenador />} />
 						<Route path="/entrenador/update" element={<UpdateEntrenador />} />

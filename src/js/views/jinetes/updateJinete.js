@@ -15,7 +15,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 // react router imports
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import context
 import { Context } from "../../store/appContext";
@@ -23,13 +23,16 @@ import { Context } from "../../store/appContext";
 // import date picker
 import { DatePickerField } from "../datePickerField";
 
-export const CreateJinete = () => {
+export const UpdateJinete = () => {
 	// state
 	const [lugares, setLugares] = useState([]);
 	// use context
 	const { store, actions } = useContext(Context);
 	// navigate
 	let navigate = useNavigate();
+	// location
+	let location = useLocation();
+	let element = location.state;
 	// modal
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -37,8 +40,8 @@ export const CreateJinete = () => {
 	// alert state
 	const [alertShow, setAlertShow] = useState(false);
 
-	const returnHome = () => {
-		navigate("/home");
+	const goBack = () => {
+		navigate(-1);
 	};
 
 	// get lugares when component is mounted
@@ -68,25 +71,25 @@ export const CreateJinete = () => {
 		return aux;
 	};
 
-	// create entrenador
-	const handleCreate = async values => {
+	// update element
+	const handleUpdate = async values => {
 		// set the nullable elements
 		let params = setNullables(values);
 		// try to create
-		let response = await actions.createJinete(params);
+		let response = await actions.updateJinete(params);
 		if (!response) {
 			console.log(
-				`🚀 ~ file: createJinete.js:58 ~ handleCreate ~ response`,
+				`🚀 ~ file: updateJinete.js:81 ~ handleUpdate ~ response`,
 				response
 			);
 
-			console.log("Hubo un error en la creacion");
+			console.log("Hubo un error en la actualizacion");
 			// show the alert
 			setAlertShow(true);
 		} else {
 			handleShow(true);
 			await new Promise(r => setTimeout(r, 2000));
-			navigate("/home");
+			navigate("/jinetes/update");
 			handleShow(false);
 		}
 	};
@@ -163,9 +166,9 @@ export const CreateJinete = () => {
 				backdrop="static"
 				keyboard={false}>
 				<Modal.Header closeButton>
-					<Modal.Title>Jinete creado</Modal.Title>
+					<Modal.Title>Jinete actualizado</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>El jinete se ha creado exitosamente</Modal.Body>
+				<Modal.Body>El jinete se ha actualizado exitosamente</Modal.Body>
 			</Modal>
 
 			{alertShow && (
@@ -184,31 +187,37 @@ export const CreateJinete = () => {
 				<Row className="justify-content-md-center py-4">
 					<Col xs={8}>
 						<Card bg={"dark"} text={"white"} className="">
-							<Card.Header className="fs-5 fw-bold">Nuevo jinete</Card.Header>
+							<Card.Header className="fs-5 fw-bold">
+								Jinete a actualizar
+							</Card.Header>
 							<Card.Body className="px-5">
 								<Card.Title className="text-center py-3">
-									Ingrese los datos del jinete a registrar:
+									Ingrese los datos del jinete a actualizar:
 								</Card.Title>
 								<Formik
 									validationSchema={schema}
 									onSubmit={values => {
-										handleCreate(values);
+										handleUpdate(values);
 									}}
 									initialValues={{
-										p_cedula: "",
-										p_primer_nombre: "",
-										p_segundo_nombre: "",
-										p_primer_apellido: "",
-										p_segundo_apellido: "",
-										p_sexo: "",
-										p_direccion: "",
-										ent_fecha_ing_hipo: "",
-										fk_lugar: "",
-										j_altura: "",
-										j_peso_al_ingresar: "",
-										j_peso_actual: "",
-										j_rango: "",
-										j_fecha_nacimiento: "",
+										p_cedula: element.p_cedula,
+										p_primer_nombre: element.p_primer_nombre,
+										p_segundo_nombre: element.p_segundo_nombre
+											? element.p_segundo_nombre
+											: "",
+										p_primer_apellido: element.p_primer_apellido,
+										p_segundo_apellido: element.p_segundo_apellido
+											? element.p_segundo_apellido
+											: "",
+										p_sexo: element.p_sexo,
+										p_direccion: element.p_direccion,
+										ent_fecha_ing_hipo: element.ent_fecha_ing_hipo,
+										fk_lugar: element.fk_lugar,
+										j_altura: element.j_altura,
+										j_peso_al_ingresar: element.j_peso_al_ingresar,
+										j_peso_actual: element.j_peso_actual,
+										j_rango: element.j_rango ? element.j_rango : "",
+										j_fecha_nacimiento: element.j_fecha_nacimiento,
 									}}>
 									{({
 										handleSubmit,
@@ -330,6 +339,11 @@ export const CreateJinete = () => {
 														onChange={handleChange}
 														isValid={touched.p_cedula && !errors.p_cedula}
 														isInvalid={!!errors.p_cedula}
+														disabled
+														style={{
+															backgroundColor: "#7a7a7a",
+															borderColor: "#565656",
+														}}
 													/>
 													<Form.Control.Feedback>
 														Todo bien!
@@ -369,10 +383,10 @@ export const CreateJinete = () => {
 														isValid={touched.fk_lugar && !errors.fk_lugar}
 														isInvalid={!!errors.fk_lugar}>
 														<option>Seleccione</option>
-														{lugares.map((element, index) => {
+														{lugares.map((lugar, index) => {
 															return (
-																<option key={index} value={element.l_clave}>
-																	{element.l_nombre}
+																<option key={index} value={lugar.l_clave}>
+																	{lugar.l_nombre}
 																</option>
 															);
 														})}
@@ -542,7 +556,7 @@ export const CreateJinete = () => {
 											<Row className="px-3">
 												<Col xs={6} className="ps-0">
 													<div className="d-grid gap-2" type="submit">
-														<Button variant="danger" onClick={returnHome}>
+														<Button variant="danger" onClick={goBack}>
 															Cancelar
 														</Button>
 													</div>
@@ -550,7 +564,7 @@ export const CreateJinete = () => {
 												<Col xs={6} className="pe-0">
 													<div className="d-grid gap-2" type="submit">
 														<Button type="submit" variant="primary">
-															Crear
+															Actualizar
 														</Button>
 													</div>
 												</Col>

@@ -154,6 +154,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			getJinetes: async () => {
+				try {
+					const response = await axiosInstance.get("/jinetes");
+
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createJinete: async values => {
+				try {
+					const response = await axiosInstance.post("/jinetes", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updateJinete: async values => {
+				try {
+					let { p_cedula, ...data } = values;
+					const response = await axiosInstance.put("/jinetes/" + p_cedula, {
+						...data,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteJinete: async element_id => {
+				try {
+					const response = await axiosInstance.delete("/jinetes/" + element_id);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
 			getLugaresByType: async () => {
 				try {
 					const response = await axiosInstance.get("/lugares");

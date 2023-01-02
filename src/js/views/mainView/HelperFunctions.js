@@ -61,8 +61,22 @@ export const urlPicker = (tabla, accion) => {
 			}
 
 		case "Jinete":
-			if (accion == "CREATE") return "/jinete-create";
-			return "/jinetes";
+			switch (accion) {
+				case "CREATE":
+					return "/jinete/create";
+
+				case "READ":
+					return "/jinetes";
+
+				case "UPDATE":
+					return "/jinetes/update";
+
+				case "DELETE":
+					return "/jinetes/delete";
+
+				default:
+					return "/jinetes";
+			}
 
 		default:
 			return "";
