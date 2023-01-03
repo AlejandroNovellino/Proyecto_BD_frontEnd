@@ -217,6 +217,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return {};
 				}
 			},
+			getCaballerizas: async () => {
+				try {
+					const response = await axiosInstance.get("/caballerizas");
+					// get data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return {};
+				}
+			},
+			createHistoricoEntrenador: async values => {
+				try {
+					const response = await axiosInstance.post(
+						"/historicos/entrenadores",
+						{
+							...values,
+						}
+					);
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			getHistoricoEntrenador: async () => {
+				try {
+					const response = await axiosInstance.get("/historicos/entrenadores");
+					// get data
+					return response.data.map(element => {
+						let jsonElement = JSON.parse(element);
+						return {
+							...jsonElement,
+							he_activo: jsonElement.he_activo ? "Activo" : "Inactivo",
+						};
+					});
+				} catch (error) {
+					return {};
+				}
+			},
+			deleteHistoricoEntrenador: async historico_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/historico/entrenador/" + historico_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
 		},
 	};
 };

@@ -36,6 +36,9 @@ import { UpdateEntrenador } from "./views/entrenadores/updateEntrenador";
 import { EntrenadoresList } from "./views/entrenadores/entrenadoresList";
 import { EntrenadoresUpdate } from "./views/entrenadores/entrenadoresUpdate";
 import { EntrenadoresDelete } from "./views/entrenadores/entrenadoresDelete";
+// historicos entrenadores
+import { CreateHistoricoEntrenador } from "./views/entrenadores_historico/createHistoricoEntrenador";
+import { DeleteHistoricoEntrenador } from "./views/entrenadores_historico/deleteHistoricoEntrenador";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -93,6 +96,15 @@ const Layout = () => {
 						<Route
 							path="/entrenadores/delete"
 							element={<EntrenadoresDelete />}
+						/>
+						{/* Historico entrenador */}
+						<Route
+							path="/historico/entrenador/create"
+							element={<CreateHistoricoEntrenador />}
+						/>
+						<Route
+							path="/historicos/entrenadores/delete"
+							element={<DeleteHistoricoEntrenador />}
 						/>
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />

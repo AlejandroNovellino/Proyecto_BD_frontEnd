@@ -421,6 +421,7 @@ export const CreateEntrenador = () => {
 													</Form.Control.Feedback>
 												</Form.Group>
 											</Row>
+											{/* Buttons */}
 											<Row className="px-3">
 												<Col xs={6} className="ps-0">
 													<div className="d-grid gap-2" type="submit">

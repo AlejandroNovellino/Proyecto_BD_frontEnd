@@ -33,6 +33,7 @@ export const MainHome = () => {
 		"Propietario",
 		"Jinete",
 		"Entrenador",
+		"Historico_Entrenador",
 		"Veterinario",
 		"Implemento",
 		"Solicitud_Implemento",
@@ -66,10 +67,6 @@ export const MainHome = () => {
 								toURL: urlPicker(element, accion),
 								accion: accion,
 								buttonText: textPicker(accion),
-								navigateState: {
-									fetchData: () => {},
-									handleDeleteData: () => {},
-								},
 							};
 						});
 						return (

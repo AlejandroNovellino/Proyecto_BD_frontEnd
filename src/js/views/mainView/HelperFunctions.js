@@ -60,6 +60,18 @@ export const urlPicker = (tabla, accion) => {
 					return "/entrenadores";
 			}
 
+		case "Historico_Entrenador":
+			switch (accion) {
+				case "CREATE":
+					return "/historico/entrenador/create";
+
+				case "DELETE":
+					return "/historicos/entrenadores/delete";
+
+				default:
+					return "/home";
+			}
+
 		case "Jinete":
 			switch (accion) {
 				case "CREATE":
