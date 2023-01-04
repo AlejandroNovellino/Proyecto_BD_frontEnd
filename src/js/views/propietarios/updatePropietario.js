@@ -9,14 +9,13 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Alert from "react-bootstrap/Alert";
 
 // formik and yup import
 import { Formik } from "formik";
 import * as yup from "yup";
 
 // react router imports
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import context
 import { Context } from "../../store/appContext";
@@ -24,22 +23,24 @@ import { Context } from "../../store/appContext";
 // import date picker
 import { DatePickerField } from "../datePickerField";
 
-export const CreatePropietario = () => {
+export const UpdatePropietario = props => {
 	// state
 	const [lugares, setLugares] = useState([]);
 	// use context
 	const { store, actions } = useContext(Context);
 	// navigate
 	let navigate = useNavigate();
+	// location
+	let location = useLocation();
+	let element = location.state;
+
 	// modal
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	// alert state
-	const [alertShow, setAlertShow] = useState(false);
 
-	const returnHome = () => {
-		navigate("/home");
+	const goBack = () => {
+		navigate(-1);
 	};
 
 	// get lugares when component is mounted
@@ -68,21 +69,19 @@ export const CreatePropietario = () => {
 	};
 
 	// create entrenador
-	const handleCreate = async values => {
+	const handleUpdate = async values => {
 		// set the nullable elements
 		let params = setNullables(values);
-		// try to create
-		let response = await actions.createPropietario(params);
+		// try to update
+		let response = await actions.updatePropietario(params);
 		if (!response) {
 			console.log(response);
 
-			console.log("Hubo un error en la creacion");
-			// show the alert
-			setAlertShow(true);
+			console.log("Hubo un error en la actualizacion");
 		} else {
 			handleShow(true);
 			await new Promise(r => setTimeout(r, 2000));
-			navigate("/home");
+			navigate("/propietarios/update");
 			handleShow(false);
 		}
 	};
@@ -137,50 +136,41 @@ export const CreatePropietario = () => {
 				backdrop="static"
 				keyboard={false}>
 				<Modal.Header closeButton>
-					<Modal.Title>Propietario creado</Modal.Title>
+					<Modal.Title>Propietario actualizado</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>El propietario se ha creado exitosamente</Modal.Body>
+				<Modal.Body>El propietario se ha actualizado exitosamente</Modal.Body>
 			</Modal>
-
-			{alertShow && (
-				<Container className="mt-5">
-					<Alert
-						variant="danger"
-						onClose={() => setAlertShow(false)}
-						dismissible>
-						<Alert.Heading>Hubo un error!</Alert.Heading>
-						<p>La cedula debe ser unica</p>
-					</Alert>
-				</Container>
-			)}
-
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
 					<Col xs={8}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Nuevo propietario
+								Propietario a actualizar
 							</Card.Header>
 							<Card.Body className="px-5">
 								<Card.Title className="text-center py-3">
-									Ingrese los datos del propietario a registrar:
+									Ingrese los datos del propietario a actualizar:
 								</Card.Title>
 								<Formik
 									validationSchema={schema}
 									onSubmit={values => {
-										handleCreate(values);
+										handleUpdate(values);
 									}}
 									initialValues={{
-										p_cedula: "",
-										p_primer_nombre: "",
-										p_segundo_nombre: "",
-										p_primer_apellido: "",
-										p_segundo_apellido: "",
-										p_sexo: "",
-										p_direccion: "",
-										pr_correo: "",
-										pr_fecha_nacimiento: "",
-										fk_lugar: "",
+										p_cedula: element.p_cedula,
+										p_primer_nombre: element.p_primer_nombre,
+										p_segundo_nombre: element.p_segundo_nombre
+											? element.p_segundo_nombre
+											: "",
+										p_primer_apellido: element.p_primer_apellido,
+										p_segundo_apellido: element.p_segundo_apellido
+											? element.p_segundo_apellido
+											: "",
+										p_sexo: element.p_sexo,
+										p_direccion: element.p_direccion,
+										pr_correo: element.pr_correo,
+										pr_fecha_nacimiento: element.pr_fecha_nacimiento,
+										fk_lugar: element.fk_lugar,
 									}}>
 									{({
 										handleSubmit,
@@ -323,6 +313,11 @@ export const CreatePropietario = () => {
 														onChange={handleChange}
 														isValid={touched.p_cedula && !errors.p_cedula}
 														isInvalid={!!errors.p_cedula}
+														disabled
+														style={{
+															backgroundColor: "#7a7a7a",
+															borderColor: "#565656",
+														}}
 													/>
 													<Form.Control.Feedback>
 														Todo bien!
@@ -449,7 +444,7 @@ export const CreatePropietario = () => {
 											<Row className="px-3">
 												<Col xs={6} className="ps-0">
 													<div className="d-grid gap-2" type="submit">
-														<Button variant="danger" onClick={returnHome}>
+														<Button variant="danger" onClick={goBack}>
 															Cancelar
 														</Button>
 													</div>
@@ -457,7 +452,7 @@ export const CreatePropietario = () => {
 												<Col xs={6} className="pe-0">
 													<div className="d-grid gap-2" type="submit">
 														<Button type="submit" variant="primary">
-															Crear
+															Actualizar
 														</Button>
 													</div>
 												</Col>

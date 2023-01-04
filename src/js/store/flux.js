@@ -105,6 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					JSON.stringify(store.userPermissions)
 				);
 			},
+			//Entrenador -----------------------------------------------------------------------------------
 			getEntrenadores: async () => {
 				try {
 					const response = await axiosInstance.get("/entrenadores");
@@ -154,6 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//Jinete -----------------------------------------------------------------------------------
 			getJinetes: async () => {
 				try {
 					const response = await axiosInstance.get("/jinetes");
@@ -198,6 +200,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//Lugares -----------------------------------------------------------------------------------
 			getLugaresByType: async () => {
 				try {
 					const response = await axiosInstance.get("/lugares");
@@ -217,6 +220,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return {};
 				}
 			},
+			//Caballerizas -----------------------------------------------------------------------------------
 			getCaballerizas: async () => {
 				try {
 					const response = await axiosInstance.get("/caballerizas");
@@ -228,6 +232,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return {};
 				}
 			},
+			//Historico entrenador -----------------------------------------------------------------------------------
 			createHistoricoEntrenador: async values => {
 				try {
 					const response = await axiosInstance.post(
@@ -268,6 +273,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			// Stud -----------------------------------------------------------------------------------
 			getStuds: async () => {
 				try {
 					const response = await axiosInstance.get("/studs");
@@ -319,6 +325,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return [];
 				}
 			},
+			//Propietarios -----------------------------------------------------------------------------------
 			getPropietarios: async () => {
 				try {
 					const response = await axiosInstance.get("/propietarios");
@@ -330,6 +337,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return [];
 				}
 			},
+			createPropietario: async values => {
+				try {
+					const response = await axiosInstance.post("/propietarios", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updatePropietario: async values => {
+				try {
+					let { p_cedula, ...data } = values;
+					const response = await axiosInstance.put(
+						"/propietarios/" + p_cedula,
+						{
+							...data,
+						}
+					);
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deletePropietario: async propietario_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/propietarios/" + propietario_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			//StudPropietario -----------------------------------------------------------------------------------
 			createStudPropietario: async values => {
 				try {
 					const response = await axiosInstance.post("/propietarios/studs", {
@@ -341,6 +386,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			//StudColor -----------------------------------------------------------------------------------
 			createStudColor: async values => {
 				try {
 					const response = await axiosInstance.post("/colores/studs", {

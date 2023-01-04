@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../../styles/index.css";
 
 // react bootstrap components
@@ -9,75 +9,102 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
+// import context
+import { Context } from "../../store/appContext";
+
+// table import
+import DataTable from "react-data-table-component";
+
 // react dom imports
 
 export const PropietariosList = () => {
-	const propietarios = [
+	// use context
+	const { store, actions } = useContext(Context);
+	// state
+	const [data, setData] = useState([]);
+	// fetch data
+	useEffect(() => {
+		const fetchData = async () => {
+			let data = await actions.getPropietarios();
+			setData(data);
+		};
+
+		fetchData();
+
+		return () => {};
+	}, []);
+
+	const columns = [
 		{
-			name: "Carlos",
-			lastName: "Perez",
-			ci: "34.567.999",
-			mail: "perez@gnmail.com",
+			name: "Cedula",
+			selector: row => row.p_cedula,
+			sortable: true,
 		},
 		{
-			name: "Julio",
-			lastName: "Perez",
-			ci: "34.567.345",
-			mail: "jp@gnmail.com",
+			name: "Primer Nombre",
+			selector: row => row.p_primer_nombre,
+			sortable: true,
 		},
 		{
-			name: "Ruperto",
-			lastName: "Lopez",
-			ci: "34.345.999",
-			mail: "ruper@gnmail.com",
+			name: "Segundo Nombre",
+			selector: row => row.p_segundo_nombre,
+			sortable: true,
+		},
+		{
+			name: "Primer Apellido",
+			selector: row => row.p_primer_apellido,
+			sortable: true,
+		},
+		{
+			name: "Segundo Apellido",
+			selector: row => row.p_segundo_apellido,
+			sortable: true,
+		},
+		{
+			name: "Correo",
+			selector: row => row.pr_correo,
+			sortable: true,
+		},
+		{
+			name: "Sexo",
+			selector: row => row.p_sexo,
+			sortable: true,
+		},
+		{
+			name: "Lugar",
+			selector: row => row.fk_lugar,
+			sortable: true,
+		},
+		{
+			name: "Direccion",
+			selector: row => row.p_direccion,
+			sortable: true,
+		},
+		{
+			name: "Fecha Nacimiento",
+			selector: row => row.pr_fecha_nacimiento,
+			sortable: true,
 		},
 	];
 
 	return (
 		<Container fluid>
 			<Row className="justify-content-md-center py-4">
-				<Col xs={9}>
+				<Col xs={12}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
 							Lista de propietarios en el sistema
 						</Card.Header>
 						<Card.Body>
-							<Table striped bordered hover variant="dark">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>CI</th>
-										<th>Correo</th>
-										<th>Actualizar</th>
-										<th>Eliminar</th>
-									</tr>
-								</thead>
-								<tbody>
-									{propietarios.map((propietario, index) => {
-										return (
-											<tr key={index}>
-												<td>{index}</td>
-												<td>{propietario?.name}</td>
-												<td>{propietario?.lastName}</td>
-												<td>{propietario?.ci}</td>
-												<td>{propietario?.mail}</td>
-												<td className="text-center">
-													<Button variant="warning" className="px-4">
-														<i class="fas fa-user-edit"></i>
-													</Button>
-												</td>
-												<td className="text-center">
-													<Button variant="danger" className="px-4">
-														<i class="fas fa-trash"></i>
-													</Button>
-												</td>
-											</tr>
-										);
-									})}
-								</tbody>
-							</Table>
+							<DataTable
+								columns={columns}
+								data={data}
+								pagination
+								responsive
+								highlightOnHover
+								striped
+								theme="dark"
+							/>
 						</Card.Body>
 					</Card>
 				</Col>

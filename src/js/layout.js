@@ -28,7 +28,10 @@ import { StudsDelete } from "./views/studs/studsDelete";
 import { StudsUpdate } from "./views/studs/studsUpdate";
 // propietarios
 import { CreatePropietario } from "./views/propietarios/createPropietario";
+import { UpdatePropietario } from "./views/propietarios/updatePropietario";
 import { PropietariosList } from "./views/propietarios/propietariosList";
+import { PropietariosUpdate } from "./views/propietarios/propietariosUpdate";
+import { PropietariosDelete } from "./views/propietarios/propietariosDelete";
 // jinetes
 import { CreateJinete } from "./views/jinetes/createJinete";
 import { UpdateJinete } from "./views/jinetes/updateJinete";
@@ -87,8 +90,17 @@ const Layout = () => {
 						<Route path="/studs/update" element={<StudsUpdate />} />
 						<Route path="/studs/delete" element={<StudsDelete />} />
 						{/* Propietarios */}
-						<Route path="/propietario-create" element={<CreatePropietario />} />
+						<Route path="/propietario/create" element={<CreatePropietario />} />
+						<Route path="/propietario/update" element={<UpdatePropietario />} />
 						<Route path="/propietarios" element={<PropietariosList />} />
+						<Route
+							path="/propietarios/update"
+							element={<PropietariosUpdate />}
+						/>
+						<Route
+							path="/propietarios/delete"
+							element={<PropietariosDelete />}
+						/>
 						{/* Jinetes */}
 						<Route path="/jinete/create" element={<CreateJinete />} />
 						<Route path="/jinete/update" element={<UpdateJinete />} />
