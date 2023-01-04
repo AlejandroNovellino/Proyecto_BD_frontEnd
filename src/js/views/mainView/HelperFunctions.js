@@ -90,6 +90,24 @@ export const urlPicker = (tabla, accion) => {
 					return "/jinetes";
 			}
 
+		case "Stud":
+			switch (accion) {
+				case "CREATE":
+					return "/stud/create";
+
+				case "READ":
+					return "/studs";
+
+				case "UPDATE":
+					return "/studs/update";
+
+				case "DELETE":
+					return "/studs/delete";
+
+				default:
+					return "/studs";
+			}
+
 		default:
 			return "";
 	}

@@ -268,6 +268,90 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			getStuds: async () => {
+				try {
+					const response = await axiosInstance.get("/studs");
+					// return the data
+
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			createStud: async values => {
+				try {
+					const response = await axiosInstance.post("/studs", {
+						...values,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			updateStud: async values => {
+				try {
+					let { s_clave, ...data } = values;
+					const response = await axiosInstance.put("/studs/" + s_clave, {
+						...data,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteStud: async stud_id => {
+				try {
+					const response = await axiosInstance.delete("/studs/" + stud_id);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			getColores: async () => {
+				try {
+					const response = await axiosInstance.get("/colors");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			getPropietarios: async () => {
+				try {
+					const response = await axiosInstance.get("/propietarios");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createStudPropietario: async values => {
+				try {
+					const response = await axiosInstance.post("/propietarios/studs", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			createStudColor: async values => {
+				try {
+					const response = await axiosInstance.post("/colores/studs", {
+						...values,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
 		},
 	};
 };

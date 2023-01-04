@@ -20,8 +20,13 @@ import { UserList } from "./views/usersAdm/userList";
 import { CreateUser } from "./views/usersAdm/createUser";
 import { CreateEjemplar } from "./views/ejemplares/createEjemplar";
 import { EjemplaresList } from "./views/ejemplares/ejemplaresList";
+// studs
 import { CreateStud } from "./views/studs/createStud";
-import { StudList } from "./views/studs/studList";
+import { UpdateStud } from "./views/studs/updateStud";
+import { StudsList } from "./views/studs/studsList";
+import { StudsDelete } from "./views/studs/studsDelete";
+import { StudsUpdate } from "./views/studs/studsUpdate";
+// propietarios
 import { CreatePropietario } from "./views/propietarios/createPropietario";
 import { PropietariosList } from "./views/propietarios/propietariosList";
 // jinetes
@@ -75,8 +80,13 @@ const Layout = () => {
 						<Route path="/user-create" element={<CreateUser />} />
 						<Route path="/ejemplar-create" element={<CreateEjemplar />} />
 						<Route path="/ejemplares" element={<EjemplaresList />} />
-						<Route path="/stud-create" element={<CreateStud />} />
-						<Route path="/studs" element={<StudList />} />
+						{/* studs */}
+						<Route path="/stud/create" element={<CreateStud />} />
+						<Route path="/stud/update" element={<UpdateStud />} />
+						<Route path="/studs" element={<StudsList />} />
+						<Route path="/studs/update" element={<StudsUpdate />} />
+						<Route path="/studs/delete" element={<StudsDelete />} />
+						{/* Propietarios */}
 						<Route path="/propietario-create" element={<CreatePropietario />} />
 						<Route path="/propietarios" element={<PropietariosList />} />
 						{/* Jinetes */}
