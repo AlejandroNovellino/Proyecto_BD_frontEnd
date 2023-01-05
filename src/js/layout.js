@@ -51,6 +51,10 @@ import { EntrenadoresDelete } from "./views/entrenadores/entrenadoresDelete";
 // historicos entrenadores
 import { CreateHistoricoEntrenador } from "./views/entrenadores_historico/createHistoricoEntrenador";
 import { DeleteHistoricoEntrenador } from "./views/entrenadores_historico/deleteHistoricoEntrenador";
+// binomios
+import { CreateBinomio } from "./views/binomios/createBinomio";
+import { BinomiosList } from "./views/binomios/binomiosList";
+import { BinomiosDelete } from "./views/binomios/binomiosDelete";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -136,6 +140,10 @@ const Layout = () => {
 							path="/historicos/entrenadores/delete"
 							element={<DeleteHistoricoEntrenador />}
 						/>
+						{/* Binomios */}
+						<Route path="/binomio/create" element={<CreateBinomio />} />
+						<Route path="/binomios" element={<BinomiosList />} />
+						<Route path="/binomios/delete" element={<BinomiosDelete />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

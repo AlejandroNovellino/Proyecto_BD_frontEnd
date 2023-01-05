@@ -134,14 +134,14 @@ export const CreateJinete = () => {
 			.number()
 			.integer()
 			.positive("Solo puede ser positiva")
-			.lessThan(100, "Debe ser menor a 9.99 m")
+			.lessThan(99, "Debe ser menor a 99 kg")
 			.moreThan(0, "No puede ser 0")
 			.required("Es obligatorio"),
 		j_peso_actual: yup
 			.number()
 			.integer()
 			.positive("Solo puede ser positiva")
-			.lessThan(100, "Debe ser menor a 9.99 m")
+			.lessThan(99, "Debe ser menor a 99 kg")
 			.moreThan(0, "No puede ser 0")
 			.required("Es obligatorio"),
 		j_rango: yup

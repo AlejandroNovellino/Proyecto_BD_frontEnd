@@ -517,6 +517,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//Binomios -----------------------------------------------------------------------------------
+			getBinomios: async () => {
+				try {
+					const response = await axiosInstance.get("/binomios");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createBinomios: async values => {
+				try {
+					const response = await axiosInstance.post("/binomios", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteBinomio: async binomio_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/binomios/" + binomio_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
 		},
 	};
 };

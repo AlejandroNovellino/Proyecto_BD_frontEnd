@@ -29,6 +29,7 @@ export const MainHome = () => {
 		"Carrera",
 		"Inscripcion",
 		"Ejemplar",
+		"Binomio",
 		"Stud",
 		"Propietario",
 		"Jinete",

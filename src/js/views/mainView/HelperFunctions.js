@@ -140,6 +140,21 @@ export const urlPicker = (tabla, accion) => {
 					return "/ejemplares";
 			}
 
+		case "Binomio":
+			switch (accion) {
+				case "CREATE":
+					return "/binomio/create";
+
+				case "READ":
+					return "/binomios";
+
+				case "DELETE":
+					return "/binomios/delete";
+
+				default:
+					return "/binomios";
+			}
+
 		default:
 			return "";
 	}
