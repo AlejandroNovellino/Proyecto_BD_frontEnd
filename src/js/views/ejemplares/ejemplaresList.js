@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../../styles/index.css";
 
 // react bootstrap components
@@ -9,101 +9,107 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
-// react-router-bootstrap import
-import { LinkContainer } from "react-router-bootstrap";
+// import context
+import { Context } from "../../store/appContext";
+
+// table import
+import DataTable from "react-data-table-component";
+
+// react dom imports
 
 export const EjemplaresList = () => {
-	const ejemplares = [
+	// use context
+	const { store, actions } = useContext(Context);
+	// state
+	const [data, setData] = useState([]);
+	// fetch data
+	useEffect(() => {
+		const fetchData = async () => {
+			let data = await actions.getEjemplares();
+			setData(data);
+		};
+
+		fetchData();
+
+		return () => {};
+	}, []);
+
+	const columns = [
 		{
-			name: "Crimson",
-			numeroPelaje: 1,
-			pelaje: "negro",
-			sexo: "masculino",
-			nombrePadre: "",
-			nombreMadre: "",
-			numCaballeriza: 0,
-			puestoCaballeriza: 0,
-			imagen: "",
-			stud: "Stud 1",
-			propietarios: ["prop_1", "prop_2"],
+			name: "Tatuaje labial",
+			selector: row => row.e_tatuaje_labial,
+			sortable: true,
 		},
 		{
-			name: "America",
-			numeroPelaje: 2,
-			pelaje: "negro",
-			sexo: "masculino",
-			nombrePadre: "",
-			nombreMadre: "",
-			numCaballeriza: 0,
-			puestoCaballeriza: 0,
-			imagen: "",
-			stud: "Stud 2",
-			propietarios: ["prop_1", "prop_2"],
+			name: "Nombre",
+			selector: row => row.e_nombre,
+			sortable: true,
+		},
+		{
+			name: "Color pelaje",
+			selector: row =>
+				row.e_color_pelaje === "C"
+					? "Castano"
+					: row.e_color_pelaje === "Z"
+					? "Zaino"
+					: row.e_color_pelaje === "A"
+					? "Alazan"
+					: "Tordillo",
+			sortable: true,
+		},
+		{
+			name: "Sexo",
+			selector: row => (row.e_sexo === "Y" ? "Yegua" : "Caballo"),
+			sortable: true,
+		},
+		{
+			name: "Fecha nacimiento",
+			selector: row => row.e_fecha_nacimiento,
+			sortable: true,
+		},
+		{
+			name: "Fecha ingreso hipodromo",
+			selector: row => row.e_fecha_ing_hipo,
+			sortable: true,
+		},
+		{
+			name: "Peso",
+			selector: row => row.e_peso,
+			sortable: true,
+		},
+		{
+			name: "Madre",
+			selector: row => (row.parent?.e_nombre ? row.parent?.e_nombre : ""),
+			sortable: true,
+		},
+		{
+			name: "Padre",
+			selector: row => (row.parent1?.e_nombre ? row.parent1?.e_nombre : ""),
+			sortable: true,
 		},
 	];
 
 	return (
 		<Container fluid>
-			<Row xs={4} md={4} className="justify-content-md-center pt-4 px-4">
-				<Col md={12}>
-					<Card bg={"secondary"} text={"white"}>
+			<Row className="justify-content-md-center py-4">
+				<Col xs={12}>
+					<Card bg={"dark"} text={"white"} className="">
+						<Card.Header className="fs-5 fw-bold">
+							Lista de ejemplares en el sistema
+						</Card.Header>
 						<Card.Body>
-							<Card.Title className="m-0">
-								Ejemplares registrados en el sistema
-							</Card.Title>
+							<DataTable
+								columns={columns}
+								data={data}
+								pagination
+								responsive
+								highlightOnHover
+								striped
+								theme="dark"
+							/>
 						</Card.Body>
 					</Card>
 				</Col>
-			</Row>
-			<Row xs={3} md={3} className="justify-content-md-center p-4 g-4">
-				{ejemplares.map((ejemplar, index) => {
-					return (
-						<Col key={index}>
-							<Card bg={"dark"} text={"white"}>
-								<Card.Header className="fs-5 fw-bold">
-									{ejemplar?.name}
-								</Card.Header>
-								<Card.Body>
-									<Table striped bordered hover variant="dark">
-										<thead>
-											<tr></tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>{"Numero pelaje"}</td>
-												<td>{ejemplar?.numeroPelaje}</td>
-											</tr>
-											<tr>
-												<td>{"Pelaje"}</td>
-												<td>{ejemplar?.pelaje}</td>
-											</tr>
-											<tr>
-												<td>{"Numero de caballeriza"}</td>
-												<td>{ejemplar?.numCaballeriza}</td>
-											</tr>
-											<tr>
-												<td>{"Puesto en la caballeriza"}</td>
-												<td>{ejemplar?.puestoCaballeriza}</td>
-											</tr>
-											<tr>
-												<td>{"Stud"}</td>
-												<td>{ejemplar?.stud}</td>
-											</tr>
-										</tbody>
-									</Table>
-									<div className="d-grid gap-2">
-										<LinkContainer to="/">
-											<Button variant="warning">Modificar</Button>
-										</LinkContainer>
-										<LinkContainer to="/">
-											<Button variant="danger">Eliminar</Button>
-										</LinkContainer>
-									</div>
-								</Card.Body>
-							</Card>
-						</Col>
-					);
-				})}
 			</Row>
 		</Container>
 	);

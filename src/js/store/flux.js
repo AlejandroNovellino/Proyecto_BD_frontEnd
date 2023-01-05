@@ -220,18 +220,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return {};
 				}
 			},
-			//Caballerizas -----------------------------------------------------------------------------------
-			getCaballerizas: async () => {
-				try {
-					const response = await axiosInstance.get("/caballerizas");
-					// get data
-					return response.data.map(element => {
-						return JSON.parse(element);
-					});
-				} catch (error) {
-					return {};
-				}
-			},
 			//Historico entrenador -----------------------------------------------------------------------------------
 			createHistoricoEntrenador: async values => {
 				try {
@@ -396,6 +384,137 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return response.data;
 				} catch (error) {
 					return null;
+				}
+			},
+			//Haras -----------------------------------------------------------------------------------
+			getHaras: async () => {
+				try {
+					const response = await axiosInstance.get("/haras");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			//Caballerizas -----------------------------------------------------------------------------------
+			getCaballerizas: async () => {
+				try {
+					const response = await axiosInstance.get("/caballerizas");
+					// get data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return {};
+				}
+			},
+			//Puestos -----------------------------------------------------------------------------------
+			getCaballerizaPuestos: async caballeriza_id => {
+				try {
+					const response = await axiosInstance.get(
+						"/puestos/" + caballeriza_id
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//Ejemplares -----------------------------------------------------------------------------------
+			getEjemplares: async () => {
+				try {
+					const response = await axiosInstance.get("/ejemplares");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createEjemplares: async values => {
+				try {
+					const response = await axiosInstance.post("/ejemplares", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updateEjemplar: async values => {
+				try {
+					let { e_tatuaje_labial, ...data } = values;
+					const response = await axiosInstance.put(
+						"/ejemplares/" + e_tatuaje_labial,
+						{
+							...data,
+						}
+					);
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteEjemplar: async ejemplar_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/ejemplares/" + ejemplar_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			//Historico puesto -----------------------------------------------------------------------------------
+			getHistoricoPuesto: async () => {
+				try {
+					const response = await axiosInstance.get("/historicos/puestos");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			updateHistoricoPuesto: async puesto_id => {
+				try {
+					const response = await axiosInstance.put(
+						"/historico/puesto/" + puesto_id,
+						{}
+					);
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			createHistoricoPuesto: async values => {
+				try {
+					const response = await axiosInstance.post("/historicos/puestos", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteHistoricoPuesto: async element_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/historico/puesto/" + element_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
 				}
 			},
 		},

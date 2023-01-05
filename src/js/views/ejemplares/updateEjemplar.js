@@ -9,14 +9,13 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Alert from "react-bootstrap/Alert";
 
 // formik and yup import
 import { Formik } from "formik";
 import * as yup from "yup";
 
 // react router imports
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import context
 import { Context } from "../../store/appContext";
@@ -24,7 +23,7 @@ import { Context } from "../../store/appContext";
 // import date picker
 import { DatePickerField } from "../datePickerField";
 
-export const CreateEjemplar = () => {
+export const UpdateEjemplar = props => {
 	// state
 	const [haras, setHaras] = useState([]);
 	const [caballerizas, setCaballerizas] = useState([]);
@@ -35,15 +34,17 @@ export const CreateEjemplar = () => {
 	const { store, actions } = useContext(Context);
 	// navigate
 	let navigate = useNavigate();
+	// location
+	let location = useLocation();
+	let element = location.state;
+
 	// modal
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	// alert state
-	const [alertShow, setAlertShow] = useState(false);
 
-	const returnHome = () => {
-		navigate("/home");
+	const goBack = () => {
+		navigate(-1);
 	};
 
 	// get data when component is mounted
@@ -59,6 +60,9 @@ export const CreateEjemplar = () => {
 
 			setYeguas(data.filter(ejemplar => ejemplar.e_sexo === "Y"));
 			setCaballos(data.filter(ejemplar => ejemplar.e_sexo === "C"));
+
+			data = await actions.getCaballerizaPuestos(element.fk_caballeriza);
+			setPuestos(data);
 		};
 
 		fetchData();
@@ -91,34 +95,45 @@ export const CreateEjemplar = () => {
 	};
 
 	// create entrenador
-	const handleCreate = async values => {
+	const handleUpdate = async values => {
 		// set the nullable elements
 		let params = setNullables(values);
-		// try to create
-		let response1 = await actions.createEjemplares(params);
+		// try to update
+		let response1 = await actions.updateEjemplar(params);
 		if (!response1) {
 			console.log(response1);
 
-			console.log("Hubo un error en la creacion");
-			// show the alert
-			setAlertShow(true);
-		} else {
-			let response2 = await actions.createHistoricoPuesto({
-				hp_fecha_inicio: new Date(),
-				hp_fecha_final: null,
-				fk_puesto: values.fk_puesto,
-				fk_ejemplar: response1.e_tatuaje_labial,
-			});
-			if (!response2) {
-				console.log(response2);
+			console.log("Hubo un error en la actualizacion");
+		} else if (values.fk_puesto !== element.fk_puesto) {
+			let response2 = await actions.updateHistoricoPuesto(element.fk_puesto);
 
-				console.log("Hubo un error en la creacion del historico de puesto");
+			if (!response2) {
+				console.log(response1);
+
+				console.log("Hubo un error en la actualizacion del historico");
 			} else {
-				handleShow(true);
-				await new Promise(r => setTimeout(r, 2000));
-				navigate("/home");
-				handleShow(false);
+				let response3 = await actions.createHistoricoPuesto({
+					hp_fecha_inicio: new Date(),
+					hp_fecha_final: null,
+					fk_puesto: values.fk_puesto,
+					fk_ejemplar: element.e_tatuaje_labial,
+				});
+				if (!response3) {
+					console.log(response3);
+
+					console.log("Hubo un error en la creacion del historico de puesto");
+				} else {
+					handleShow(true);
+					await new Promise(r => setTimeout(r, 2000));
+					navigate("/ejemplares/update");
+					handleShow(false);
+				}
 			}
+		} else {
+			handleShow(true);
+			await new Promise(r => setTimeout(r, 2000));
+			navigate("/ejemplares/update");
+			handleShow(false);
 		}
 	};
 
@@ -181,67 +196,45 @@ export const CreateEjemplar = () => {
 
 	return (
 		<>
-			<Container className="mt-5">
-				<Alert variant="info">
-					<Alert.Heading>Importante!</Alert.Heading>
-					<p>
-						La madre y el padre deben ingresarse al sistema con antelacion. En
-						caso de que no sea de interes, los respectivos padres (de los padres
-						que se esten registrando) se pueden dejar vacios.
-					</p>
-				</Alert>
-			</Container>
-
 			<Modal
 				show={show}
 				onHide={handleClose}
 				backdrop="static"
 				keyboard={false}>
 				<Modal.Header closeButton>
-					<Modal.Title>Ejemplar creado</Modal.Title>
+					<Modal.Title>Ejemplar actualizado</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>El Ejemplar se ha creado exitosamente</Modal.Body>
+				<Modal.Body>El ejemplar se ha actualizado exitosamente</Modal.Body>
 			</Modal>
-
-			{alertShow && (
-				<Container className="mt-5">
-					<Alert
-						variant="danger"
-						onClose={() => setAlertShow(false)}
-						dismissible>
-						<Alert.Heading>Hubo un error!</Alert.Heading>
-						<p>El tatuaje labial debe ser unico</p>
-					</Alert>
-				</Container>
-			)}
-
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
-					<Col xs={9}>
+					<Col xs={8}>
 						<Card bg={"dark"} text={"white"} className="">
-							<Card.Header className="fs-5 fw-bold">Nuevo ejemplar</Card.Header>
+							<Card.Header className="fs-5 fw-bold">
+								Propietario a actualizar
+							</Card.Header>
 							<Card.Body className="px-5">
 								<Card.Title className="text-center py-3">
-									Ingrese los datos del ejemplar a registrar:
+									Ingrese los datos del propietario a actualizar:
 								</Card.Title>
 								<Formik
 									validationSchema={schema}
 									onSubmit={values => {
-										handleCreate(values);
+										handleUpdate(values);
 									}}
 									initialValues={{
-										e_tatuaje_labial: "",
-										e_nombre: "",
-										e_color_pelaje: "",
-										e_sexo: "",
-										e_fecha_nacimiento: "",
-										e_fecha_ing_hipo: "",
-										e_peso: "",
-										fk_haras: "",
-										fk_madre: "",
-										fk_padre: "",
-										fk_puesto: "",
-										fk_caballeriza: "",
+										e_tatuaje_labial: element.e_tatuaje_labial,
+										e_nombre: element.e_nombre,
+										e_color_pelaje: element.e_color_pelaje,
+										e_sexo: element.e_sexo,
+										e_fecha_nacimiento: element.e_fecha_nacimiento,
+										e_fecha_ing_hipo: element.e_fecha_ing_hipo,
+										e_peso: element.e_peso,
+										fk_haras: element.fk_haras,
+										fk_madre: element.fk_madre ? element.fk_madre : "",
+										fk_padre: element.fk_padre ? element.fk_padre : "",
+										fk_puesto: element.fk_puesto,
+										fk_caballeriza: element.fk_caballeriza,
 									}}>
 									{({
 										handleSubmit,
@@ -272,6 +265,11 @@ export const CreateEjemplar = () => {
 															!errors.e_tatuaje_labial
 														}
 														isInvalid={!!errors.e_tatuaje_labial}
+														disabled
+														style={{
+															backgroundColor: "#7a7a7a",
+															borderColor: "#565656",
+														}}
 													/>
 													<Form.Control.Feedback>
 														Todo bien!
@@ -611,7 +609,7 @@ export const CreateEjemplar = () => {
 											<Row className="px-3">
 												<Col xs={6} className="ps-0">
 													<div className="d-grid gap-2" type="submit">
-														<Button variant="danger" onClick={returnHome}>
+														<Button variant="danger" onClick={goBack}>
 															Cancelar
 														</Button>
 													</div>
@@ -619,7 +617,7 @@ export const CreateEjemplar = () => {
 												<Col xs={6} className="pe-0">
 													<div className="d-grid gap-2" type="submit">
 														<Button type="submit" variant="primary">
-															Crear
+															Actualizar
 														</Button>
 													</div>
 												</Col>

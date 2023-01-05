@@ -18,8 +18,12 @@ import { MainHome } from "./views/mainView/MainHome";
 import { MainReports } from "./views/Reports/MainReports";
 import { UserList } from "./views/usersAdm/userList";
 import { CreateUser } from "./views/usersAdm/createUser";
+// ejemplares
 import { CreateEjemplar } from "./views/ejemplares/createEjemplar";
+import { UpdateEjemplar } from "./views/ejemplares/updateEjemplar";
 import { EjemplaresList } from "./views/ejemplares/ejemplaresList";
+import { EjemplaresUpdate } from "./views/ejemplares/ejemplaresUpdate";
+import { EjemplaresDelete } from "./views/ejemplares/ejemplaresDelete";
 // studs
 import { CreateStud } from "./views/studs/createStud";
 import { UpdateStud } from "./views/studs/updateStud";
@@ -81,8 +85,12 @@ const Layout = () => {
 						<Route path="/reports" element={<MainReports />} />
 						<Route path="/users" element={<UserList />} />
 						<Route path="/user-create" element={<CreateUser />} />
-						<Route path="/ejemplar-create" element={<CreateEjemplar />} />
+						{/* Ejemplares */}
+						<Route path="/ejemplar/create" element={<CreateEjemplar />} />
+						<Route path="/ejemplar/update" element={<UpdateEjemplar />} />
 						<Route path="/ejemplares" element={<EjemplaresList />} />
+						<Route path="/ejemplares/update" element={<EjemplaresUpdate />} />
+						<Route path="/ejemplares/delete" element={<EjemplaresDelete />} />
 						{/* studs */}
 						<Route path="/stud/create" element={<CreateStud />} />
 						<Route path="/stud/update" element={<UpdateStud />} />

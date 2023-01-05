@@ -38,10 +38,6 @@ export const textPicker = accion => {
 
 export const urlPicker = (tabla, accion) => {
 	switch (tabla) {
-		case "Ejemplar":
-			if (accion == "CREATE") return "/ejemplar-create";
-			return "/ejemplares";
-
 		case "Entrenador":
 			switch (accion) {
 				case "CREATE":
@@ -124,6 +120,24 @@ export const urlPicker = (tabla, accion) => {
 
 				default:
 					return "/studs";
+			}
+
+		case "Ejemplar":
+			switch (accion) {
+				case "CREATE":
+					return "/ejemplar/create";
+
+				case "READ":
+					return "/ejemplares";
+
+				case "UPDATE":
+					return "/ejemplares/update";
+
+				case "DELETE":
+					return "/ejemplares/delete";
+
+				default:
+					return "/ejemplares";
 			}
 
 		default:
