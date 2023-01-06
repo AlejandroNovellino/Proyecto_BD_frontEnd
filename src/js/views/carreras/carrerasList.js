@@ -17,16 +17,15 @@ import DataTable from "react-data-table-component";
 
 // react dom imports
 
-export const JinetesList = () => {
+export const CarrerasList = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
 	const [data, setData] = useState([]);
-
 	// fetch data
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getCarreras();
 			setData(data);
 		};
 
@@ -37,68 +36,87 @@ export const JinetesList = () => {
 
 	const columns = [
 		{
-			name: "Cedula",
-			selector: row => row.p_cedula,
+			name: "Clave",
+			selector: row => row.c_clave,
 			sortable: true,
 		},
 		{
-			name: "Primer Nombre",
-			selector: row => row.p_primer_nombre,
+			name: "Nombre",
+			selector: row => (row.c_nombre ? row.c_nombre : ""),
 			sortable: true,
 		},
 		{
-			name: "Segundo Nombre",
-			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
+			name: "Fecha",
+			selector: row => row.c_fecha,
 			sortable: true,
 		},
 		{
-			name: "Primer Apellido",
-			selector: row => row.p_primer_apellido,
+			name: "Hora",
+			selector: row => row.c_hora,
 			sortable: true,
 		},
 		{
-			name: "Segundo Apellido",
-			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
+			name: "Num llamada",
+			selector: row => row.c_num_llamado,
 			sortable: true,
 		},
 		{
-			name: "Sexo",
-			selector: row => row.p_sexo,
+			name: "Pull dinero total",
+			selector: row => (row.c_pull_dinero_total ? row.c_pull_dinero_total : ""),
 			sortable: true,
 		},
 		{
-			name: "Lugar",
-			selector: row => row.fk_lugar,
+			name: "Distancia",
+			selector: row => row.c_distancia,
 			sortable: true,
 		},
 		{
-			name: "Direccion",
-			selector: row => row.p_direccion,
+			name: "Categoria carrera",
+			selector: row => row.categoria_carrera.ca_nombre,
 			sortable: true,
 		},
 		{
-			name: "Altura",
-			selector: row => row.j_altura,
+			name: "Tipo carrera",
+			selector: row => row.tipo_carrera.tc_nombre,
 			sortable: true,
 		},
 		{
-			name: "Peso al ingresar",
-			selector: row => row.j_peso_al_ingresar,
+			name: "Sexo necesario",
+			selector: row =>
+				row.tipo_carrera.tc_sexo ? row.tipo_carrera.tc_sexo : "",
 			sortable: true,
 		},
 		{
-			name: "Peso actual",
-			selector: row => row.j_peso_actual,
+			name: "Edad min necesario",
+			selector: row =>
+				row.tipo_carrera.tc_edad_minima ? row.tipo_carrera.tc_edad_minima : "",
 			sortable: true,
 		},
 		{
-			name: "Rango",
-			selector: row => (row.j_rango ? row.j_rango : ""),
+			name: "Edad max necesario",
+			selector: row =>
+				row.tipo_carrera.tc_edad_maxima ? row.tipo_carrera.tc_edad_maxima : "",
 			sortable: true,
 		},
 		{
-			name: "Fecha ingreso",
-			selector: row => row.j_fecha_nacimiento,
+			name: "Victorias min necesario",
+			selector: row =>
+				row.tipo_carrera.tc_victoria_minima
+					? row.tipo_carrera.tc_victoria_minima
+					: "",
+			sortable: true,
+		},
+		{
+			name: "Victorias max necesario",
+			selector: row =>
+				row.tipo_carrera.tc_victoria_maxima
+					? row.tipo_carrera.tc_victoria_maxima
+					: "",
+			sortable: true,
+		},
+		{
+			name: "Pista",
+			selector: row => row.pista.pi_longitud,
 			sortable: true,
 		},
 	];
@@ -109,7 +127,7 @@ export const JinetesList = () => {
 				<Col xs={12}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de jinetes en el sistema
+							Lista de carreras en el sistema
 						</Card.Header>
 						<Card.Body>
 							<DataTable

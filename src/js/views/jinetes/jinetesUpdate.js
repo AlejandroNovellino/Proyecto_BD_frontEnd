@@ -74,7 +74,7 @@ export const JinetesUpdate = () => {
 		},
 		{
 			name: "Segundo Nombre",
-			selector: row => row.p_segundo_nombre,
+			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
 			sortable: true,
 		},
 		{
@@ -84,7 +84,7 @@ export const JinetesUpdate = () => {
 		},
 		{
 			name: "Segundo Apellido",
-			selector: row => row.p_segundo_apellido,
+			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
 			sortable: true,
 		},
 		{
@@ -119,7 +119,7 @@ export const JinetesUpdate = () => {
 		},
 		{
 			name: "Rango",
-			selector: row => row.j_rango,
+			selector: row => (row.j_rango ? row.j_rango : ""),
 			sortable: true,
 		},
 		{

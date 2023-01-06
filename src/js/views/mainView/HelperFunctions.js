@@ -155,6 +155,24 @@ export const urlPicker = (tabla, accion) => {
 					return "/binomios";
 			}
 
+		case "Carrera":
+			switch (accion) {
+				case "CREATE":
+					return "/carrera/create";
+
+				case "READ":
+					return "/carreras";
+
+				case "UPDATE":
+					return "/carreras/update";
+
+				case "DELETE":
+					return "/carreras/delete";
+
+				default:
+					return "/carreras";
+			}
+
 		default:
 			return "";
 	}

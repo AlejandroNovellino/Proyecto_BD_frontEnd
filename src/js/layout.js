@@ -55,6 +55,9 @@ import { DeleteHistoricoEntrenador } from "./views/entrenadores_historico/delete
 import { CreateBinomio } from "./views/binomios/createBinomio";
 import { BinomiosList } from "./views/binomios/binomiosList";
 import { BinomiosDelete } from "./views/binomios/binomiosDelete";
+// carreras
+import { CreateCarrera } from "./views/carreras/createCarrera";
+import { CarrerasList } from "./views/carreras/carrerasList";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -144,6 +147,9 @@ const Layout = () => {
 						<Route path="/binomio/create" element={<CreateBinomio />} />
 						<Route path="/binomios" element={<BinomiosList />} />
 						<Route path="/binomios/delete" element={<BinomiosDelete />} />
+						{/* Carreras */}
+						<Route path="/carrera/create" element={<CreateCarrera />} />
+						<Route path="/carreras" element={<CarrerasList />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

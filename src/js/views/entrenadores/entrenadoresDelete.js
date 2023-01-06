@@ -105,7 +105,7 @@ export const EntrenadoresDelete = () => {
 		},
 		{
 			name: "Segundo Nombre",
-			selector: row => row.p_segundo_nombre,
+			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
 			sortable: true,
 		},
 		{
@@ -115,7 +115,7 @@ export const EntrenadoresDelete = () => {
 		},
 		{
 			name: "Segundo Apellido",
-			selector: row => row.p_segundo_apellido,
+			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
 			sortable: true,
 		},
 		{

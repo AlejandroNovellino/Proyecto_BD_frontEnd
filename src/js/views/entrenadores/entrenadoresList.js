@@ -47,7 +47,7 @@ export const EntrenadoresList = () => {
 		},
 		{
 			name: "Segundo Nombre",
-			selector: row => row.p_segundo_nombre,
+			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
 			sortable: true,
 		},
 		{
@@ -57,7 +57,7 @@ export const EntrenadoresList = () => {
 		},
 		{
 			name: "Segundo Apellido",
-			selector: row => row.p_segundo_apellido,
+			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
 			sortable: true,
 		},
 		{

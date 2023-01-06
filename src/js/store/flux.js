@@ -551,6 +551,129 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//Carreras -----------------------------------------------------------------------------------
+			getCarreras: async () => {
+				try {
+					const response = await axiosInstance.get("/carreras");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createCarrera: async values => {
+				try {
+					const response = await axiosInstance.post("/carreras", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updateCarrera: async values => {
+				try {
+					let { c_clave, ...data } = values;
+					const response = await axiosInstance.put("/carreras/" + c_clave, {
+						...data,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteCarrera: async carrera_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/carreras/" + carrera_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			//get numero de llamada -----------------------------------------------------------------------------------
+			getNumLlamadoCarrera: async date => {
+				try {
+					const response = await axiosInstance.get(
+						"/carrera/cun/llamado/" + date
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//TipoCarrera -----------------------------------------------------------------------------------
+			getTipoCarrera: async () => {
+				try {
+					const response = await axiosInstance.get("/tipos/carrera");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//CategoriaCarrera -----------------------------------------------------------------------------------
+			getCategoriaCarrera: async () => {
+				try {
+					const response = await axiosInstance.get("/categorias/carrera");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			//Pista -----------------------------------------------------------------------------------
+			getPista: async () => {
+				try {
+					const response = await axiosInstance.get("/pistas");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//PorcentajeDividendo -----------------------------------------------------------------------------------
+			getPorcentajeDividendo: async () => {
+				try {
+					const response = await axiosInstance.get("/porcentajes/dividendo");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//PorcentajeDividendo -----------------------------------------------------------------------------------
+			createCarreraPorcentajeDividendo: async data => {
+				try {
+					const response = await axiosInstance.post(
+						"/carrera/porcentaje/dividendo",
+						{
+							...data,
+						}
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
 		},
 	};
 };
