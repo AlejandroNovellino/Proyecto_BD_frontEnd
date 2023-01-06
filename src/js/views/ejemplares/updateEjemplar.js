@@ -208,14 +208,14 @@ export const UpdateEjemplar = props => {
 			</Modal>
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
-					<Col xs={8}>
+					<Col xs={9}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Propietario a actualizar
+								Ejemplar a actualizar
 							</Card.Header>
 							<Card.Body className="px-5">
 								<Card.Title className="text-center py-3">
-									Ingrese los datos del propietario a actualizar:
+									Ingrese los datos del ejemplar a actualizar:
 								</Card.Title>
 								<Formik
 									validationSchema={schema}

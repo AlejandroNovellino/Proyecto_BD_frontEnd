@@ -38,7 +38,7 @@ export const CarrerasList = () => {
 		{
 			name: "Clave",
 			selector: row => row.c_clave,
-			sortable: true,
+			omit: true,
 		},
 		{
 			name: "Nombre",
