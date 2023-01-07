@@ -674,6 +674,53 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return [];
 				}
 			},
+			//Inscripciones -----------------------------------------------------------------------------------
+			getVictories: async ejemplar_id => {
+				try {
+					const response = await axiosInstance.get("/victories/" + ejemplar_id);
+					// return the data
+					return JSON.parse(response.data);
+				} catch (error) {
+					return [];
+				}
+			},
+			getEjemplarBinomiosVictories: async _ => {
+				try {
+					const response = await axiosInstance.get("/ejemplares/victories");
+					// return the data
+					return JSON.parse(response.data);
+				} catch (error) {
+					return [];
+				}
+			},
+			getCarrerasForEjemplar: async (
+				ejemplar_id,
+				ejemplar_age,
+				ejemplar_wins
+			) => {
+				try {
+					const response = await axiosInstance.get(
+						`/carreras/ejemplar/${ejemplar_id}/${ejemplar_age}/${ejemplar_wins}`
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createInscripcion: async values => {
+				try {
+					const response = await axiosInstance.post("/inscripciones", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
 		},
 	};
 };

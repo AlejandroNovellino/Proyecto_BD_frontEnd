@@ -31,8 +31,6 @@ export const CarrerasUpdate = () => {
 	// navigate hook
 	let navigate = useNavigate();
 
-	// function to fetch entrenadores
-
 	// get entrenadores when component is mounted
 	useEffect(() => {
 		const fetchData = async () => {

@@ -61,6 +61,8 @@ import { UpdateCarrera } from "./views/carreras/updateCarrera";
 import { CarrerasList } from "./views/carreras/carrerasList";
 import { CarrerasUpdate } from "./views/carreras/carrerasUpdate";
 import { CarrerasDelete } from "./views/carreras/carrerasDelete";
+// inscripciones
+import { AvailableBinomios } from "./views/inscripciones/availableBinomios";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -156,6 +158,11 @@ const Layout = () => {
 						<Route path="/carreras" element={<CarrerasList />} />
 						<Route path="/carreras/update" element={<CarrerasUpdate />} />
 						<Route path="/carreras/delete" element={<CarrerasDelete />} />
+						{/* Inscripciones */}
+						<Route
+							path="/inscripcion/available/binomios"
+							element={<AvailableBinomios />}
+						/>
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

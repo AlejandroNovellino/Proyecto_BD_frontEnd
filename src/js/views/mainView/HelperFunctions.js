@@ -173,6 +173,24 @@ export const urlPicker = (tabla, accion) => {
 					return "/carreras";
 			}
 
+		case "Inscripcion":
+			switch (accion) {
+				case "CREATE":
+					return "/inscripcion/available/binomios";
+
+				case "READ":
+					return "";
+
+				case "UPDATE":
+					return "";
+
+				case "DELETE":
+					return "";
+
+				default:
+					return "";
+			}
+
 		default:
 			return "";
 	}
