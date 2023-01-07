@@ -721,6 +721,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			getInscripciones: async () => {
+				try {
+					const response = await axiosInstance.get("/inscripciones");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
 		},
 	};
 };

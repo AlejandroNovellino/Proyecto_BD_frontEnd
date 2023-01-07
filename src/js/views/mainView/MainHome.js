@@ -28,6 +28,7 @@ export const MainHome = () => {
 	const raceRelated = [
 		"Carrera",
 		"Inscripcion",
+		"Retiro",
 		"Ejemplar",
 		"Binomio",
 		"Stud",

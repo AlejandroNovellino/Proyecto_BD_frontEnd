@@ -179,12 +179,18 @@ export const urlPicker = (tabla, accion) => {
 					return "/inscripcion/available/binomios";
 
 				case "READ":
-					return "";
+					return "/inscripciones";
 
-				case "UPDATE":
+				default:
 					return "";
+			}
 
-				case "DELETE":
+		case "Retiro":
+			switch (accion) {
+				case "CREATE":
+					return "/retiro/create";
+
+				case "READ":
 					return "";
 
 				default:
