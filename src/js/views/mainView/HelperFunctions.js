@@ -37,6 +37,7 @@ export const textPicker = accion => {
 };
 
 export const urlPicker = (tabla, accion) => {
+	// race options -------------------------------------------------------------------------------------
 	switch (tabla) {
 		case "Entrenador":
 			switch (accion) {
@@ -191,7 +192,26 @@ export const urlPicker = (tabla, accion) => {
 					return "/retiro/create";
 
 				case "READ":
+					return "/retiros";
+
+				default:
 					return "";
+			}
+
+		// user options -------------------------------------------------------------------------------------
+		case "Tipo_Usuario":
+			switch (accion) {
+				case "CREATE":
+					return "/tipo/usuario/create";
+
+				case "READ":
+					return "/tipos/usuarios";
+
+				case "UPDATE":
+					return "/tipos/usuarios/update";
+
+				case "DELETE":
+					return "/tipo/usuario/delete";
 
 				default:
 					return "";

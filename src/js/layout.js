@@ -64,6 +64,9 @@ import { CarrerasDelete } from "./views/carreras/carrerasDelete";
 // inscripciones
 import { AvailableBinomios } from "./views/inscripciones/availableBinomios";
 import { InscripcionesList } from "./views/inscripciones/inscripcionesList";
+// retiros
+import { RetiroCreate } from "./views/retiros/retiroCreate";
+import { RetirosList } from "./views/retiros/retirosList";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -165,6 +168,9 @@ const Layout = () => {
 							element={<AvailableBinomios />}
 						/>
 						<Route path="/inscripciones" element={<InscripcionesList />} />
+						{/* Retiros */}
+						<Route path="/retiro/create" element={<RetiroCreate />} />
+						<Route path="/retiros" element={<RetirosList />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

@@ -732,6 +732,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return [];
 				}
 			},
+			getInscripcionesActivas: async () => {
+				try {
+					const response = await axiosInstance.get("/inscripciones/activas");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getCausasRetiro: async () => {
+				try {
+					const response = await axiosInstance.get("/causas/retiros");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getRetiros: async () => {
+				try {
+					const response = await axiosInstance.get("/retiros");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createRetiro: async values => {
+				try {
+					const response = await axiosInstance.post("/retiros", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			//Acciones -----------------------------------------------------------------------------------
+			getAcciones: async () => {
+				try {
+					const response = await axiosInstance.get("/acciones");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
 		},
 	};
 };
