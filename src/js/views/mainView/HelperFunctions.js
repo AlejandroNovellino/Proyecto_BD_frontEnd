@@ -208,7 +208,7 @@ export const urlPicker = (tabla, accion) => {
 					return "/tipos/usuarios";
 
 				case "UPDATE":
-					return "/tipos/usuarios/update";
+					return "/tipos/usuario/update";
 
 				case "DELETE":
 					return "/tipo/usuario/delete";

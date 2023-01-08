@@ -13,7 +13,7 @@ import { MyNavbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./views/login";
 import { SignIn } from "./views/signin";
-import { MainView } from "./views/mainView/MainView";
+//import { MainView } from "./views/mainView/MainView";
 import { MainHome } from "./views/mainView/MainHome";
 import { MainReports } from "./views/Reports/MainReports";
 import { UserList } from "./views/usersAdm/userList";
@@ -67,6 +67,12 @@ import { InscripcionesList } from "./views/inscripciones/inscripcionesList";
 // retiros
 import { RetiroCreate } from "./views/retiros/retiroCreate";
 import { RetirosList } from "./views/retiros/retirosList";
+// tipo usuario
+import { TipoUsuarioCreate } from "./views/tiposUsuario/tipoUsuarioCreate";
+import { UpdateTipoUsuario } from "./views/tiposUsuario/updateTipoUsuario";
+import { TiposUsuarioList } from "./views/tiposUsuario/tiposUsuarioList";
+import { TiposUsuarioUpdate } from "./views/tiposUsuario/tiposUsuarioUpdate";
+import { TiposUsuarioDelete } from "./views/tiposUsuario/tiposUsuarioDelete";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -171,6 +177,24 @@ const Layout = () => {
 						{/* Retiros */}
 						<Route path="/retiro/create" element={<RetiroCreate />} />
 						<Route path="/retiros" element={<RetirosList />} />
+						{/* TipoUsuario */}
+						<Route
+							path="/tipo/usuario/create"
+							element={<TipoUsuarioCreate />}
+						/>
+						<Route
+							path="/tipo/usuario/update"
+							element={<UpdateTipoUsuario />}
+						/>
+						<Route path="/tipos/usuarios/" element={<TiposUsuarioList />} />
+						<Route
+							path="/tipos/usuario/update"
+							element={<TiposUsuarioUpdate />}
+						/>
+						<Route
+							path="/tipo/usuario/delete"
+							element={<TiposUsuarioDelete />}
+						/>
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

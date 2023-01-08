@@ -340,9 +340,12 @@ export const AvailableBinomios = () => {
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de binomios en el sistema
+								Registro de una inscripcion
 							</Card.Header>
 							<Card.Body>
+								<Card.Title className="mb-3">
+									Lista de binomios en el sistema
+								</Card.Title>
 								<DataTable
 									columns={binomioColumns}
 									data={data}

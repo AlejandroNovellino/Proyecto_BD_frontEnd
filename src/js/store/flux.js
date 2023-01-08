@@ -786,6 +786,74 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return [];
 				}
 			},
+			//TipoUsuario -----------------------------------------------------------------------------------
+			getTiposUsuarios: async () => {
+				try {
+					const response = await axiosInstance.get("/tipos-usuarios");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			createTipoUsuario: async values => {
+				try {
+					const response = await axiosInstance.post("/tipos-usuarios", {
+						...values,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			updateTipoUsuario: async values => {
+				try {
+					let { tu_clave, ...data } = values;
+					const response = await axiosInstance.put(
+						"/tipos-usuarios/" + tu_clave,
+						{
+							...data,
+						}
+					);
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteTipoUsuario: async tu_clave => {
+				try {
+					const response = await axiosInstance.delete(
+						"/tipos-usuarios/" + tu_clave
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			//AccionTipoUsuario -----------------------------------------------------------------------------------
+			getAccionesTipoUsuario: async () => {
+				try {
+					const response = await axiosInstance.get("/acciones/tipo/usuario");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			createAccionTipoUsuario: async values => {
+				try {
+					const response = await axiosInstance.post("/acciones/tipo/usuario", {
+						...values,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
 		},
 	};
 };

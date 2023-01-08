@@ -184,7 +184,7 @@ export const RetiroCreate = () => {
 			.required("Es obligatorio"),
 		r_descripcion: yup
 			.string()
-			.max(50, "Longitud max 45 caracteres")
+			.max(50, "Longitud max 50 caracteres")
 			.required("Es obligatorio"),
 	});
 
