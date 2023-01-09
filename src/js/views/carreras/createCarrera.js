@@ -199,29 +199,26 @@ export const CreateCarrera = () => {
 
 	// validator for data
 	const schema = yup.object({
-		c_nombre: yup
-			.string()
-			.max(45, "Longitud max 45 caracteres")
-			.required("Es obligatorio"),
+		c_nombre: yup.string().max(45, "Longitud max 45 caracteres"),
 		c_fecha: yup.date().min(new Date()).required("Es obligatorio"),
 		c_num_llamado: yup
 			.number()
 			.integer("Debe ser un numero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(9999999999, "Debe poseer 5 numeros como maximo")
+			.lessThan(9999999999, "Debe poseer 10 numeros como maximo")
 			.required("Es obligatorio"),
 		c_pull_dinero_total: yup
 			.number()
 			.integer("Debe ser un numero")
 			.positive("Solo puede ser positiva")
-			.lessThan(9999999999, "Debe poseer 5 numeros como maximo"),
+			.lessThan(9999999999, "Debe poseer 10 numeros como maximo"),
 		c_distancia: yup
 			.number()
 			.integer("Debe ser un numero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(9999999999, "Debe poseer 5 numeros como maximo")
+			.lessThan(9999999999, "Debe poseer 10 numeros como maximo")
 			.required("Es obligatorio"),
 		c_comentario: yup.string().max(100, "Longitud max 100 caracteres"),
 		fk_tipo_carrera: yup

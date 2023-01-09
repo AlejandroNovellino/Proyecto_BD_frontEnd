@@ -36,6 +36,11 @@ export const BinomiosDelete = () => {
 	// alert state
 	const [alertShow, setAlertShow] = useState(false);
 
+	// error state
+	const [errorShow, setErrorShow] = useState(false);
+	// alert state
+	const [errorMessage, setErrorMessage] = useState(false);
+
 	// navigate hook
 	let navigate = useNavigate();
 
@@ -80,6 +85,9 @@ export const BinomiosDelete = () => {
 
 				// cover the modal
 				setModalShow(false);
+				// set the error state
+				setErrorShow(true);
+				setErrorMessage(true);
 
 				return false;
 			}
@@ -154,6 +162,22 @@ export const BinomiosDelete = () => {
 						dismissible>
 						<Alert.Heading>Elementos eliminados!</Alert.Heading>
 						<p>Los elementos seleccionados fueron eliminados correctamente</p>
+					</Alert>
+				</Container>
+			)}
+
+			{errorShow && (
+				<Container className="mt-5">
+					<Alert
+						variant="danger"
+						onClose={() => setErrorShow(false)}
+						dismissible>
+						<Alert.Heading>No se pudo eliminar!</Alert.Heading>
+						<p>
+							No se pudo eliminar los elementos, el binomio esta inscrito en una
+							carrera, para eliminarlo por favor primero borre las carreras en
+							las que se encuentra inscrito
+						</p>
 					</Alert>
 				</Container>
 			)}

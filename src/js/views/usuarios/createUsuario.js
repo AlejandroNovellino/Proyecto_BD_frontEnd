@@ -193,7 +193,7 @@ export const CreateUsuario = () => {
 													<Form.Control
 														type="password"
 														name="u_password"
-														placeholder="Cualquiera :D"
+														placeholder="********"
 														value={values.u_password}
 														onChange={handleChange}
 														isValid={touched.u_password && !errors.u_password}

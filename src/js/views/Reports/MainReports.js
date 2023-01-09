@@ -71,7 +71,7 @@ export const MainReports = () => {
 				setErrorMessage(`No se pudo crear el reporte "${filename}"`);
 				setAlertShow(true);
 			} else {
-				setSuccessMessage(`Se creao el reporte "${filename}" exitosamente`);
+				setSuccessMessage(`Se creo el reporte "${filename}" exitosamente`);
 				setSuccessShow(true);
 			}
 		};

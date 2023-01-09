@@ -362,7 +362,7 @@ export const AvailableBinomios = () => {
 								<br />
 								<br />
 								<Card.Title className="mb-2">
-									Careras disponibles para el binomio seleccionado
+									Carreras disponibles para el binomio seleccionado
 								</Card.Title>
 								<DataTable
 									columns={carreraColumns}
@@ -406,7 +406,7 @@ export const AvailableBinomios = () => {
 														md="6"
 														controlId="ins_ejemplar_favorito">
 														<Form.Label>
-															Favorito (colcoar "true" si lo es, o dejar vacio)
+															Favorito (colocar "true" si lo es, o dejar vacio)
 														</Form.Label>
 														<Form.Control
 															type="text"

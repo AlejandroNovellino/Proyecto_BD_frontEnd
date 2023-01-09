@@ -36,7 +36,12 @@ export const InscripcionesList = () => {
 
 	// get activo
 	const getCarreraActive = fecha => {
-		return new Date() <= fecha;
+		console.log(
+			`🚀 ~ file: inscripcionesList.js:39 ~ getCarreraActive ~ fecha`,
+			typeof fecha
+		);
+
+		return new Date() <= new Date(fecha);
 	};
 
 	const columns = [
@@ -63,7 +68,7 @@ export const InscripcionesList = () => {
 		{
 			name: "Jinete",
 			selector: row =>
-				`${row.binomio.jinete.p_primer_nombre} ${row.binomio.jinete.p_segundo_nombre}`,
+				`${row.binomio.jinete.p_primer_nombre} ${row.binomio.jinete.p_primer_apellido}`,
 			sortable: true,
 		},
 		{
