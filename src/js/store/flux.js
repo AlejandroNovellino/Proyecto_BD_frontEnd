@@ -877,6 +877,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			//Reports -----------------------------------------------------------------------------------
+			createReport: async fileName => {
+				try {
+					const response = await axiosInstance.post("/reports", {
+						file_name: fileName,
+						db_table: "",
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
 		},
 	};
 };

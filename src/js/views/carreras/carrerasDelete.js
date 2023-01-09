@@ -238,11 +238,7 @@ export const CarrerasDelete = () => {
 						onClose={() => setAlertInRelationShow(false)}
 						dismissible>
 						<Alert.Heading>Hubo un error!</Alert.Heading>
-						<p>
-							El ejemplar todavia posee registros historicos de los puestos,
-							todavia forma parte de un binomio o dentro de la pertenencia de un
-							propietario/stud.
-						</p>
+						<p>Algo ocurrio</p>
 					</Alert>
 				</Container>
 			)}
@@ -252,7 +248,7 @@ export const CarrerasDelete = () => {
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de ejemplares en el sistema
+								Lista de carreras en el sistema
 							</Card.Header>
 							<Card.Body>
 								<DataTable
