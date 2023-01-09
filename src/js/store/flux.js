@@ -551,6 +551,332 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//Carreras -----------------------------------------------------------------------------------
+			getCarreras: async () => {
+				try {
+					const response = await axiosInstance.get("/carreras");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createCarrera: async values => {
+				try {
+					const response = await axiosInstance.post("/carreras", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updateCarrera: async values => {
+				try {
+					let { c_clave, ...data } = values;
+					const response = await axiosInstance.put("/carreras/" + c_clave, {
+						...data,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteCarrera: async carrera_id => {
+				try {
+					const response = await axiosInstance.delete(
+						"/carreras/" + carrera_id
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			//get numero de llamada -----------------------------------------------------------------------------------
+			getNumLlamadoCarrera: async date => {
+				try {
+					const response = await axiosInstance.get(
+						"/carrera/cun/llamado/" + date
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//TipoCarrera -----------------------------------------------------------------------------------
+			getTipoCarrera: async () => {
+				try {
+					const response = await axiosInstance.get("/tipos/carrera");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//CategoriaCarrera -----------------------------------------------------------------------------------
+			getCategoriaCarrera: async () => {
+				try {
+					const response = await axiosInstance.get("/categorias/carrera");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			//Pista -----------------------------------------------------------------------------------
+			getPista: async () => {
+				try {
+					const response = await axiosInstance.get("/pistas");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//PorcentajeDividendo -----------------------------------------------------------------------------------
+			getPorcentajeDividendo: async () => {
+				try {
+					const response = await axiosInstance.get("/porcentajes/dividendo");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//PorcentajeDividendo -----------------------------------------------------------------------------------
+			createCarreraPorcentajeDividendo: async data => {
+				try {
+					const response = await axiosInstance.post(
+						"/carrera/porcentaje/dividendo",
+						{
+							...data,
+						}
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			//Inscripciones -----------------------------------------------------------------------------------
+			getVictories: async ejemplar_id => {
+				try {
+					const response = await axiosInstance.get("/victories/" + ejemplar_id);
+					// return the data
+					return JSON.parse(response.data);
+				} catch (error) {
+					return [];
+				}
+			},
+			getEjemplarBinomiosVictories: async _ => {
+				try {
+					const response = await axiosInstance.get("/ejemplares/victories");
+					// return the data
+					return JSON.parse(response.data);
+				} catch (error) {
+					return [];
+				}
+			},
+			getCarrerasForEjemplar: async (
+				ejemplar_id,
+				ejemplar_age,
+				ejemplar_wins
+			) => {
+				try {
+					const response = await axiosInstance.get(
+						`/carreras/ejemplar/${ejemplar_id}/${ejemplar_age}/${ejemplar_wins}`
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createInscripcion: async values => {
+				try {
+					const response = await axiosInstance.post("/inscripciones", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			getInscripciones: async () => {
+				try {
+					const response = await axiosInstance.get("/inscripciones");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getInscripcionesActivas: async () => {
+				try {
+					const response = await axiosInstance.get("/inscripciones/activas");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getCausasRetiro: async () => {
+				try {
+					const response = await axiosInstance.get("/causas/retiros");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getRetiros: async () => {
+				try {
+					const response = await axiosInstance.get("/retiros");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createRetiro: async values => {
+				try {
+					const response = await axiosInstance.post("/retiros", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			//Acciones -----------------------------------------------------------------------------------
+			getAcciones: async () => {
+				try {
+					const response = await axiosInstance.get("/acciones");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			//TipoUsuario -----------------------------------------------------------------------------------
+			getTiposUsuarios: async () => {
+				try {
+					const response = await axiosInstance.get("/tipos-usuarios");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			createTipoUsuario: async values => {
+				try {
+					const response = await axiosInstance.post("/tipos-usuarios", {
+						...values,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			updateTipoUsuario: async values => {
+				try {
+					let { tu_clave, ...data } = values;
+					const response = await axiosInstance.put(
+						"/tipos-usuarios/" + tu_clave,
+						{
+							...data,
+						}
+					);
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteTipoUsuario: async tu_clave => {
+				try {
+					const response = await axiosInstance.delete(
+						"/tipos-usuarios/" + tu_clave
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
+			//AccionTipoUsuario -----------------------------------------------------------------------------------
+			getAccionesTipoUsuario: async () => {
+				try {
+					const response = await axiosInstance.get("/acciones/tipo/usuario");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
+			createAccionTipoUsuario: async values => {
+				try {
+					const response = await axiosInstance.post("/acciones/tipo/usuario", {
+						...values,
+					});
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			//Usuario -----------------------------------------------------------------------------------
+			getUsuarios: async () => {
+				try {
+					const response = await axiosInstance.get("/usuarios");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createUsuario: async values => {
+				try {
+					const response = await axiosInstance.post("/usuarios", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
 		},
 	};
 };

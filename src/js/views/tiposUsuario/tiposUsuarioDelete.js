@@ -19,11 +19,12 @@ import DataTable from "react-data-table-component";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const JinetesDelete = () => {
+export const TiposUsuarioDelete = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
 	const [data, setData] = useState([]);
+	const [auxData, setAuxData] = useState([]);
 	const [selectedRows, setSelectedRows] = useState([]);
 	const [elementDeleted, setElementDeleted] = useState(0);
 
@@ -35,15 +36,20 @@ export const JinetesDelete = () => {
 
 	// alert state
 	const [alertShow, setAlertShow] = useState(false);
+	// alert state
+	const [alertInRelationShow, setAlertInRelationShow] = useState(false);
 
 	// navigate hook
 	let navigate = useNavigate();
 
-	// get data when component is mounted
+	// get entrenadores when component is mounted
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getTiposUsuarios();
 			setData(data);
+
+			data = await actions.getAccionesTipoUsuario();
+			setAuxData(data);
 		};
 
 		fetchData();
@@ -53,8 +59,11 @@ export const JinetesDelete = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getTiposUsuarios();
 			setData(data);
+
+			data = await actions.getAccionesTipoUsuario();
+			setAuxData(data);
 		};
 
 		fetchData();
@@ -68,22 +77,30 @@ export const JinetesDelete = () => {
 		setSelectedRows(selectedRows);
 	};
 
+	const getCantidadPermisos = tipoUsuarioID => {
+		return auxData.filter(
+			element => element.tipo_usuario.tu_clave === tipoUsuarioID
+		).length;
+	};
+
 	// handle delete
 	const handleDelete = async () => {
 		// Delete the selected elements
 		console.log("Selected Rows: ", selectedRows);
 		for (let element of selectedRows) {
-			let response = await actions.deleteJinete(element.p_cedula);
+			let response = await actions.deleteTipoUsuario(element.tu_clave);
 			if (!response) {
-				console.log(
-					`🚀 ~ file: jinetesDelete.js:78 ~ handleDelete ~ response`,
-					response
-				);
-
+				console.log(response);
 				console.log("Hubo un error en alguna eliminacion");
-				break;
+
+				// cover the modal
+				setModalShow(false);
+				// error because is in a relation
+				setAlertInRelationShow(true);
+
+				return false;
 			}
-			data.filter(element2 => element2.p_cedula != element.p_cedula);
+			data.filter(element2 => element2.tu_clave != element.tu_clave);
 		}
 		setData(data);
 		setElementDeleted(elementDeleted + 1);
@@ -95,71 +112,47 @@ export const JinetesDelete = () => {
 
 	const columns = [
 		{
-			name: "Cedula",
-			selector: row => row.p_cedula,
+			name: "Nombre",
+			selector: row => row.tu_nombre,
 			sortable: true,
 		},
 		{
-			name: "Primer Nombre",
-			selector: row => row.p_primer_nombre,
-			sortable: true,
-		},
-		{
-			name: "Segundo Nombre",
-			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
-			sortable: true,
-		},
-		{
-			name: "Primer Apellido",
-			selector: row => row.p_primer_apellido,
-			sortable: true,
-		},
-		{
-			name: "Segundo Apellido",
-			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
-			sortable: true,
-		},
-		{
-			name: "Sexo",
-			selector: row => row.p_sexo,
-			sortable: true,
-		},
-		{
-			name: "Lugar",
-			selector: row => row.fk_lugar,
-			sortable: true,
-		},
-		{
-			name: "Direccion",
-			selector: row => row.p_direccion,
-			sortable: true,
-		},
-		{
-			name: "Altura",
-			selector: row => row.j_altura,
-			sortable: true,
-		},
-		{
-			name: "Peso al ingresar",
-			selector: row => row.j_peso_al_ingresar,
-			sortable: true,
-		},
-		{
-			name: "Peso actual",
-			selector: row => row.j_peso_actual,
-			sortable: true,
-		},
-		{
-			name: "Rango",
-			selector: row => (row.j_rango ? row.j_rango : ""),
-			sortable: true,
-		},
-		{
-			name: "Fecha ingreso",
-			selector: row => row.j_fecha_nacimiento,
+			name: "Cantidad de permisos",
+			selector: row => getCantidadPermisos(row.tu_clave),
 			sortable: true,
 		},
 	];
+
+	const ExpandedComponent = ({ data }) => {
+		let userActions = auxData.filter(
+			element => element.tipo_usuario.tu_clave === data.tu_clave
+		);
+
+		const miniColumns = [
+			{
+				name: "Tabla",
+				selector: row => row.accion.acc_tabla_objetivo,
+				sortable: true,
+			},
+			{
+				name: "Accion",
+				selector: row => row.accion.acc_nombre,
+				sortable: true,
+			},
+		];
+
+		return (
+			<Container className="p-3">
+				<DataTable
+					columns={miniColumns}
+					data={userActions}
+					responsive
+					highlightOnHover
+					striped
+				/>
+			</Container>
+		);
+	};
 
 	return (
 		<>
@@ -197,12 +190,24 @@ export const JinetesDelete = () => {
 				</Container>
 			)}
 
+			{alertInRelationShow && (
+				<Container className="mt-5">
+					<Alert
+						variant="danger"
+						onClose={() => setAlertInRelationShow(false)}
+						dismissible>
+						<Alert.Heading>Hubo un error!</Alert.Heading>
+						<p>No se pudo eliminar los tipos de usuarios</p>
+					</Alert>
+				</Container>
+			)}
+
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de jinetes en el sistema
+								Lista de ejemplares en el sistema
 							</Card.Header>
 							<Card.Body>
 								<DataTable
@@ -215,6 +220,8 @@ export const JinetesDelete = () => {
 									striped
 									onSelectedRowsChange={handleSelect}
 									theme="dark"
+									expandableRows
+									expandableRowsComponent={ExpandedComponent}
 								/>
 							</Card.Body>
 							<Card.Footer>

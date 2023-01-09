@@ -37,6 +37,7 @@ export const textPicker = accion => {
 };
 
 export const urlPicker = (tabla, accion) => {
+	// race options -------------------------------------------------------------------------------------
 	switch (tabla) {
 		case "Entrenador":
 			switch (accion) {
@@ -153,6 +154,79 @@ export const urlPicker = (tabla, accion) => {
 
 				default:
 					return "/binomios";
+			}
+
+		case "Carrera":
+			switch (accion) {
+				case "CREATE":
+					return "/carrera/create";
+
+				case "READ":
+					return "/carreras";
+
+				case "UPDATE":
+					return "/carreras/update";
+
+				case "DELETE":
+					return "/carreras/delete";
+
+				default:
+					return "/carreras";
+			}
+
+		case "Inscripcion":
+			switch (accion) {
+				case "CREATE":
+					return "/inscripcion/available/binomios";
+
+				case "READ":
+					return "/inscripciones";
+
+				default:
+					return "";
+			}
+
+		case "Retiro":
+			switch (accion) {
+				case "CREATE":
+					return "/retiro/create";
+
+				case "READ":
+					return "/retiros";
+
+				default:
+					return "";
+			}
+
+		// user options -------------------------------------------------------------------------------------
+		case "Tipo_Usuario":
+			switch (accion) {
+				case "CREATE":
+					return "/tipo/usuario/create";
+
+				case "READ":
+					return "/tipos/usuarios";
+
+				case "UPDATE":
+					return "/tipos/usuario/update";
+
+				case "DELETE":
+					return "/tipo/usuario/delete";
+
+				default:
+					return "";
+			}
+
+		case "Usuario":
+			switch (accion) {
+				case "CREATE":
+					return "/usuario/create";
+
+				case "READ":
+					return "/usuarios";
+
+				default:
+					return "";
 			}
 
 		default:

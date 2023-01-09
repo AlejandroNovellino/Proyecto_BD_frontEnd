@@ -13,11 +13,9 @@ import { MyNavbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Login } from "./views/login";
 import { SignIn } from "./views/signin";
-import { MainView } from "./views/mainView/MainView";
+//import { MainView } from "./views/mainView/MainView";
 import { MainHome } from "./views/mainView/MainHome";
 import { MainReports } from "./views/Reports/MainReports";
-import { UserList } from "./views/usersAdm/userList";
-import { CreateUser } from "./views/usersAdm/createUser";
 // ejemplares
 import { CreateEjemplar } from "./views/ejemplares/createEjemplar";
 import { UpdateEjemplar } from "./views/ejemplares/updateEjemplar";
@@ -55,6 +53,27 @@ import { DeleteHistoricoEntrenador } from "./views/entrenadores_historico/delete
 import { CreateBinomio } from "./views/binomios/createBinomio";
 import { BinomiosList } from "./views/binomios/binomiosList";
 import { BinomiosDelete } from "./views/binomios/binomiosDelete";
+// carreras
+import { CreateCarrera } from "./views/carreras/createCarrera";
+import { UpdateCarrera } from "./views/carreras/updateCarrera";
+import { CarrerasList } from "./views/carreras/carrerasList";
+import { CarrerasUpdate } from "./views/carreras/carrerasUpdate";
+import { CarrerasDelete } from "./views/carreras/carrerasDelete";
+// inscripciones
+import { AvailableBinomios } from "./views/inscripciones/availableBinomios";
+import { InscripcionesList } from "./views/inscripciones/inscripcionesList";
+// retiros
+import { RetiroCreate } from "./views/retiros/retiroCreate";
+import { RetirosList } from "./views/retiros/retirosList";
+// tipo usuario
+import { TipoUsuarioCreate } from "./views/tiposUsuario/tipoUsuarioCreate";
+import { UpdateTipoUsuario } from "./views/tiposUsuario/updateTipoUsuario";
+import { TiposUsuarioList } from "./views/tiposUsuario/tiposUsuarioList";
+import { TiposUsuarioUpdate } from "./views/tiposUsuario/tiposUsuarioUpdate";
+import { TiposUsuarioDelete } from "./views/tiposUsuario/tiposUsuarioDelete";
+// usuario
+import { CreateUsuario } from "./views/usuarios/createUsuario";
+import { UsuariosList } from "./views/usuarios/usuariosList";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -87,8 +106,6 @@ const Layout = () => {
 						{/*<Route path="/home" element={<MainView />} />*/}
 						<Route path="/home" element={<MainHome />} />
 						<Route path="/reports" element={<MainReports />} />
-						<Route path="/users" element={<UserList />} />
-						<Route path="/user-create" element={<CreateUser />} />
 						{/* Ejemplares */}
 						<Route path="/ejemplar/create" element={<CreateEjemplar />} />
 						<Route path="/ejemplar/update" element={<UpdateEjemplar />} />
@@ -144,6 +161,42 @@ const Layout = () => {
 						<Route path="/binomio/create" element={<CreateBinomio />} />
 						<Route path="/binomios" element={<BinomiosList />} />
 						<Route path="/binomios/delete" element={<BinomiosDelete />} />
+						{/* Carreras */}
+						<Route path="/carrera/create" element={<CreateCarrera />} />
+						<Route path="/carrera/update" element={<UpdateCarrera />} />
+						<Route path="/carreras" element={<CarrerasList />} />
+						<Route path="/carreras/update" element={<CarrerasUpdate />} />
+						<Route path="/carreras/delete" element={<CarrerasDelete />} />
+						{/* Inscripciones */}
+						<Route
+							path="/inscripcion/available/binomios"
+							element={<AvailableBinomios />}
+						/>
+						<Route path="/inscripciones" element={<InscripcionesList />} />
+						{/* Retiros */}
+						<Route path="/retiro/create" element={<RetiroCreate />} />
+						<Route path="/retiros" element={<RetirosList />} />
+						{/* TipoUsuario */}
+						<Route
+							path="/tipo/usuario/create"
+							element={<TipoUsuarioCreate />}
+						/>
+						<Route
+							path="/tipo/usuario/update"
+							element={<UpdateTipoUsuario />}
+						/>
+						<Route path="/tipos/usuarios/" element={<TiposUsuarioList />} />
+						<Route
+							path="/tipos/usuario/update"
+							element={<TiposUsuarioUpdate />}
+						/>
+						<Route
+							path="/tipo/usuario/delete"
+							element={<TiposUsuarioDelete />}
+						/>
+						{/* Usuario */}
+						<Route path="/usuario/create" element={<CreateUsuario />} />
+						<Route path="/usuarios" element={<UsuariosList />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

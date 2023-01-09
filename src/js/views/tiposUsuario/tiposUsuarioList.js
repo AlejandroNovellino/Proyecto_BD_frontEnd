@@ -17,17 +17,20 @@ import DataTable from "react-data-table-component";
 
 // react dom imports
 
-export const JinetesList = () => {
+export const TiposUsuarioList = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
 	const [data, setData] = useState([]);
-
+	const [auxData, setAuxData] = useState([]);
 	// fetch data
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getTiposUsuarios();
 			setData(data);
+
+			data = await actions.getAccionesTipoUsuario();
+			setAuxData(data);
 		};
 
 		fetchData();
@@ -35,73 +38,55 @@ export const JinetesList = () => {
 		return () => {};
 	}, []);
 
+	const getCantidadPermisos = tipoUsuarioID => {
+		return auxData.filter(
+			element => element.tipo_usuario.tu_clave === tipoUsuarioID
+		).length;
+	};
+
 	const columns = [
 		{
-			name: "Cedula",
-			selector: row => row.p_cedula,
+			name: "Nombre",
+			selector: row => row.tu_nombre,
 			sortable: true,
 		},
 		{
-			name: "Primer Nombre",
-			selector: row => row.p_primer_nombre,
-			sortable: true,
-		},
-		{
-			name: "Segundo Nombre",
-			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
-			sortable: true,
-		},
-		{
-			name: "Primer Apellido",
-			selector: row => row.p_primer_apellido,
-			sortable: true,
-		},
-		{
-			name: "Segundo Apellido",
-			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
-			sortable: true,
-		},
-		{
-			name: "Sexo",
-			selector: row => row.p_sexo,
-			sortable: true,
-		},
-		{
-			name: "Lugar",
-			selector: row => row.fk_lugar,
-			sortable: true,
-		},
-		{
-			name: "Direccion",
-			selector: row => row.p_direccion,
-			sortable: true,
-		},
-		{
-			name: "Altura",
-			selector: row => row.j_altura,
-			sortable: true,
-		},
-		{
-			name: "Peso al ingresar",
-			selector: row => row.j_peso_al_ingresar,
-			sortable: true,
-		},
-		{
-			name: "Peso actual",
-			selector: row => row.j_peso_actual,
-			sortable: true,
-		},
-		{
-			name: "Rango",
-			selector: row => (row.j_rango ? row.j_rango : ""),
-			sortable: true,
-		},
-		{
-			name: "Fecha ingreso",
-			selector: row => row.j_fecha_nacimiento,
+			name: "Cantidad de permisos",
+			selector: row => getCantidadPermisos(row.tu_clave),
 			sortable: true,
 		},
 	];
+
+	const ExpandedComponent = ({ data }) => {
+		let userActions = auxData.filter(
+			element => element.tipo_usuario.tu_clave === data.tu_clave
+		);
+
+		const miniColumns = [
+			{
+				name: "Tabla",
+				selector: row => row.accion.acc_tabla_objetivo,
+				sortable: true,
+			},
+			{
+				name: "Accion",
+				selector: row => row.accion.acc_nombre,
+				sortable: true,
+			},
+		];
+
+		return (
+			<Container className="p-3">
+				<DataTable
+					columns={miniColumns}
+					data={userActions}
+					responsive
+					highlightOnHover
+					striped
+				/>
+			</Container>
+		);
+	};
 
 	return (
 		<Container fluid>
@@ -109,7 +94,7 @@ export const JinetesList = () => {
 				<Col xs={12}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de jinetes en el sistema
+							Lista de tipos de usuario en el sistema
 						</Card.Header>
 						<Card.Body>
 							<DataTable
@@ -120,6 +105,8 @@ export const JinetesList = () => {
 								highlightOnHover
 								striped
 								theme="dark"
+								expandableRows
+								expandableRowsComponent={ExpandedComponent}
 							/>
 						</Card.Body>
 					</Card>

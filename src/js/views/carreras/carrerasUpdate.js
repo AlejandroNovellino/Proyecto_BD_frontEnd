@@ -7,7 +7,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import Alert from "react-bootstrap/Alert";
 
 // import context
@@ -19,19 +18,12 @@ import DataTable from "react-data-table-component";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const JinetesDelete = () => {
+export const CarrerasUpdate = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
 	const [data, setData] = useState([]);
 	const [selectedRows, setSelectedRows] = useState([]);
-	const [elementDeleted, setElementDeleted] = useState(0);
-
-	// modal state
-	const [modalShow, setModalShow] = useState(false);
-	// modal functions
-	const handleClose = () => setModalShow(false);
-	const handleShow = () => setModalShow(true);
 
 	// alert state
 	const [alertShow, setAlertShow] = useState(false);
@@ -39,10 +31,10 @@ export const JinetesDelete = () => {
 	// navigate hook
 	let navigate = useNavigate();
 
-	// get data when component is mounted
+	// get entrenadores when component is mounted
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getCarreras();
 			setData(data);
 		};
 
@@ -51,16 +43,16 @@ export const JinetesDelete = () => {
 		return () => {};
 	}, []);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getEntrenadores();
 			setData(data);
 		};
 
 		fetchData();
 
 		return () => {};
-	}, [elementDeleted]);
+	}, [elementUpdated]);*/
 
 	// handle select in the table
 	const handleSelect = ({ selectedRows }) => {
@@ -68,131 +60,113 @@ export const JinetesDelete = () => {
 		setSelectedRows(selectedRows);
 	};
 
-	// handle delete
-	const handleDelete = async () => {
-		// Delete the selected elements
-		console.log("Selected Rows: ", selectedRows);
-		for (let element of selectedRows) {
-			let response = await actions.deleteJinete(element.p_cedula);
-			if (!response) {
-				console.log(
-					`🚀 ~ file: jinetesDelete.js:78 ~ handleDelete ~ response`,
-					response
-				);
-
-				console.log("Hubo un error en alguna eliminacion");
-				break;
-			}
-			data.filter(element2 => element2.p_cedula != element.p_cedula);
+	// handle update
+	const handleUpdate = () => {
+		if (selectedRows.length) {
+			// navigate to UpdateEntrenador
+			navigate("/carrera/update", { state: selectedRows.at(0) });
+		} else {
+			setAlertShow(true);
 		}
-		setData(data);
-		setElementDeleted(elementDeleted + 1);
-		// cover the modal
-		setModalShow(false);
-		// show the alert
-		setAlertShow(true);
 	};
 
 	const columns = [
 		{
-			name: "Cedula",
-			selector: row => row.p_cedula,
+			name: "Clave",
+			selector: row => row.c_clave,
+			omit: true,
+		},
+		{
+			name: "Nombre",
+			selector: row => (row.c_nombre ? row.c_nombre : ""),
 			sortable: true,
 		},
 		{
-			name: "Primer Nombre",
-			selector: row => row.p_primer_nombre,
+			name: "Fecha",
+			selector: row => row.c_fecha,
 			sortable: true,
 		},
 		{
-			name: "Segundo Nombre",
-			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
+			name: "Hora",
+			selector: row => row.c_hora,
 			sortable: true,
 		},
 		{
-			name: "Primer Apellido",
-			selector: row => row.p_primer_apellido,
+			name: "Num llamada",
+			selector: row => row.c_num_llamado,
 			sortable: true,
 		},
 		{
-			name: "Segundo Apellido",
-			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
+			name: "Pull dinero total",
+			selector: row => (row.c_pull_dinero_total ? row.c_pull_dinero_total : ""),
 			sortable: true,
 		},
 		{
-			name: "Sexo",
-			selector: row => row.p_sexo,
+			name: "Distancia",
+			selector: row => row.c_distancia,
 			sortable: true,
 		},
 		{
-			name: "Lugar",
-			selector: row => row.fk_lugar,
+			name: "Categoria carrera",
+			selector: row => row.categoria_carrera.ca_nombre,
 			sortable: true,
 		},
 		{
-			name: "Direccion",
-			selector: row => row.p_direccion,
+			name: "Tipo carrera",
+			selector: row => row.tipo_carrera.tc_nombre,
 			sortable: true,
 		},
 		{
-			name: "Altura",
-			selector: row => row.j_altura,
+			name: "Sexo necesario",
+			selector: row =>
+				row.tipo_carrera.tc_sexo ? row.tipo_carrera.tc_sexo : "",
 			sortable: true,
 		},
 		{
-			name: "Peso al ingresar",
-			selector: row => row.j_peso_al_ingresar,
+			name: "Edad min necesario",
+			selector: row =>
+				row.tipo_carrera.tc_edad_minima ? row.tipo_carrera.tc_edad_minima : "",
 			sortable: true,
 		},
 		{
-			name: "Peso actual",
-			selector: row => row.j_peso_actual,
+			name: "Edad max necesario",
+			selector: row =>
+				row.tipo_carrera.tc_edad_maxima ? row.tipo_carrera.tc_edad_maxima : "",
 			sortable: true,
 		},
 		{
-			name: "Rango",
-			selector: row => (row.j_rango ? row.j_rango : ""),
+			name: "Victorias min necesario",
+			selector: row =>
+				row.tipo_carrera.tc_victoria_minima
+					? row.tipo_carrera.tc_victoria_minima
+					: "",
 			sortable: true,
 		},
 		{
-			name: "Fecha ingreso",
-			selector: row => row.j_fecha_nacimiento,
+			name: "Victorias max necesario",
+			selector: row =>
+				row.tipo_carrera.tc_victoria_maxima
+					? row.tipo_carrera.tc_victoria_maxima
+					: "",
+			sortable: true,
+		},
+		{
+			name: "Pista",
+			selector: row => row.pista.pi_longitud,
 			sortable: true,
 		},
 	];
 
 	return (
 		<>
-			<Modal
-				show={modalShow}
-				onHide={handleClose}
-				backdrop="static"
-				keyboard={false}>
-				<Modal.Header closeButton>
-					<Modal.Title>Confirmacion</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					Seguro que quiere eliminar los registros seleccionados
-				</Modal.Body>
-				<Modal.Footer>
-					{}
-					<Button variant="secondary" onClick={handleClose}>
-						Cancelar
-					</Button>
-					<Button variant="primary" onClick={handleDelete}>
-						Confirmar
-					</Button>
-				</Modal.Footer>
-			</Modal>
-
 			{alertShow && (
 				<Container className="mt-5">
 					<Alert
-						variant="success"
+						variant="danger"
 						onClose={() => setAlertShow(false)}
 						dismissible>
-						<Alert.Heading>Elementos eliminados!</Alert.Heading>
-						<p>Los elementos seleccionados fueron eliminados correctamente</p>
+						<Alert.Heading>No se selecciono un elemento!</Alert.Heading>
+						<p>Debe seleccionar un elemento para ser actualizado</p>
 					</Alert>
 				</Container>
 			)}
@@ -202,7 +176,7 @@ export const JinetesDelete = () => {
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de jinetes en el sistema
+								Lista de ejemplares en el sistema
 							</Card.Header>
 							<Card.Body>
 								<DataTable
@@ -213,6 +187,8 @@ export const JinetesDelete = () => {
 									responsive
 									highlightOnHover
 									striped
+									selectableRowsNoSelectAll
+									selectableRowsSingle
 									onSelectedRowsChange={handleSelect}
 									theme="dark"
 								/>
@@ -231,8 +207,8 @@ export const JinetesDelete = () => {
 										</Col>
 										<Col xs={6} className="pe-0">
 											<div className="d-grid gap-2" type="submit">
-												<Button variant="danger" onClick={handleShow}>
-													Eliminar
+												<Button variant="warning" onClick={handleUpdate}>
+													Actualizar
 												</Button>
 											</div>
 										</Col>
