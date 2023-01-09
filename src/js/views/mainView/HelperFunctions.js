@@ -217,6 +217,18 @@ export const urlPicker = (tabla, accion) => {
 					return "";
 			}
 
+		case "Usuario":
+			switch (accion) {
+				case "CREATE":
+					return "/usuario/create";
+
+				case "READ":
+					return "/usuarios";
+
+				default:
+					return "";
+			}
+
 		default:
 			return "";
 	}

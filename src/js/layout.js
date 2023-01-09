@@ -16,8 +16,6 @@ import { SignIn } from "./views/signin";
 //import { MainView } from "./views/mainView/MainView";
 import { MainHome } from "./views/mainView/MainHome";
 import { MainReports } from "./views/Reports/MainReports";
-import { UserList } from "./views/usersAdm/userList";
-import { CreateUser } from "./views/usersAdm/createUser";
 // ejemplares
 import { CreateEjemplar } from "./views/ejemplares/createEjemplar";
 import { UpdateEjemplar } from "./views/ejemplares/updateEjemplar";
@@ -73,6 +71,9 @@ import { UpdateTipoUsuario } from "./views/tiposUsuario/updateTipoUsuario";
 import { TiposUsuarioList } from "./views/tiposUsuario/tiposUsuarioList";
 import { TiposUsuarioUpdate } from "./views/tiposUsuario/tiposUsuarioUpdate";
 import { TiposUsuarioDelete } from "./views/tiposUsuario/tiposUsuarioDelete";
+// usuario
+import { CreateUsuario } from "./views/usuarios/createUsuario";
+import { UsuariosList } from "./views/usuarios/usuariosList";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -105,8 +106,6 @@ const Layout = () => {
 						{/*<Route path="/home" element={<MainView />} />*/}
 						<Route path="/home" element={<MainHome />} />
 						<Route path="/reports" element={<MainReports />} />
-						<Route path="/users" element={<UserList />} />
-						<Route path="/user-create" element={<CreateUser />} />
 						{/* Ejemplares */}
 						<Route path="/ejemplar/create" element={<CreateEjemplar />} />
 						<Route path="/ejemplar/update" element={<UpdateEjemplar />} />
@@ -195,6 +194,9 @@ const Layout = () => {
 							path="/tipo/usuario/delete"
 							element={<TiposUsuarioDelete />}
 						/>
+						{/* Usuario */}
+						<Route path="/usuario/create" element={<CreateUsuario />} />
+						<Route path="/usuarios" element={<UsuariosList />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

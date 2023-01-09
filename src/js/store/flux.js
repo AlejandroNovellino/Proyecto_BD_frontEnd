@@ -854,6 +854,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			//Usuario -----------------------------------------------------------------------------------
+			getUsuarios: async () => {
+				try {
+					const response = await axiosInstance.get("/usuarios");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createUsuario: async values => {
+				try {
+					const response = await axiosInstance.post("/usuarios", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
 		},
 	};
 };
