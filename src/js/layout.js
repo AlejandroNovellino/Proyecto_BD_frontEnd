@@ -74,6 +74,7 @@ import { TiposUsuarioDelete } from "./views/tiposUsuario/tiposUsuarioDelete";
 // usuario
 import { CreateUsuario } from "./views/usuarios/createUsuario";
 import { UsuariosList } from "./views/usuarios/usuariosList";
+import { UsuariosDelete } from "./views/usuarios/usuariosDelete";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -197,6 +198,7 @@ const Layout = () => {
 						{/* Usuario */}
 						<Route path="/usuario/create" element={<CreateUsuario />} />
 						<Route path="/usuarios" element={<UsuariosList />} />
+						<Route path="/usuarios/delete" element={<UsuariosDelete />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

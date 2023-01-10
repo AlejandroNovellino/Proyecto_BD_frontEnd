@@ -19,7 +19,7 @@ import DataTable from "react-data-table-component";
 // react router imports
 import { useNavigate } from "react-router-dom";
 
-export const JinetesDelete = () => {
+export const UsuariosDelete = () => {
 	// use context
 	const { store, actions } = useContext(Context);
 	// state
@@ -45,7 +45,7 @@ export const JinetesDelete = () => {
 	// get data when component is mounted
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getUsuarios();
 			setData(data);
 		};
 
@@ -56,7 +56,7 @@ export const JinetesDelete = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			let data = await actions.getJinetes();
+			let data = await actions.getUsuarios();
 			setData(data);
 		};
 
@@ -76,7 +76,7 @@ export const JinetesDelete = () => {
 		// Delete the selected elements
 		console.log("Selected Rows: ", selectedRows);
 		for (let element of selectedRows) {
-			let response = await actions.deleteJinete(element.p_cedula);
+			let response = await actions.deleteUsuario(element.u_clave);
 			if (!response) {
 				console.log(
 					`🚀 ~ file: jinetesDelete.js:78 ~ handleDelete ~ response`,
@@ -88,12 +88,10 @@ export const JinetesDelete = () => {
 				setModalShow(false);
 				// alert error
 				setErrorShow(true);
-				setErrorMessage(
-					"No se pudo eliminar el elemento, el jinete forma parte de un binomio"
-				);
+				setErrorMessage("No se pudo eliminar el usuario");
 				return false;
 			}
-			data.filter(element2 => element2.p_cedula != element.p_cedula);
+			data.filter(element2 => element2.u_clave != element.u_clave);
 		}
 		setData(data);
 		setElementDeleted(elementDeleted + 1);
@@ -105,68 +103,18 @@ export const JinetesDelete = () => {
 
 	const columns = [
 		{
-			name: "Cedula",
-			selector: row => row.p_cedula,
+			name: "Clave",
+			selector: row => row.u_clave,
+			omit: true,
+		},
+		{
+			name: "Correo",
+			selector: row => row.u_correo_e,
 			sortable: true,
 		},
 		{
-			name: "Primer Nombre",
-			selector: row => row.p_primer_nombre,
-			sortable: true,
-		},
-		{
-			name: "Segundo Nombre",
-			selector: row => (row.p_segundo_nombre ? row.p_segundo_nombre : ""),
-			sortable: true,
-		},
-		{
-			name: "Primer Apellido",
-			selector: row => row.p_primer_apellido,
-			sortable: true,
-		},
-		{
-			name: "Segundo Apellido",
-			selector: row => (row.p_segundo_apellido ? row.p_segundo_apellido : ""),
-			sortable: true,
-		},
-		{
-			name: "Sexo",
-			selector: row => row.p_sexo,
-			sortable: true,
-		},
-		{
-			name: "Lugar",
-			selector: row => row.fk_lugar,
-			sortable: true,
-		},
-		{
-			name: "Direccion",
-			selector: row => row.p_direccion,
-			sortable: true,
-		},
-		{
-			name: "Altura",
-			selector: row => row.j_altura,
-			sortable: true,
-		},
-		{
-			name: "Peso al ingresar",
-			selector: row => row.j_peso_al_ingresar,
-			sortable: true,
-		},
-		{
-			name: "Peso actual",
-			selector: row => row.j_peso_actual,
-			sortable: true,
-		},
-		{
-			name: "Rango",
-			selector: row => (row.j_rango ? row.j_rango : ""),
-			sortable: true,
-		},
-		{
-			name: "Fecha ingreso",
-			selector: row => row.j_fecha_nacimiento,
+			name: "Tipo usuario",
+			selector: row => row.tipo_usuario.tu_nombre,
 			sortable: true,
 		},
 	];
@@ -224,7 +172,7 @@ export const JinetesDelete = () => {
 					<Col xs={12}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Lista de jinetes en el sistema
+								Lista de usuarios en el sistema
 							</Card.Header>
 							<Card.Body>
 								<DataTable

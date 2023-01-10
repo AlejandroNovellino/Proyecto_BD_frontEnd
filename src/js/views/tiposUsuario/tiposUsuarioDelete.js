@@ -197,7 +197,10 @@ export const TiposUsuarioDelete = () => {
 						onClose={() => setAlertInRelationShow(false)}
 						dismissible>
 						<Alert.Heading>Hubo un error!</Alert.Heading>
-						<p>No se pudo eliminar los tipos de usuarios</p>
+						<p>
+							No se pudo eliminar los tipos de usuarios porque estan siendo
+							usados, elimine primero los usuarios de este tipo
+						</p>
 					</Alert>
 				</Container>
 			)}

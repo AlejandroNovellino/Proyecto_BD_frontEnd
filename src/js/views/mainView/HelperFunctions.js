@@ -225,6 +225,9 @@ export const urlPicker = (tabla, accion) => {
 				case "READ":
 					return "/usuarios";
 
+				case "DELETE":
+					return "/usuarios/delete";
+
 				default:
 					return "";
 			}

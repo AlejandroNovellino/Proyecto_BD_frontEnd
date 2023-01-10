@@ -34,6 +34,13 @@ export const EjemplaresList = () => {
 		return () => {};
 	}, []);
 
+	// get ejemplar age
+	const getAge = birthDate => {
+		return Math.floor(
+			(new Date() - new Date(birthDate).getTime()) / 3.15576e10
+		);
+	};
+
 	const columns = [
 		{
 			name: "Tatuaje labial",
@@ -60,6 +67,11 @@ export const EjemplaresList = () => {
 		{
 			name: "Sexo",
 			selector: row => (row.e_sexo === "Y" ? "Yegua" : "Caballo"),
+			sortable: true,
+		},
+		{
+			name: "Edad",
+			selector: row => getAge(row.e_fecha_nacimiento),
 			sortable: true,
 		},
 		{

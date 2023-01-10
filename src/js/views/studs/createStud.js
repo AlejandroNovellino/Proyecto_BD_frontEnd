@@ -288,7 +288,7 @@ export const CreateStud = () => {
 													as={Col}
 													md="6"
 													controlId="s_fecha_creacion">
-													<Form.Label>Fecha entrada hipodromo</Form.Label>
+													<Form.Label>Fecha de creacion</Form.Label>
 													<DatePickerField
 														id="s_fecha_creacion"
 														className={

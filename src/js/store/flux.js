@@ -877,6 +877,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			deleteUsuario: async u_clave => {
+				try {
+					const response = await axiosInstance.delete("/usuarios/" + u_clave);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
 			//Reports -----------------------------------------------------------------------------------
 			createReport: async fileName => {
 				try {

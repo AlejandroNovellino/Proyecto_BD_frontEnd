@@ -291,7 +291,7 @@ export const RetiroCreate = () => {
 															{causasRetiros.map((element, index) => {
 																return (
 																	<option key={index} value={element.cr_clave}>
-																		{`${element.cr_nombre}, ${element.cr_descripcion},`}
+																		{`${element.cr_nombre}`}
 																	</option>
 																);
 															})}
