@@ -42,7 +42,7 @@ export const MainHome = () => {
 		"Herida",
 	];
 	const userRelated = ["Tipo_Usuario", "Usuario"];
-	const betRelated = ["Apuesta"];
+	const betRelated = ["Apuesta", "Tipo_Apuesta"];
 	const ticketRelated = [];
 	const racecourseRelated = [];
 
@@ -101,6 +101,44 @@ export const MainHome = () => {
 			{/* Cards generados segun los permisos para usuarios*/}
 			<Row xs={4} md={4} className="justify-content-md-center p-4 g-4">
 				{userRelated.map((element, index) => {
+					if (Object.keys(store.userPermissions).includes(element)) {
+						let permissions = store.userPermissions[element].map(accion => {
+							return {
+								color: colorPicker(accion),
+								toURL: urlPicker(element, accion),
+								accion: accion,
+								buttonText: textPicker(accion),
+							};
+						});
+						return (
+							<Col key={index}>
+								<OptionCard
+									cardTitle={element}
+									cardText={"Opciones disponible segun su rol de usuario"}
+									permissions={permissions}
+								/>
+							</Col>
+						);
+					} else {
+						return null;
+					}
+				})}
+			</Row>
+			{/* Cards relacionadas a usuarios */}
+			<Row xs={4} md={4} className="justify-content-md-center pt-4 px-4">
+				<Col md={12}>
+					<Card bg={"secondary"} text={"white"}>
+						<Card.Body>
+							<Card.Title className="m-0">
+								Opciones relacionadas a las apuestas
+							</Card.Title>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
+			{/* Cards generados segun los permisos para usuarios*/}
+			<Row xs={4} md={4} className="justify-content-md-center p-4 g-4">
+				{betRelated.map((element, index) => {
 					if (Object.keys(store.userPermissions).includes(element)) {
 						let permissions = store.userPermissions[element].map(accion => {
 							return {

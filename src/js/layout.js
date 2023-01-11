@@ -75,6 +75,12 @@ import { TiposUsuarioDelete } from "./views/tiposUsuario/tiposUsuarioDelete";
 import { CreateUsuario } from "./views/usuarios/createUsuario";
 import { UsuariosList } from "./views/usuarios/usuariosList";
 import { UsuariosDelete } from "./views/usuarios/usuariosDelete";
+// tipo de apuesta
+import { CreateTipoApuesta } from "./views/apuestas/createTipoApuesta";
+import { UpdateTipoApuesta } from "./views/apuestas/updateTipoApuesta";
+import { TiposApuestaList } from "./views/apuestas/tipoApuestaList";
+import { TiposApuestaUpdate } from "./views/apuestas/tiposApuestaUpdate";
+import { TiposApuestaDelete } from "./views/apuestas/tiposApuestaDelete";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -199,6 +205,24 @@ const Layout = () => {
 						<Route path="/usuario/create" element={<CreateUsuario />} />
 						<Route path="/usuarios" element={<UsuariosList />} />
 						<Route path="/usuarios/delete" element={<UsuariosDelete />} />
+						{/* Tipo apuesta */}
+						<Route
+							path="/tipo/apuesta/create"
+							element={<CreateTipoApuesta />}
+						/>
+						<Route
+							path="/tipo/apuesta/update"
+							element={<UpdateTipoApuesta />}
+						/>
+						<Route path="/tipos/apuesta" element={<TiposApuestaList />} />
+						<Route
+							path="/tipos/apuesta/update"
+							element={<TiposApuestaUpdate />}
+						/>
+						<Route
+							path="/tipos/apuesta/delete"
+							element={<TiposApuestaDelete />}
+						/>
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

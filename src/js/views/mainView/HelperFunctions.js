@@ -232,6 +232,25 @@ export const urlPicker = (tabla, accion) => {
 					return "";
 			}
 
+		//  bet options -------------------------------------------------------------------------------------
+		case "Tipo_Apuesta":
+			switch (accion) {
+				case "CREATE":
+					return "/tipo/apuesta/create";
+
+				case "READ":
+					return "/tipos/apuesta";
+
+				case "UPDATE":
+					return "/tipos/apuesta/update";
+
+				case "DELETE":
+					return "/tipos/apuesta/delete";
+
+				default:
+					return "";
+			}
+
 		default:
 			return "";
 	}

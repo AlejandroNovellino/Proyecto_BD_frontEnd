@@ -886,6 +886,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//TipoUsuario -----------------------------------------------------------------------------------
+			getTiposApuesta: async () => {
+				try {
+					const response = await axiosInstance.get("/tipos/apuesta/");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createTipoApuesta: async values => {
+				try {
+					const response = await axiosInstance.post("/tipos/apuesta/", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			updateTipoApuesta: async values => {
+				try {
+					let { ta_clave, ...data } = values;
+					const response = await axiosInstance.put(
+						"/tipos/apuesta/" + ta_clave,
+						{
+							...data,
+						}
+					);
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			deleteTipoApuesta: async ta_clave => {
+				try {
+					const response = await axiosInstance.delete(
+						"/tipos/apuesta/" + ta_clave
+					);
+
+					return true;
+				} catch (error) {
+					return false;
+				}
+			},
 			//Reports -----------------------------------------------------------------------------------
 			createReport: async fileName => {
 				try {
