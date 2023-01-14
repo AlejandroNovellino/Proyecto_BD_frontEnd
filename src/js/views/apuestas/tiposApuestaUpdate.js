@@ -94,25 +94,66 @@ export const TiposApuestaUpdate = () => {
 			sortable: true,
 		},
 		{
+			name: "Multiplicador",
+			selector: row => (row.ta_multiplicador ? row.ta_multiplicador : ""),
+			sortable: true,
+		},
+		{
 			name: "Precio jugada adicional",
 			selector: row =>
 				row.ta_precio_jugada_adicional ? row.ta_precio_jugada_adicional : "",
 			sortable: true,
 		},
 		{
-			name: "Cab. minimos por carrera",
+			name: "Cab. minimos necesarios en carrera",
 			selector: row =>
-				row.ta_cant_caballo_minimo_carrera
-					? row.ta_cant_caballo_minimo_carrera
+				row.ta_cant_minima_caballos_necesaria_en_carrera
+					? row.ta_cant_minima_caballos_necesaria_en_carrera
 					: "",
 			sortable: true,
 		},
 		{
-			name: "Cab. minimos por apuesta",
+			name: "Cab. maximos por carrera",
 			selector: row =>
-				row.ta_num_ejemplar_minimo_necesario
-					? row.ta_num_ejemplar_minimo_necesario
+				row.ta_cant_maxima_caballos_por_carrera
+					? row.ta_cant_maxima_caballos_por_carrera
 					: "",
+			sortable: true,
+		},
+		{
+			name: "Cab. maximos a seleccionar",
+			selector: row =>
+				row.ta_cant_maxima_caballos ? row.ta_cant_maxima_caballos : "",
+			sortable: true,
+		},
+		{
+			name: "Ultimas carreras validas",
+			selector: row =>
+				row.ta_cant_valida_ultimas_carreras_programa
+					? row.ta_cant_valida_ultimas_carreras_programa
+					: "",
+			sortable: true,
+		},
+		{
+			name: "Orden de llegada",
+			selector: row => (row.ta_llegada_en_orden ? "Si" : "No"),
+			sortable: true,
+		},
+		{
+			name: "Limite premiado inferior",
+			selector: row =>
+				row.ta_limite_premiado_inferior ? row.ta_limite_premiado_inferior : "",
+			sortable: true,
+		},
+		{
+			name: "Limite premiado superior",
+			selector: row =>
+				row.ta_limite_premiado_superior ? row.ta_limite_premiado_superior : "",
+			sortable: true,
+		},
+		{
+			name: "Descripcion",
+			selector: row => (row.ta_descripcion ? row.ta_descripcion : ""),
 			sortable: true,
 		},
 	];
@@ -160,7 +201,7 @@ export const TiposApuestaUpdate = () => {
 											<div className="d-grid gap-2" type="submit">
 												<Button
 													variant="secondary"
-													onClick={() => navigate(-1)}>
+													onClick={() => navigate("/home")}>
 													Cancelar
 												</Button>
 											</div>

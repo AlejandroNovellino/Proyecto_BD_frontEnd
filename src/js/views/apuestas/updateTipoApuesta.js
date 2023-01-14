@@ -42,17 +42,34 @@ export const UpdateTipoApuesta = props => {
 		let aux = {
 			...values,
 		};
+		// precio
+		if (!values.ta_precio) aux.ta_precio = null;
 		// saldo minimo
 		if (!values.ta_saldo_minimo) aux.ta_saldo_minimo = null;
+		// multiplicador
+		if (!values.ta_multiplicador) aux.ta_multiplicador = null;
 		// precio jugada adicional
 		if (!values.ta_precio_jugada_adicional)
 			aux.ta_precio_jugada_adicional = null;
-		// cantidad de caballos minimos por carrera
-		if (!values.ta_cant_caballo_minimo_carrera)
-			aux.ta_cant_caballo_minimo_carrera = null;
-		// numeros de ejemplaree necesarios
-		if (!values.ta_num_ejemplar_minimo_necesario)
-			aux.ta_num_ejemplar_minimo_necesario = null;
+		// ta_cant_minima_caballos_necesaria_en_carrera
+		if (!values.ta_cant_minima_caballos_necesaria_en_carrera)
+			aux.ta_cant_minima_caballos_necesaria_en_carrera = null;
+		// ta_cant_maxima_caballos_por_carrera
+		if (!values.ta_cant_maxima_caballos_por_carrera)
+			aux.ta_cant_maxima_caballos_por_carrera = null;
+		// ta_cant_maxima_caballos
+		if (!values.ta_cant_maxima_caballos) aux.ta_cant_maxima_caballos = null;
+		// ta_cant_valida_ultimas_carreras_programa
+		if (!values.ta_cant_valida_ultimas_carreras_programa)
+			aux.ta_cant_valida_ultimas_carreras_programa = null;
+		// ta_limite_premiado_inferior
+		if (!values.ta_limite_premiado_inferior)
+			aux.ta_limite_premiado_inferior = null;
+		// ta_limite_premiado_superior
+		if (!values.ta_limite_premiado_superior)
+			aux.ta_limite_premiado_superior = null;
+		// ta_limite_premiado_superior
+		if (!values.ta_descripcion) aux.ta_descripcion = null;
 
 		return aux;
 	};
@@ -89,31 +106,67 @@ export const UpdateTipoApuesta = props => {
 			.number("Debe ser un numero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(9999, "Debe poseer 5 numeros como maximo")
+			.lessThan(99999999, "Debe poseer 8 numeros como maximo")
 			.required("Es obligatorio"),
 		ta_saldo_minimo: yup
 			.number("Debe ser un numero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(9999, "Debe poseer 5 numeros como maximo"),
+			.lessThan(99999999, "Debe poseer 8 numeros como maximo"),
+		ta_multiplicador: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
+			.positive("Solo puede ser positiva")
+			.moreThan(0, "Debe ser mayor a 0")
+			.lessThan(99999999, "Debe poseer 8 numeros como maximo"),
 		ta_precio_jugada_adicional: yup
 			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(99999999, "Debe poseer 10 numeros como maximo"),
-		ta_cant_caballo_minimo_carrera: yup
-			.number()
-			.integer("Debe ser un numero")
+			.lessThan(99999999, "Debe poseer 8 numeros como maximo"),
+		ta_cant_minima_caballos_necesaria_en_carrera: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(145, "Debe poseer 145 numeros como maximo")
+			.lessThan(17, "Debe ser menor a 17"),
+		ta_cant_maxima_caballos_por_carrera: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
+			.positive("Solo puede ser positiva")
+			.moreThan(0, "Debe ser mayor a 0")
+			.lessThan(17, "Debe ser menor a 17"),
+		ta_cant_maxima_caballos: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
+			.positive("Solo puede ser positiva")
+			.moreThan(0, "Debe ser mayor a 0")
+			.lessThan(193, "Debe ser menor a 192"),
+		ta_cant_valida_ultimas_carreras_programa: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
+			.positive("Solo puede ser positiva")
+			.moreThan(0, "Debe ser mayor a 0")
+			.lessThan(17, "Debe ser menor a 17"),
+		ta_llegada_en_orden: yup
+			.boolean("Debe ser un booleano")
 			.required("Es obligatorio"),
-		ta_num_ejemplar_minimo_necesario: yup
-			.number()
-			.integer("Debe ser un numero")
+		ta_limite_premiado_inferior: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(145, "Debe poseer 145 numeros como maximo"),
+			.lessThan(17, "Debe ser menor a 17")
+			.required("Es obligatorio"),
+		ta_limite_premiado_superior: yup
+			.number("Debe ser un numero")
+			.integer("Debe ser un entero")
+			.positive("Solo puede ser positiva")
+			.moreThan(0, "Debe ser mayor a 0")
+			.lessThan(17, "Debe ser menor a 17")
+			.required("Es obligatorio"),
+		ta_descripcion: yup.string("Debe ser texto"),
 	});
 
 	return (
@@ -124,7 +177,7 @@ export const UpdateTipoApuesta = props => {
 				backdrop="static"
 				keyboard={false}>
 				<Modal.Header closeButton>
-					<Modal.Title>Entrenador actualizado</Modal.Title>
+					<Modal.Title>Tipo apuesta actualizada</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					El tipo de apuesta se ha actualizado exitosamente
@@ -132,10 +185,10 @@ export const UpdateTipoApuesta = props => {
 			</Modal>
 			<Container fluid>
 				<Row className="justify-content-md-center py-4">
-					<Col xs={8}>
+					<Col xs={10}>
 						<Card bg={"dark"} text={"white"} className="">
 							<Card.Header className="fs-5 fw-bold">
-								Entrenador a actualizar
+								Tipo de apuesta a actualizar
 							</Card.Header>
 							<Card.Body className="px-5">
 								<Card.Title className="text-center py-3">
@@ -164,6 +217,40 @@ export const UpdateTipoApuesta = props => {
 											element.ta_num_ejemplar_minimo_necesario
 												? element.ta_num_ejemplar_minimo_necesario
 												: "",
+
+										ta_nombre: element.ta_nombre,
+										ta_precio: element.ta_precio,
+										ta_saldo_minimo: element.ta_saldo_minimo
+											? element.ta_saldo_minimo
+											: "",
+										ta_multiplicador: element.ta_multiplicador
+											? element.ta_multiplicador
+											: "",
+										ta_precio_jugada_adicional:
+											element.ta_precio_jugada_adicional
+												? element.ta_precio_jugada_adicional
+												: "",
+										ta_cant_minima_caballos_necesaria_en_carrera:
+											element.ta_cant_minima_caballos_necesaria_en_carrera,
+										ta_cant_maxima_caballos_por_carrera:
+											element.ta_cant_maxima_caballos_por_carrera
+												? element.ta_cant_maxima_caballos_por_carrera
+												: "",
+										ta_cant_maxima_caballos: element.ta_cant_maxima_caballos
+											? element.ta_cant_maxima_caballos
+											: "",
+										ta_cant_valida_ultimas_carreras_programa:
+											element.ta_cant_valida_ultimas_carreras_programa
+												? element.ta_cant_valida_ultimas_carreras_programa
+												: "",
+										ta_llegada_en_orden: element.ta_llegada_en_orden,
+										ta_limite_premiado_inferior:
+											element.ta_limite_premiado_inferior,
+										ta_limite_premiado_superior:
+											element.ta_limite_premiado_superior,
+										ta_descripcion: element.ta_descripcion
+											? element.ta_descripcion
+											: "",
 									}}>
 									{({
 										handleSubmit,
@@ -179,7 +266,7 @@ export const UpdateTipoApuesta = props => {
 											<Row className="mb-3">
 												{/* Nombre */}
 												<Form.Group as={Col} md="12" controlId="ta_nombre">
-													<Form.Label>Primer Nombre</Form.Label>
+													<Form.Label>Nombre</Form.Label>
 													<Form.Control
 														type="text"
 														name="ta_nombre"
@@ -197,15 +284,15 @@ export const UpdateTipoApuesta = props => {
 													</Form.Control.Feedback>
 												</Form.Group>
 											</Row>
-											{/* Precio, saldo minimo y precio jugada adicional */}
+											{/* Precio, saldo minimo, multiplicador y precio jugada adicional */}
 											<Row className="mb-3">
 												{/* Precio */}
-												<Form.Group as={Col} md="4" controlId="ta_precio">
+												<Form.Group as={Col} md="3" controlId="ta_precio">
 													<Form.Label>Precio</Form.Label>
 													<Form.Control
 														type="text"
 														name="ta_precio"
-														placeholder="6 Electronico"
+														placeholder="Ej. 100"
 														value={values.ta_precio}
 														onChange={handleChange}
 														isValid={touched.ta_precio && !errors.ta_precio}
@@ -219,7 +306,7 @@ export const UpdateTipoApuesta = props => {
 													</Form.Control.Feedback>
 												</Form.Group>
 												{/* Saldo minimo */}
-												<Form.Group as={Col} md="4" controlId="ta_saldo_minimo">
+												<Form.Group as={Col} md="3" controlId="ta_saldo_minimo">
 													<Form.Label>Saldo minimo</Form.Label>
 													<Form.Control
 														type="text"
@@ -239,10 +326,35 @@ export const UpdateTipoApuesta = props => {
 														{errors.ta_saldo_minimo}
 													</Form.Control.Feedback>
 												</Form.Group>
+												{/* Multiplicador */}
+												<Form.Group
+													as={Col}
+													md="3"
+													controlId="ta_multiplicador">
+													<Form.Label>Multiplicador</Form.Label>
+													<Form.Control
+														type="text"
+														name="ta_multiplicador"
+														placeholder="Ej. 100"
+														value={values.ta_multiplicador}
+														onChange={handleChange}
+														isValid={
+															touched.ta_multiplicador &&
+															!errors.ta_multiplicador
+														}
+														isInvalid={!!errors.ta_multiplicador}
+													/>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_multiplicador}
+													</Form.Control.Feedback>
+												</Form.Group>
 												{/* Precio jugada adicional */}
 												<Form.Group
 													as={Col}
-													md="4"
+													md="3"
 													controlId="ta_precio_jugada_adicional">
 													<Form.Label>Precio jugada adicional</Form.Label>
 													<Form.Control
@@ -265,60 +377,244 @@ export const UpdateTipoApuesta = props => {
 													</Form.Control.Feedback>
 												</Form.Group>
 											</Row>
-											{/* Cantidad caballo minimo por carera y numero de ejemplares minimos */}
+											{/* Cantidad caballo minimo en carrera,
+												cantidad maxima de caballos por carrera,
+												cantidad maxima de caballos,
+												valida para ultimas n carreras del programa */}
 											<Row className="mb-3">
 												{/* Cantidad caballo minimo por carera  */}
 												<Form.Group
 													as={Col}
 													md="6"
-													controlId="ta_cant_caballo_minimo_carrera">
+													controlId="ta_cant_minima_caballos_necesaria_en_carrera">
 													<Form.Label>
-														Cantidad caballo minimo por carera
+														Cantidad caballos minimos necesarios en carrera
 													</Form.Label>
 													<Form.Control
 														type="text"
-														name="ta_cant_caballo_minimo_carrera"
+														name="ta_cant_minima_caballos_necesaria_en_carrera"
 														placeholder="Ej. 4"
-														value={values.ta_cant_caballo_minimo_carrera}
+														value={
+															values.ta_cant_minima_caballos_necesaria_en_carrera
+														}
 														onChange={handleChange}
 														isValid={
-															touched.ta_cant_caballo_minimo_carrera &&
-															!errors.ta_cant_caballo_minimo_carrera
+															touched.ta_cant_minima_caballos_necesaria_en_carrera &&
+															!errors.ta_cant_minima_caballos_necesaria_en_carrera
 														}
-														isInvalid={!!errors.ta_precio}
+														isInvalid={
+															!!errors.ta_cant_minima_caballos_necesaria_en_carrera
+														}
 													/>
 													<Form.Control.Feedback>
 														Todo bien!
 													</Form.Control.Feedback>
 													<Form.Control.Feedback type="invalid">
-														{errors.ta_cant_caballo_minimo_carrera}
+														{
+															errors.ta_cant_minima_caballos_necesaria_en_carrera
+														}
 													</Form.Control.Feedback>
 												</Form.Group>
-												{/* Numero de ejemplares minimos */}
+												{/* cantidad maxima de caballos por carrera */}
 												<Form.Group
 													as={Col}
 													md="6"
-													controlId="ta_num_ejemplar_minimo_necesario">
-													<Form.Label>Numero de ejemplares minimos</Form.Label>
+													controlId="ta_cant_maxima_caballos_por_carrera">
+													<Form.Label>
+														Cantidad maxima de caballos por carrera
+													</Form.Label>
 													<Form.Control
 														type="text"
-														name="ta_num_ejemplar_minimo_necesario"
+														name="ta_cant_maxima_caballos_por_carrera"
 														placeholder="Ej. 4"
-														value={values.ta_num_ejemplar_minimo_necesario}
+														value={values.ta_cant_maxima_caballos_por_carrera}
 														onChange={handleChange}
 														isValid={
-															touched.ta_num_ejemplar_minimo_necesario &&
-															!errors.ta_num_ejemplar_minimo_necesario
+															touched.ta_cant_maxima_caballos_por_carrera &&
+															!errors.ta_cant_maxima_caballos_por_carrera
 														}
 														isInvalid={
-															!!errors.ta_num_ejemplar_minimo_necesario
+															!!errors.ta_cant_maxima_caballos_por_carrera
 														}
 													/>
 													<Form.Control.Feedback>
 														Todo bien!
 													</Form.Control.Feedback>
 													<Form.Control.Feedback type="invalid">
-														{errors.ta_num_ejemplar_minimo_necesario}
+														{errors.ta_cant_maxima_caballos_por_carrera}
+													</Form.Control.Feedback>
+												</Form.Group>
+											</Row>
+											{/* Cantidad caballo minimo en carrera,
+												cantidad maxima de caballos por carrera,
+												cantidad maxima de caballos,
+												valida para ultimas n carreras del programa */}
+											<Row className="mb-3">
+												{/* cantidad maxima de caballos  */}
+												<Form.Group
+													as={Col}
+													md="6"
+													controlId="ta_cant_maxima_caballos">
+													<Form.Label>
+														Cantidad maxima de caballos seleccionados
+													</Form.Label>
+													<Form.Control
+														type="text"
+														name="ta_cant_maxima_caballos"
+														placeholder="Ej. 4"
+														value={values.ta_cant_maxima_caballos}
+														onChange={handleChange}
+														isValid={
+															touched.ta_cant_maxima_caballos &&
+															!errors.ta_cant_maxima_caballos
+														}
+														isInvalid={!!errors.ta_cant_maxima_caballos}
+													/>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_cant_maxima_caballos}
+													</Form.Control.Feedback>
+												</Form.Group>
+												{/* valida para las ultimas n numero de carreras del programa*/}
+												<Form.Group
+													as={Col}
+													md="6"
+													controlId="ta_cant_valida_ultimas_carreras_programa">
+													<Form.Label>
+														Numero de ultimas carreras del programa para las que
+														es valida
+													</Form.Label>
+													<Form.Control
+														type="text"
+														name="ta_cant_valida_ultimas_carreras_programa"
+														placeholder="Ej. 4"
+														value={
+															values.ta_cant_valida_ultimas_carreras_programa
+														}
+														onChange={handleChange}
+														isValid={
+															touched.ta_cant_valida_ultimas_carreras_programa &&
+															!errors.ta_cant_valida_ultimas_carreras_programa
+														}
+														isInvalid={
+															!!errors.ta_cant_valida_ultimas_carreras_programa
+														}
+													/>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_cant_valida_ultimas_carreras_programa}
+													</Form.Control.Feedback>
+												</Form.Group>
+											</Row>
+											{/* Llegada en orden,
+												limite de premiacion inferior,
+												limite de premiacion superior*/}
+											<Row className="mb-3">
+												{/* Llegada en orden */}
+												<Form.Group
+													as={Col}
+													md="4"
+													controlId="ta_llegada_en_orden">
+													<Form.Label>
+														Se toma en cuenta el orden de llegada?
+													</Form.Label>
+													<Form.Select
+														name="ta_llegada_en_orden"
+														value={values.ta_llegada_en_orden}
+														onChange={handleChange}
+														isValid={
+															touched.ta_llegada_en_orden &&
+															!errors.ta_llegada_en_orden
+														}
+														isInvalid={!!errors.ta_llegada_en_orden}>
+														<option value="">Seleccione</option>
+
+														<option value={true}>Si</option>
+														<option value={false}>No</option>
+													</Form.Select>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_llegada_en_orden}
+													</Form.Control.Feedback>
+												</Form.Group>
+												{/* limite de premiacion inferior */}
+												<Form.Group
+													as={Col}
+													md="4"
+													controlId="ta_limite_premiado_inferior">
+													<Form.Label>Limite de premiacion inferior</Form.Label>
+													<Form.Control
+														type="text"
+														name="ta_limite_premiado_inferior"
+														placeholder="Ej. 1"
+														value={values.ta_limite_premiado_inferior}
+														onChange={handleChange}
+														isValid={
+															touched.ta_limite_premiado_inferior &&
+															!errors.ta_limite_premiado_inferior
+														}
+														isInvalid={!!errors.ta_limite_premiado_inferior}
+													/>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_limite_premiado_inferior}
+													</Form.Control.Feedback>
+												</Form.Group>
+												{/* limite de premiacion superior */}
+												<Form.Group
+													as={Col}
+													md="4"
+													controlId="ta_limite_premiado_superior">
+													<Form.Label>Limite de premiacion superior</Form.Label>
+													<Form.Control
+														type="text"
+														name="ta_limite_premiado_superior"
+														placeholder="Ej. 4"
+														value={values.ta_limite_premiado_superior}
+														onChange={handleChange}
+														isValid={
+															touched.ta_limite_premiado_superior &&
+															!errors.ta_limite_premiado_superior
+														}
+														isInvalid={!!errors.ta_limite_premiado_superior}
+													/>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_limite_premiado_superior}
+													</Form.Control.Feedback>
+												</Form.Group>
+											</Row>
+											{/* Descripcion */}
+											<Row className="mb-3">
+												<Form.Group as={Col} md="12" controlId="ta_descripcion">
+													<Form.Label>Discrepcion</Form.Label>
+													<Form.Control
+														as="textarea"
+														name="ta_descripcion"
+														placeholder="Descripcion de la apuesta"
+														value={values.ta_descripcion}
+														onChange={handleChange}
+														isValid={
+															touched.ta_descripcion && !errors.ta_descripcion
+														}
+														isInvalid={!!errors.ta_descripcion}
+														rows={2}
+													/>
+													<Form.Control.Feedback>
+														Todo bien!
+													</Form.Control.Feedback>
+													<Form.Control.Feedback type="invalid">
+														{errors.ta_descripcion}
 													</Form.Control.Feedback>
 												</Form.Group>
 											</Row>
@@ -328,7 +624,7 @@ export const UpdateTipoApuesta = props => {
 													<div className="d-grid gap-2" type="submit">
 														<Button
 															variant="danger"
-															onClick={() => navigate("/home")}>
+															onClick={() => navigate(-1)}>
 															Cancelar
 														</Button>
 													</div>
