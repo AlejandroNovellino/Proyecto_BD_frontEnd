@@ -29,6 +29,7 @@ export const MainHome = () => {
 		"Carrera",
 		"Inscripcion",
 		"Retiro",
+		"Resultado_Ejemplar",
 		"Ejemplar",
 		"Binomio",
 		"Stud",
@@ -44,7 +45,6 @@ export const MainHome = () => {
 	const userRelated = ["Tipo_Usuario", "Usuario"];
 	const betRelated = ["Apuesta", "Tipo_Apuesta"];
 	const ticketRelated = [];
-	const racecourseRelated = [];
 
 	return (
 		<Container fluid>

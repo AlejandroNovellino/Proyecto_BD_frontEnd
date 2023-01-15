@@ -776,6 +776,53 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			//Resultado de los ejemplares -----------------------------------------------------------------------------------
+			getCarrerasToClose: async () => {
+				try {
+					const response = await axiosInstance.get("/carreras/cierre");
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getInscripcionesCarrera: async carrera_id => {
+				try {
+					const response = await axiosInstance.get(
+						"/inscripciones/carrera/" + carrera_id
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createResultadoEjemplar: async values => {
+				try {
+					const response = await axiosInstance.post("/resultado/ejemplar", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			createResultadoParcial: async values => {
+				try {
+					const response = await axiosInstance.post("/posicion/parcial", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
 			//Acciones -----------------------------------------------------------------------------------
 			getAcciones: async () => {
 				try {

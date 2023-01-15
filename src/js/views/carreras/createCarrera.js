@@ -200,7 +200,7 @@ export const CreateCarrera = () => {
 	// validator for data
 	const schema = yup.object({
 		c_nombre: yup.string().max(45, "Longitud max 45 caracteres"),
-		c_fecha: yup.date().min(new Date()).required("Es obligatorio"),
+		c_fecha: yup.date().required("Es obligatorio"),
 		c_num_llamado: yup
 			.number()
 			.integer("Debe ser un numero")

@@ -198,6 +198,18 @@ export const urlPicker = (tabla, accion) => {
 					return "";
 			}
 
+		case "Resultado_Ejemplar":
+			switch (accion) {
+				case "CREATE":
+					return "/carreras/to/close/list";
+
+				case "READ":
+					return "/resultados/ejemplar/create";
+
+				default:
+					return "";
+			}
+
 		// user options -------------------------------------------------------------------------------------
 		case "Tipo_Usuario":
 			switch (accion) {
