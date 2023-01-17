@@ -12,9 +12,16 @@ import Alert from "react-bootstrap/Alert";
 // import context
 import { Context } from "../../store/appContext";
 
+// import report viewer
+import { ReportViewer } from "./reportViewer";
+
 export const MainReports = () => {
 	// use context
 	const { store, actions } = useContext(Context);
+	// file generated
+	const [fileGenerated, setFileGenerated] = useState(false);
+	// file url
+	const [reportUrl, setReportUrl] = useState(false);
 	// success state
 	const [successShow, setSuccessShow] = useState(false);
 	const [successMessage, setSuccessMessage] = useState("");
@@ -73,6 +80,10 @@ export const MainReports = () => {
 			} else {
 				setSuccessMessage(`Se creo el reporte "${filename}" exitosamente`);
 				setSuccessShow(true);
+				// show the report
+				setFileGenerated(true);
+				// set the url
+				setReportUrl(response);
 			}
 		};
 
@@ -104,34 +115,38 @@ export const MainReports = () => {
 					</Card>
 				</Col>
 				<Col xs={6}>
-					<Card bg={"dark"} text={"white"} className="ms-3">
-						<Card.Header className="fs-5 fw-bold">Informacion</Card.Header>
-						<Card.Body>
-							{successShow && (
-								<Container className="mt-5">
-									<Alert
-										variant="success"
-										onClose={() => setSuccessShow(false)}
-										dismissible>
-										<Alert.Heading>Creado el reporte!</Alert.Heading>
-										<p>{successMessage}</p>
-									</Alert>
-								</Container>
-							)}
+					<Row>
+						<Card bg={"dark"} text={"white"} className="ms-3">
+							<Card.Header className="fs-5 fw-bold">Informacion</Card.Header>
+							<Card.Body>
+								{successShow && (
+									<Container className="mt-5">
+										<Alert
+											variant="success"
+											onClose={() => setSuccessShow(false)}
+											dismissible>
+											<Alert.Heading>Creado el reporte!</Alert.Heading>
+											<p>{successMessage}</p>
+										</Alert>
+									</Container>
+								)}
 
-							{alertShow && (
-								<Container className="mt-5">
-									<Alert
-										variant="danger"
-										onClose={() => setAlertShow(false)}
-										dismissible>
-										<Alert.Heading>Hubo un error!</Alert.Heading>
-										<p>{errorMessage}</p>
-									</Alert>
-								</Container>
-							)}
-						</Card.Body>
-					</Card>
+								{alertShow && (
+									<Container className="mt-5">
+										<Alert
+											variant="danger"
+											onClose={() => setAlertShow(false)}
+											dismissible>
+											<Alert.Heading>Hubo un error!</Alert.Heading>
+											<p>{errorMessage}</p>
+										</Alert>
+									</Container>
+								)}
+							</Card.Body>
+						</Card>
+					</Row>
+					{/* Report viewer */}
+					<Row>{fileGenerated && <ReportViewer docUrl={reportUrl} />}</Row>
 				</Col>
 			</Row>
 		</Container>

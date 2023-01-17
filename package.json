@@ -79,6 +79,7 @@
 		"@emotion/styled": "^11.10.4",
 		"@mui/material": "^5.10.8",
 		"@mui/x-date-pickers": "^5.0.4",
+		"@pdftron/pdfjs-express": "^8.7.0",
 		"axios": "^1.2.1",
 		"bootstrap": "^5.2.1",
 		"date-fns": "^2.29.3",
