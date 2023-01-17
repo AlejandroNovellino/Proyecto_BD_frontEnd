@@ -982,6 +982,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			getCarrerasForTipoApuesta: async () => {
+				return [];
+			},
+			//Apuestas ----------------------------------------------------------------------------------
+			getCarrerasApostar: async () => {
+				try {
+					const response = await axiosInstance.get(
+						"/carreras/apostar/disponibles"
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			createApuesta: async values => {
+				try {
+					const response = await axiosInstance.post("/apuestas", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			createDetalleApuesta: async values => {
+				try {
+					const response = await axiosInstance.post("/detalles/apuestas", {
+						...values,
+					});
+
+					return JSON.parse(response.data);
+				} catch (error) {
+					return null;
+				}
+			},
+			//Reports -----------------------------------------------------------------------------------
+			getMetodosPago: async () => {
+				try {
+					const response = await axiosInstance.get("/metodos/pago");
+					// return the data
+					return response.data;
+				} catch (error) {
+					return [];
+				}
+			},
 			//Reports -----------------------------------------------------------------------------------
 			createReport: async fileName => {
 				try {

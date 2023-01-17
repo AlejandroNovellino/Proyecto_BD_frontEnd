@@ -126,7 +126,7 @@ export const TiposApuestaList = () => {
 				<Col xs={12}>
 					<Card bg={"dark"} text={"white"} className="">
 						<Card.Header className="fs-5 fw-bold">
-							Lista de tipos de apuesta en el sistema
+							Seleccione una apuesta a realizar
 						</Card.Header>
 						<Card.Body>
 							<DataTable

@@ -263,6 +263,18 @@ export const urlPicker = (tabla, accion) => {
 					return "";
 			}
 
+		case "Apuesta":
+			switch (accion) {
+				case "CREATE":
+					return "/select/tipo/apuesta";
+
+				case "READ":
+					return "/apuestas";
+
+				default:
+					return "";
+			}
+
 		default:
 			return "";
 	}

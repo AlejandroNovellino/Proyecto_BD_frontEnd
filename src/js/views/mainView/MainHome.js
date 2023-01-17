@@ -43,7 +43,7 @@ export const MainHome = () => {
 		"Herida",
 	];
 	const userRelated = ["Tipo_Usuario", "Usuario"];
-	const betRelated = ["Apuesta", "Tipo_Apuesta"];
+	const betRelated = ["Tipo_Apuesta", "Apuesta"];
 	const ticketRelated = [];
 
 	return (
