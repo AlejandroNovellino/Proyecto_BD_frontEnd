@@ -86,7 +86,7 @@ export const CreateResultadosEjemplares = () => {
 	}, []);
 
 	// create entrenador
-	const handleCreate = async values => {
+	const handleCreate = async _ => {
 		console.log(resultados);
 		// try to create
 		for (let resultado_clave of Object.keys(resultados)) {
