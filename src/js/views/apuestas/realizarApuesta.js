@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../../../styles/index.css";
+import inh_logo from "../../../img/inh_logo.png";
 
 // react bootstrap components
 import Container from "react-bootstrap/Container";
@@ -25,6 +26,8 @@ export const RealizarApuesta = () => {
 	const [metodosPago, setMetodosPago] = useState([]);
 	const [metodoPagoSelected, setMetodoPagoSelected] = useState("");
 	const [inscripcionesSelected, setInscripcionesSelected] = useState({});
+	// ticket modal
+	const [showTicket, setShowTicket] = useState(false);
 	// use context
 	const { store, actions } = useContext(Context);
 	// navigate
@@ -53,26 +56,11 @@ export const RealizarApuesta = () => {
 					tipo_apuesta.ta_cant_valida_ultimas_carreras_programa &&
 					data.length > tipo_apuesta.ta_cant_valida_ultimas_carreras_programa
 				) {
-					// sort by hora desc
-					data.sort(
-						(a, b) =>
-							parseInt(a.c_hora.replace(/:/g, "")) <
-							parseInt(b.c_hora.replace(/:/g, ""))
-					);
-					//delete the ones lef behind
-					for (let i of [
-						...Array(
-							tipo_apuesta.ta_cant_valida_ultimas_carreras_programa
-						).keys(),
-					]) {
-						data.pop();
-					}
-					// sort again
-					data.sort(
-						(a, b) =>
-							parseInt(a.c_hora.replace(/:/g, "")) >
-							parseInt(b.c_hora.replace(/:/g, ""))
-					);
+					// calculate amount to delete
+					let amountToDelete =
+						data.length - tipo_apuesta.ta_cant_valida_ultimas_carreras_programa;
+					//delete the first n amount
+					data = data.slice(amountToDelete);
 				}
 
 				// for each carrera get their inscripciones
@@ -92,10 +80,11 @@ export const RealizarApuesta = () => {
 				// filter the carreras for num ejemplares
 				if (tipo_apuesta.ta_cant_minima_caballos_necesaria_en_carrera) {
 					data = data.filter(carrera => {
-						auxInscripciones[carrera.c_clave] >=
-							tipo_apuesta.ta_cant_minima_caballos_necesaria_en_carrera;
+						return (
+							auxInscripciones[carrera.c_clave].length >=
+							tipo_apuesta.ta_cant_minima_caballos_necesaria_en_carrera
+						);
 					});
-					//auxInscripciones = auxInscripciones.filter((inscripcion) => );
 				}
 
 				// set the carreras
@@ -249,6 +238,7 @@ export const RealizarApuesta = () => {
 						// try to create
 						let detalleApuesta = await actions.createDetalleApuesta({
 							da_orden_llegada_ejemplar: index + 1,
+							da_monto_apostar: tipo_apuesta.ta_precio,
 							fk_apuesta: apuesta.apu_clave,
 							fk_inscripcion: inscripcion.ins_clave,
 							fk_metodopago: metodoPagoSelected,
@@ -263,16 +253,129 @@ export const RealizarApuesta = () => {
 					}
 				);
 			}
-			// ok show confirmation
-			handleShow(true);
-			await new Promise(r => setTimeout(r, 2000));
-			navigate("/home");
-			handleShow(false);
+			// ok show the ticket
+			setShowTicket(true);
 		}
+	};
+
+	const showSuccessMessage = async () => {
+		handleShow(true);
+		await new Promise(r => setTimeout(r, 2000));
+		navigate("/home");
 	};
 
 	return (
 		<>
+			{showTicket && (
+				<Modal
+					size="lg"
+					show={showTicket}
+					aria-labelledby="example-modal-sizes-title-lg"
+					centered>
+					<Modal.Header>
+						<Modal.Title id="example-modal-sizes-title-lg">
+							Ticket de la apuesta realizada
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Container className="text-center">
+							<Row className="justify-content-center">
+								<Col xs={4}>
+									<img
+										alt=""
+										src={inh_logo}
+										width="50"
+										height="30"
+										className="d-inline-block align-top"
+									/>
+								</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={4}>LA RINCONADA</Col>
+								<Col xs={4}>
+									{(() => {
+										let date = new Date();
+										return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+									})()}
+								</Col>
+								<Col xs={4}>
+									{(() => {
+										let date = new Date();
+										return `${date.getHours()}:${date.getMinutes()}`;
+									})()}
+								</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>INH</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>M Y M NUEVE ASOCIADOS</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>FINAL AV. INTERCOMUNAL VALLE-C</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>
+									{(() => {
+										let date = new Date();
+										return `===============${date.getDate()}-${date.getMonth()}-${date.getFullYear()}===============`;
+									})()}
+								</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>{`${
+									tipo_apuesta.ta_nombre
+								} -> (1) x ${getSaldoTotal()}`}</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>
+									{(() => {
+										let detalle = ``;
+										for (let carrera of carreras) {
+											detalle += `Carr${carrera.c_num_llamado}: `;
+											for (let inscripcion of inscripcionesSelected[
+												carrera.c_clave
+											]) {
+												detalle += `${inscripcion.ins_num_gualdrapa}, `;
+											}
+											detalle += `\n`;
+										}
+										return detalle;
+									})()}
+								</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col
+									xs={
+										12
+									}>{`===============TOTAL BS.${getSaldoTotal()}===============`}</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>{`*CADUCA A LOS (10) DIAS*`}</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>{`|||||||||||||||||||||||||||||||||`}</Col>
+							</Row>
+							<Row className="justify-content-center mb-2">
+								<Col xs={12}>{`16162465275626756273262`}</Col>
+							</Row>
+							<Row className="justify-content-center">
+								<Col xs={12}>
+									<div className="d-grid gap-2">
+										<Button
+											variant="primary"
+											size="lg"
+											onClick={showSuccessMessage}>
+											Seguir
+										</Button>
+									</div>
+								</Col>
+							</Row>
+						</Container>
+					</Modal.Body>
+				</Modal>
+			)}
+
 			<Container className="mt-5">
 				<Alert variant="info">
 					<Alert.Heading>Importante!</Alert.Heading>
@@ -332,7 +435,7 @@ export const RealizarApuesta = () => {
 										<Col
 											xs={
 												4
-											}>{`Cant. de caballos a seleccionar por carrera: ${tipo_apuesta?.ta_cant_maxima_caballos_por_carrera}`}</Col>
+											}>{`Cant. de caballos a max a seleccionar por carrera: ${tipo_apuesta?.ta_cant_maxima_caballos_por_carrera}`}</Col>
 										<Col
 											xs={
 												4

@@ -141,13 +141,15 @@ export const CreateTipoApuesta = () => {
 			.integer("Debe ser un entero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(17, "Debe ser menor a 17"),
+			.lessThan(17, "Debe ser menor a 17")
+			.required("Es obligatorio"),
 		ta_cant_maxima_caballos: yup
 			.number("Debe ser un numero")
 			.integer("Debe ser un entero")
 			.positive("Solo puede ser positiva")
 			.moreThan(0, "Debe ser mayor a 0")
-			.lessThan(193, "Debe ser menor a 192"),
+			.lessThan(193, "Debe ser menor a 192")
+			.required("Es obligatorio"),
 		ta_cant_valida_ultimas_carreras_programa: yup
 			.number("Debe ser un numero")
 			.integer("Debe ser un entero")

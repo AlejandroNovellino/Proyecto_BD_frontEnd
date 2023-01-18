@@ -1021,7 +1021,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
-			//Reports -----------------------------------------------------------------------------------
+			// Tablero --------------------------------------------------------------------------------------
+			getCarrerasTablero: async () => {
+				try {
+					const response = await axiosInstance.get(
+						"/carreras/con/resutlados/del/dia"
+					);
+					// return the data
+					return response.data.map(element => {
+						return JSON.parse(element);
+					});
+				} catch (error) {
+					return [];
+				}
+			},
+			getResultadoInscripcion: async inds_id => {
+				try {
+					const response = await axiosInstance.get(
+						"/resultado/inscripcion/" + inds_id
+					);
+					// return the data
+					return JSON.parse(response.data);
+				} catch (error) {
+					return [];
+				}
+			},
+			getEntrenadorEjemplar: async e_caballeriza => {
+				try {
+					const response = await axiosInstance.get(
+						"/entrenador/caballeriza/" + e_caballeriza
+					);
+					// return the data
+					return JSON.parse(response.data);
+				} catch (error) {
+					return [];
+				}
+			},
+			//Metodo pago -----------------------------------------------------------------------------------
 			getMetodosPago: async () => {
 				try {
 					const response = await axiosInstance.get("/metodos/pago");
@@ -1037,6 +1073,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await axiosInstance.post("/reports", {
 						file_name: fileName,
 						db_table: "",
+					});
+
+					console.log(response);
+					console.log(new Uint8Array(response.data));
+
+					return response.data;
+				} catch (error) {
+					return null;
+				}
+			},
+			createReportTest: async fileName => {
+				try {
+					const response = await axiosInstance.post("/reports/test", {
+						file_name: fileName,
+						db_table: "",
+						carrera: null,
+						clave: null,
 					});
 
 					return response.data;

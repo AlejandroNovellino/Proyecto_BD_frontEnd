@@ -68,6 +68,7 @@ import { RetirosList } from "./views/retiros/retirosList";
 // resultados carrera
 import { CarrerasCerrarList } from "./views/resultadoEjemplar/carrerasCerrarList";
 import { CreateResultadosEjemplares } from "./views/resultadoEjemplar/createResultadosEjemplares";
+import { Tablero } from "./views/resultadoEjemplar/tablero";
 // tipo usuario
 import { TipoUsuarioCreate } from "./views/tiposUsuario/tipoUsuarioCreate";
 import { UpdateTipoUsuario } from "./views/tiposUsuario/updateTipoUsuario";
@@ -87,6 +88,8 @@ import { TiposApuestaDelete } from "./views/tipoApuesta/tiposApuestaDelete";
 // apuesta
 import { SelectTipoApuesta } from "./views/apuestas/selectTipoApuesta";
 import { RealizarApuesta } from "./views/apuestas/realizarApuesta";
+// gaceta
+import { Gaceta } from "./views/gaceta/gaceta";
 // veterinarios
 import { CreateVeterinario } from "./views/veterinarios/createVeterinario";
 import { VeterinariosList } from "./views/veterinarios/veterinariosList";
@@ -189,7 +192,7 @@ const Layout = () => {
 						{/* Retiros */}
 						<Route path="/retiro/create" element={<RetiroCreate />} />
 						<Route path="/retiros" element={<RetirosList />} />
-						{/* Retiros */}
+						{/* Resultados */}
 						<Route
 							path="/carreras/to/close/list"
 							element={<CarrerasCerrarList />}
@@ -198,6 +201,7 @@ const Layout = () => {
 							path="/create/resultados/ejemplares"
 							element={<CreateResultadosEjemplares />}
 						/>
+						<Route path="/tablero/resultados" element={<Tablero />} />
 						{/* TipoUsuario */}
 						<Route
 							path="/tipo/usuario/create"
@@ -244,6 +248,8 @@ const Layout = () => {
 							path="/tipos/apuesta/delete"
 							element={<TiposApuestaDelete />}
 						/>
+						{/* Gaceta */}
+						<Route path="/gaceta" element={<Gaceta />} />
 						{/* Veterinarios */}
 						<Route path="/veterinario-create" element={<CreateVeterinario />} />
 						<Route path="/veterinarios" element={<VeterinariosList />} />

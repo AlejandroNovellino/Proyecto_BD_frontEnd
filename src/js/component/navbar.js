@@ -50,7 +50,9 @@ export const MyNavbar = () => {
 						<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 						<Navbar.Collapse id="responsive-navbar-nav">
 							<Nav className="me-auto">
-								<Nav.Link>Gaceta Hipica</Nav.Link>
+								<LinkContainer to="/gaceta">
+									<Nav.Link>Gaceta Hipica</Nav.Link>
+								</LinkContainer>
 								<LinkContainer to="/reports">
 									<Nav.Link>Reportes</Nav.Link>
 								</LinkContainer>

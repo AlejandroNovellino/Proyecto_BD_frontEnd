@@ -204,7 +204,7 @@ export const urlPicker = (tabla, accion) => {
 					return "/carreras/to/close/list";
 
 				case "READ":
-					return "/resultados/ejemplar/create";
+					return "/tablero/resultados";
 
 				default:
 					return "";
